@@ -1,10 +1,20 @@
-const express = require('express');
+import express from 'express';
+import { connectDB as connectDB } from './src/config/db.js';
+
 const app = express();
 
+// Conexion a DB
+connectDB();
+
+// Middlewares
+app.use(express.json());
+
+// Ruta de prueba
 app.get('/', (req, res) => {
-    res.send('¡Hola! El contenedor de la API está vivo 🚀');
+    res.json({ mensaje: "API tuhistoria" });
 });
 
-app.listen(5000, () => {
-    console.log('Servidor corriendo en el puerto 5000');
+const PORT = 5000;
+app.listen(PORT, () => {
+    console.log(`Servidor corriendo en puerto ${PORT}`);
 });
