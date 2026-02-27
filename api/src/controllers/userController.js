@@ -76,3 +76,23 @@ export const loginUser = async (req, res) => {
     res.status(500).json({ message: 'Error en el servidor al intentar loguear' });
   }
 };
+
+// --- OBTENER PERFIL DEL USUARIO (Ruta Protegida) ---
+export const getUserProfile = async (req, res) => {
+  try {
+    // 1. Buscamos al usuario por el ID que el middleware "protect" extrajo del token
+    // Usamos .select('-password') para que NO envíe la contraseña en la respuesta
+    const user = await User.findById(req.user.id).select('-password');
+
+    if (!user) {
+      return res.status(404).json({ message: 'Usuario no encontrado' });
+    }
+
+    // 2. Enviamos los datos del usuario (seguros) al cliente
+    res.json(user);
+
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Error al obtener el perfil' });
+  }
+};
