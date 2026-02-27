@@ -67,7 +67,8 @@ export const loginUser = async (req, res) => {
       token,
       user: {
         id: user._id,
-        username: user.username
+        username: user.username,
+        user: user.role
       }
     });
 
@@ -100,7 +101,7 @@ export const getUserProfile = async (req, res) => {
 /* Obtener todos los usuarios solo con rol "admin". */
 export const getUsers = async (req, res) => {
   try {
-    const users = await User.find().select('.password'); // Excluye el "password".
+    const users = await User.find().select('-password'); // Excluye el "password".
     res.json(users);
   } catch (error) {
     res.status(500).json({ message: 'Error al obtener la lista de usuarios' });
