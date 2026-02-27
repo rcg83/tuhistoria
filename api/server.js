@@ -1,24 +1,27 @@
 import express from 'express';
+import dotenv from 'dotenv';
 import { connectDB } from './src/config/db.js';
 import userRoutes from './src/routes/userRoutes.js';
 
+/* Deja las constantes del archivo .env listas para usarse. */
+dotenv.config();
+
+/* Inicializa la instancia de la aplicación Express. */
 const app = express();
 
-// Conexión a DB
+/* Inicializa la conexión con MongoDB. */
 connectDB();
 
-// Middlewares
+/* Permite a la aplicación interpretar el cuerpo de las peticiones en formato JSON. */
 app.use(express.json());
 
-// Usar rutas
 app.use('/api/users', userRoutes);
 
-// Ruta de prueba
 app.get('/', (req, res) => {
   res.json({ mensaje: "API tuhistoria" });
 });
 
-const PORT = 5000;
+const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
   console.log(`Servidor corriendo en puerto ${PORT}`);
 });

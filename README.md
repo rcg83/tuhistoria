@@ -1,4 +1,5 @@
 ## Decisiones técnicas
 
 - Uso de Docker para facilitar el despliegue.
-- Uso de bcryptjs para el hash de contraseñas.
+- Librería bcryptjs para el hash de contraseñas.
+- Librería jsonwebtoken para mantener las sesiones de usuarios.

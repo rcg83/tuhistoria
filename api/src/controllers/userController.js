@@ -1,5 +1,6 @@
 import User from '../models/User.js';
 import bcrypt from 'bcryptjs';
+import jwt from 'jsonwebtoken';
 
 export const registerUser = async (req, res) => {
   const { username, email, password } = req.body;
@@ -33,5 +34,45 @@ export const registerUser = async (req, res) => {
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: 'Error del servidor' });
+  }
+};
+
+/* LOGIN del usuario */
+export const loginUser = async (req, res) => {
+  const { email, password } = req.body;
+
+  try {
+    // Verifica si el usuario existe en la base de datos.
+    const user = await User.findOne({ email });
+    if (!user) {
+      return res.status(400).json({ message: 'Credenciales inválidas (email)' });
+    }
+
+    // Compara la contraseña escrita con la hasheada en la BD.
+    const isMatch = await bcrypt.compare(password, user.password);
+    if (!isMatch) {
+      return res.status(400).json({ message: 'Credenciales inválidas (password)' });
+    }
+
+    // Genera el Token JWT usando la clave del ".env".
+    const token = jwt.sign(
+      { id: user._id },
+      process.env.JWT_SECRET,
+      { expiresIn: '1h' }
+    );
+
+    // Envia respuesta con el token y datos básicos del usuario.
+    res.json({
+      message: 'Login exitoso',
+      token,
+      user: {
+        id: user._id,
+        username: user.username
+      }
+    });
+
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Error en el servidor al intentar loguear' });
   }
 };

@@ -1,0 +1,20 @@
+import jwt from 'jsonwebtoken';
+
+export const protect = (req, res, next) => {
+  let token = req.headers.authorization;
+
+  if (token && token.startsWith('Bearer')) {
+    try {
+      // Extrae el token (quita la palabra 'Bearer ').
+      const decoded = jwt.verify(token.split(' ')[1], process.env.JWT_SECRET);
+      
+      // Guarda el ID del usuario en la petición para que el controlador lo use.
+      req.user = decoded;
+      next();
+    } catch (error) {
+      res.status(401).json({ message: 'Token no válido' });
+    }
+  } else {
+    res.status(401).json({ message: 'No hay token, acceso denegado' });
+  }
+};
