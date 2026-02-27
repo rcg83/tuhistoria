@@ -56,9 +56,9 @@ export const loginUser = async (req, res) => {
 
     // Genera el Token JWT usando la clave del ".env".
     const token = jwt.sign(
-      { id: user._id },
+      { id: user._id, role: user.role },
       process.env.JWT_SECRET,
-      { expiresIn: '1h' }
+      { expiresIn: '8h' }
     );
 
     // Envia respuesta con el token y datos básicos del usuario.
@@ -77,10 +77,10 @@ export const loginUser = async (req, res) => {
   }
 };
 
-// --- OBTENER PERFIL DEL USUARIO (Ruta Protegida) ---
+// OBTENER PERFIL DEL USUARIO (Ruta Protegida)
 export const getUserProfile = async (req, res) => {
   try {
-    // 1. Buscamos al usuario por el ID que el middleware "protect" extrajo del token
+    // uscamos al usuario por el ID que el middleware "protect" extrajo del token
     // Usamos .select('-password') para que NO envíe la contraseña en la respuesta
     const user = await User.findById(req.user.id).select('-password');
 
@@ -88,7 +88,7 @@ export const getUserProfile = async (req, res) => {
       return res.status(404).json({ message: 'Usuario no encontrado' });
     }
 
-    // 2. Enviamos los datos del usuario (seguros) al cliente
+    // Enviamos los datos del usuario (seguros) al cliente.
     res.json(user);
 
   } catch (error) {
@@ -96,3 +96,13 @@ export const getUserProfile = async (req, res) => {
     res.status(500).json({ message: 'Error al obtener el perfil' });
   }
 };
+
+/* Obtener todos los usuarios solo con rol "admin". */
+export const getUsers = async (req, res) => {
+  try {
+    const users = await User.find().select('.password'); // Excluye el "password".
+    res.json(users);
+  } catch (error) {
+    res.status(500).json({ message: 'Error al obtener la lista de usuarios' });
+  }
+}
