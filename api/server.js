@@ -3,6 +3,7 @@ import cors from "cors";
 import dotenv from 'dotenv';
 import { connectDB } from './src/config/db.js';
 import userRoutes from './src/routes/userRoutes.js';
+import storyRoutes from './src/routes/storyRoutes.js';
 
 /* Deja las constantes del archivo .env listas para usarse. */
 dotenv.config();
@@ -19,6 +20,7 @@ app.use(cors());
 app.use(express.json());
 
 app.use('/api/users', userRoutes);
+app.use('/api/stories', storyRoutes);
 
 app.get('/', (req, res) => {
   res.json({ mensaje: "API tuhistoria" });
