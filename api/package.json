@@ -2,7 +2,7 @@
   "name": "tuhistoria-api",
   "version": "1.0.0",
   "type": "module",
-  "description": "API del proyecto Tuhistoria",
+  "description": "API del proyecto tuhistoria",
   "main": "server.js",
   "scripts": {
     "start": "node server.js",

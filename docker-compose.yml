@@ -3,7 +3,7 @@ services:
     image: mongo:latest
     container_name: mongodb_tuhistoria
     ports:
-      - "27018:27017"  # <--- AQUÍ: Cambiamos 27017 por 27018
+      - "27018:27017"
     volumes:
       - mongo_data:/data/db
 
@@ -13,7 +13,6 @@ services:
     ports:
       - "5000:5000"
     environment:
-      # IMPORTANTE: Internamente entre contenedores se siguen viendo por el 27017
       - MONGO_URI=mongodb://mongodb:27017/tuhistoria
     depends_on:
       - mongodb

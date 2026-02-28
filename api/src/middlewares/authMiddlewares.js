@@ -1,5 +1,6 @@
 import jwt from 'jsonwebtoken';
 
+/* Middleware "protect" comprueba que la petición tenga un token JWT válido y añade los datos del usuario a req.user. */
 export const protect = (req, res, next) => {
 	let token = req.headers.authorization;
 
@@ -19,6 +20,7 @@ export const protect = (req, res, next) => {
 	}
 };
 
+/* Middleware "authorize" comprueba que el usuario tenga el rol requerido para acceder. */
 export const authorize = (...roles) => {
 	return (req, res, next) => {
 		if (!roles.includes(req.user.role)) {
