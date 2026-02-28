@@ -5,30 +5,28 @@ import jwt from 'jsonwebtoken';
 export const registerUser = async (req, res) => {
   const { username, email, password } = req.body;
 
-  // Validación básica
   if (!username || !email || !password) {
     return res.status(400).json({ message: 'Todos los campos son obligatorios' });
   }
 
   try {
-    // Comprobar si el email ya está registrado
+    // Comprueba si el email ya está registrado.
     const existingUser = await User.findOne({ email });
     if (existingUser) {
       return res.status(400).json({ message: 'Email ya registrado' });
     }
 
-    // Hashear contraseña
+    // Hashea la contraseña.
     const salt = await bcrypt.genSalt(10);
     const hashedPassword = await bcrypt.hash(password, salt);
 
-    // Crear usuario
+    // Crea el usuario.
     const user = await User.create({
       username,
       email,
       password: hashedPassword
     });
 
-    // Respuesta
     res.status(201).json({ message: 'Usuario registrado correctamente', userId: user._id });
 
   } catch (error) {
@@ -37,7 +35,6 @@ export const registerUser = async (req, res) => {
   }
 };
 
-/* LOGIN del usuario */
 export const loginUser = async (req, res) => {
   const { email, password } = req.body;
 
@@ -58,7 +55,7 @@ export const loginUser = async (req, res) => {
     const token = jwt.sign(
       { id: user._id, role: user.role },
       process.env.JWT_SECRET,
-      { expiresIn: '8h' }
+      { expiresIn: '24h' } // Solo para desarrollo. Para producción 1 hora.
     );
 
     // Envia respuesta con el token y datos básicos del usuario.
