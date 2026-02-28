@@ -39,7 +39,7 @@ export const loginUser = async (req, res) => {
   const { email, password } = req.body;
 
   try {
-    // Verifica si el usuario existe en la base de datos.
+    // Verifica si el usuario existe en la base de datos con su email.
     const user = await User.findOne({ email });
     if (!user) {
       return res.status(400).json({ message: 'Credenciales inválidas (email)' });
@@ -51,7 +51,7 @@ export const loginUser = async (req, res) => {
       return res.status(400).json({ message: 'Credenciales inválidas (password)' });
     }
 
-    // Genera el Token JWT usando la clave del ".env".
+    // Genera el Token JWT usando la clave del ".env" con el rol incluido.
     const token = jwt.sign(
       { id: user._id, role: user.role },
       process.env.JWT_SECRET,
@@ -75,18 +75,14 @@ export const loginUser = async (req, res) => {
   }
 };
 
-// OBTENER PERFIL DEL USUARIO (Ruta Protegida)
 export const getUserProfile = async (req, res) => {
   try {
-    // uscamos al usuario por el ID que el middleware "protect" extrajo del token
-    // Usamos .select('-password') para que NO envíe la contraseña en la respuesta
     const user = await User.findById(req.user.id).select('-password');
 
     if (!user) {
       return res.status(404).json({ message: 'Usuario no encontrado' });
     }
 
-    // Enviamos los datos del usuario (seguros) al cliente.
     res.json(user);
 
   } catch (error) {
@@ -104,3 +100,22 @@ export const getUsers = async (req, res) => {
     res.status(500).json({ message: 'Error al obtener la lista de usuarios' });
   }
 }
+
+/* ELIMINAR usuaro por ID (solo rol admin). */
+export const deleteUser = async (req, res) => {
+  try {
+    const user = await User.findById(req.params.id);
+
+    if (!user) {
+      return res.status(404).json({ message: 'Usuario no encontrado' });
+    }
+
+    await user.deleteOne();
+
+    res.json({ message: 'Usuario eliminado correctamente' });
+
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Error al eliminar el usuario' });
+  }
+};
