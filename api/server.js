@@ -1,4 +1,5 @@
 import express from 'express';
+import cors from "cors";
 import dotenv from 'dotenv';
 import { connectDB } from './src/config/db.js';
 import userRoutes from './src/routes/userRoutes.js';
@@ -11,6 +12,8 @@ const app = express();
 
 /* Inicializa la conexión con MongoDB. */
 connectDB();
+
+app.use(cors());
 
 /* Permite a la aplicación interpretar el cuerpo de las peticiones en formato JSON. */
 app.use(express.json());
