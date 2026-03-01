@@ -1,6 +1,6 @@
 import Story from '../schemes/Story.js';
 
-export const createStory = async (req, res) => {
+export const createStoryTemplate = async (req, res) => {
   try {
     const { title, content } = req.body;
 

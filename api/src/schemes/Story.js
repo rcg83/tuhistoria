@@ -1,8 +1,10 @@
 import mongoose from 'mongoose';
 
-const storySchema = new mongoose.Schema({
-    title: { type: String, required: true },
-    content: String,
+const storyTemplateSchema = new mongoose.Schema({
+  title: { type: String, required: true },
+  description: { type: String, required: true },
+  initialText: { type: String, required: true },
+  imageUrl: String
 });
 
-export default mongoose.model('Historia', storySchema);
+export default mongoose.model('StoryTemplate', storyTemplateSchema);

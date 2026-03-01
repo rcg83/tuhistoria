@@ -8,10 +8,10 @@ const router = express.Router();
 router.post('/register', registerUser);
 router.post('/login', loginUser);
 
-/* RUTAS PROTEGIDAS a nivel usuario */
+/* RUTAS PROTEGIDAS a nivel rol "user" */
 router.get('/profile', protect, getUserProfile);
 
-/* RUTAS PROTEGIDAS a nivel administrador */
+/* RUTAS PROTEGIDAS a nivel rol "admin" */
 router.get('/', protect, authorize('admin'), getUsers);
 router.delete('/:id', protect, authorize('admin'), deleteUser);
 
