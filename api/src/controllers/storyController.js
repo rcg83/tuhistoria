@@ -3,21 +3,21 @@ import StoryInstance from '../schemes/StoryInstance.js';
 
 export const createStoryTemplate = async (req, res) => {
   try {
-    const { title, content } = req.body;
+    const { title, description, initialText, imageUrl } = req.body;
 
-    if (!title) {
-      return res.status(400).json({ message: 'El título es obligatorio' });
-    }
-
-    const newStory = await StoryTemplate.create({ title, content });
-    res.status(201).json({
-      message: 'Historia creada correctamente',
-      storyId: newStory._id
+    const newStory = await StoryTemplate.create({
+      title,
+      description,
+      initialText,
+      imageUrl
     });
+
+    res.status(201).json({ message: 'Historia creada', storyId: newStory._id });
   } catch (error) {
-    res.status(500).json({ message: 'Error al crear la historia' });
+    res.status(500).json({ message: 'Error al crear', error: error.message });
   }
 };
+
 
 export const startStory = async (req, res) => {
   try {
