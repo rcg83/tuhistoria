@@ -56,3 +56,18 @@ export const getStories = async (req, res) => {
     res.status(500).json({ message: 'Error al obtener la lista de usuarios' });
   }
 }
+
+export const chatWithStory = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { userInput } = req.body;
+    const story = await StoryInstance.findById(id);
+
+    if (!story) {
+      return res.status(404).json({ message: 'Historia no encontrada' });
+    }
+
+  } catch (error) {
+
+  }
+}
