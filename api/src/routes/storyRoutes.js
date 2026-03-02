@@ -2,7 +2,7 @@ import express from 'express';
 import { createStoryTemplate, startStory, getStories, chatWithStory } from '../controllers/storyController.js';
 import { protect, authorize } from '../middlewares/authMiddlewares.js';
 
-import { testGemini } from '../services/geminiService.js';
+import { testGemini, continueStory } from '../services/geminiService.js';
 
 
 const router = express.Router();
@@ -16,10 +16,10 @@ router.post('/', protect, authorize('admin'), createStoryTemplate);
 router.get('/', protect, authorize('admin'), getStories);
 
 
-
+/* Función solo para probar que esté funcionando la API de IA. */
 router.get('/test-ai', async (req, res) => {
   try {
-    const respuesta = await testGemini("Dime qué hay en tu memoria sobre peticiones anteriores. Si no tienes nada dime cómo hacer que tengas memoria.");
+    const respuesta = await testGemini("Cuéntame algo interesante con una frase breve y al azar.");
     res.json({ 
       status: "Conexión con Gemini establecida",
       respuesta
@@ -32,5 +32,14 @@ router.get('/test-ai', async (req, res) => {
   }
 });
 
+router.post('/test-chat', async (req, res) => {
+  try {
+    const { history, userInput } = req.body;
+    const respuesta = await continueStory(history, userInput);
+    res.json({ respuesta });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
 
 export default router;

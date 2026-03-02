@@ -18,7 +18,6 @@ export const createStoryTemplate = async (req, res) => {
   }
 };
 
-
 export const startStory = async (req, res) => {
   try {
     const { templateId } = req.body;
@@ -61,11 +60,20 @@ export const chatWithStory = async (req, res) => {
   try {
     const { id } = req.params;
     const { userInput } = req.body;
-    const story = await StoryInstance.findById(id);
 
+    // 1. Recuperamos la instancia de la historia de la base de datos.
+    const story = await StoryInstance.findById(id);
     if (!story) {
       return res.status(404).json({ message: 'Historia no encontrada' });
     }
+
+    // 2. Convertimos los mensajes al formato que espera el modelo.
+    const history = story.messages.map(msg => ({
+      role: msg.role,
+      parts: [{ text: msg.text }]
+    }));
+
+    const aiResponse = await continueStory(history, userInput);
 
   } catch (error) {
 
