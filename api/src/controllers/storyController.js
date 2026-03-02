@@ -46,3 +46,13 @@ export const startStory = async (req, res) => {
     res.status(500).json({ message: 'Error al iniciar la historia' });
   }
 }
+
+/* Devuelve todas las historias generadas */
+export const getStories = async (req, res) => {
+  try {
+    const stories = await StoryInstance.find();
+    res.json(stories);
+  } catch (error) {
+    res.status(500).json({ message: 'Error al obtener la lista de usuarios' });
+  }
+}
