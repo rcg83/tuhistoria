@@ -15,11 +15,11 @@ export const testGemini = async (prompt) => {
   return result.response.text();
 };
 
-/* Función para continuar la historia con el contexto de los mensajes. */
+/* Función para continuar la historia con el contexto de los mensajes (modelos comentados para pruebas). */
 export const continueStory = async (history, prompt) => {
-  const model = genAI.getGenerativeModel({
-    model: "gemini-flash-latest"
-  });
+  //const model = genAI.getGenerativeModel({model: "gemini-flash-latest"});
+  //const model = genAI.getGenerativeModel({ model: "gemini-3-flash-preview" });
+  const model = genAI.getGenerativeModel({ model: "gemini-2.5-flash" });
 
   const chat = model.startChat({
     history: history 
