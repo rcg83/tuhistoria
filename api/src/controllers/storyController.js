@@ -1,5 +1,5 @@
-import StoryTemplate from '../schemes/StoryTemplate.js';
-import StoryInstance from '../schemes/StoryInstance.js';
+import StoryTemplate from '../schemas/StoryTemplate.js';
+import StoryInstance from '../schemas/StoryInstance.js';
 
 export const createStoryTemplate = async (req, res) => {
   try {
