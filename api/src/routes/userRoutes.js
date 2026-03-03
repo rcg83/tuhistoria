@@ -1,5 +1,5 @@
 import express from 'express';
-import { registerUser, loginUser, getUserProfile, getUsers, deleteUser } from '../controllers/userController.js';
+import { registerUser, loginUser, getUserAccount, getUserProfile, getUsers, deleteUser } from '../controllers/userController.js';
 import { protect, authorize } from '../middlewares/authMiddlewares.js';
 
 const router = express.Router();
@@ -9,6 +9,7 @@ router.post('/register', registerUser);
 router.post('/login', loginUser);
 
 /* RUTAS PROTEGIDAS a nivel rol "user" */
+router.get('/account', protect, getUserAccount);
 router.get('/profile', protect, getUserProfile);
 
 /* RUTAS PROTEGIDAS a nivel rol "admin" */

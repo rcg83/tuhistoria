@@ -1,4 +1,5 @@
 import User from '../schemas/User.js';
+import UserProfile from '../schemas/UserProfile.js';
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 
@@ -25,6 +26,14 @@ export const registerUser = async (req, res) => {
       username,
       email,
       password: hashedPassword
+    });
+
+    // Crea el profile vinculado al usuario creado.
+    await UserProfile.create({
+      user: user._id,
+      bio: "",
+      avatarUrl: "",
+      location: ""
     });
 
     res.status(201).json({ message: 'Usuario registrado correctamente', userId: user._id });
@@ -75,7 +84,7 @@ export const loginUser = async (req, res) => {
   }
 };
 
-export const getUserProfile = async (req, res) => {
+export const getUserAccount = async (req, res) => {
   try {
     const user = await User.findById(req.user.id).select('-password');
 
@@ -87,9 +96,23 @@ export const getUserProfile = async (req, res) => {
 
   } catch (error) {
     console.error(error);
-    res.status(500).json({ message: 'Error al obtener el perfil' });
+    res.status(500).json({ message: 'Error al obtener los datos de la cuenta.' });
   }
 };
+
+export const getUserProfile = async (req, res) => {
+  try {
+    const userProfile = await UserProfile.findOne({ user: req.user.id });
+
+    if (!userProfile) {
+      return res.status(404).json({ message: 'Profile no encontrado' });
+    }
+    res.json(userProfile)
+
+  } catch (error) {
+    res.status(500).json({ message: 'Error al obtener el profile.' });
+  }
+}
 
 /* Obtener todos los usuarios solo con rol "admin". */
 export const getUsers = async (req, res) => {
@@ -101,7 +124,7 @@ export const getUsers = async (req, res) => {
   }
 }
 
-/* ELIMINAR usuaro por ID (solo rol admin). */
+/* ELIMINAR usuaro por ID (solo rol "admin"). */
 export const deleteUser = async (req, res) => {
   try {
     const user = await User.findById(req.params.id);

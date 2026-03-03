@@ -9,7 +9,8 @@ const profileSchema = new mongoose.Schema(
   },
   {
     timestamps: true
+    // Propiedad que genera un createdAt y updatedAt en el esquema.
   }
 );
 
-module.exports = mongoose.model("Profile", profileSchema);
+export default mongoose.model("Profile", profileSchema);
