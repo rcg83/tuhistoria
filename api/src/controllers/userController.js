@@ -114,6 +114,21 @@ export const getUserProfile = async (req, res) => {
   }
 }
 
+export const updateMyProfile = async (req, res) => {
+  try {
+    const updatedProfile = await UserProfile.findOneAndUpdate(
+      { user: req.user.id },
+      req.body, 
+      { new: true }
+    );
+
+    res.json(updatedProfile);
+
+  } catch (error) {
+    res.status(500).json({ message: 'Error al actualizar el perfil' });
+  }
+};
+
 /* Obtener todos los usuarios solo con rol "admin". */
 export const getUsers = async (req, res) => {
   try {
