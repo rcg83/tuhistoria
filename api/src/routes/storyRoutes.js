@@ -1,5 +1,5 @@
 import express from 'express';
-import { createStoryTemplate, startStory, getStories, chatWithStory } from '../controllers/storyController.js';
+import { createStoryTemplate, startStory, getStories, chatWithStory, updateStoryTemplateById } from '../controllers/storyController.js';
 import { protect, authorize } from '../middlewares/authMiddlewares.js';
 
 import { testGemini, continueStory } from '../services/geminiService.js';
@@ -14,6 +14,7 @@ router.post('/:id/chat', protect, chatWithStory);
 /* RUTAS PROTEGIDAS a nivel rol "admin" */
 router.post('/', protect, authorize('admin'), createStoryTemplate);
 router.get('/', protect, authorize('admin'), getStories);
+router.put('/:id', protect, authorize('admin'), updateStoryTemplateById);
 
 
 /* Función solo para probar que esté funcionando la API de IA. */

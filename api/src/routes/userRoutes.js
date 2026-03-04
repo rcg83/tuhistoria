@@ -15,6 +15,6 @@ router.put('/profile/edit', protect, updateMyProfile);
 
 /* RUTAS PROTEGIDAS a nivel rol "admin" */
 router.get('/', protect, authorize('admin'), getUsers);
-router.delete('/:id', protect, authorize('admin'), deleteUser);
+router.delete('/delete/:id', protect, authorize('admin'), deleteUser);
 
 export default router;
