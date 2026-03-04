@@ -49,10 +49,10 @@ export const startStory = async (req, res) => {
 /* Devuelve todas las historias generadas */
 export const getStories = async (req, res) => {
   try {
-    const stories = await StoryInstance.find();
+    const stories = await StoryTemplate.find();
     res.json(stories);
   } catch (error) {
-    res.status(500).json({ message: 'Error al obtener la lista de usuarios' });
+    res.status(500).json({ message: 'Error al obtener la lista' });
   }
 }
 

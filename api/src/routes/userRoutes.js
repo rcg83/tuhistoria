@@ -11,6 +11,7 @@ router.post('/login', loginUser);
 /* RUTAS PROTEGIDAS a nivel rol "user" */
 router.get('/account', protect, getUserAccount);
 router.get('/profile', protect, getUserProfile);
+//router.put('/profile/edit', protect, editUserProfile);
 
 /* RUTAS PROTEGIDAS a nivel rol "admin" */
 router.get('/', protect, authorize('admin'), getUsers);

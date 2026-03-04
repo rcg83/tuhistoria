@@ -4,7 +4,8 @@ const storyMessageSchema = new mongoose.Schema({
   role: {
     type: String,
     enum: ['user', 'model'],
-    required: true },
+    required: true
+  },
   text: {
     type: String,
     required: true
