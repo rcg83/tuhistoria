@@ -10,6 +10,6 @@
   - **jsonwebtoken** (JWT) para mantener las sesiones de usuarios.
   - **CORS** para permitir que el frontend se comunique con la API.
   - **Mongoose** para estructuras de datos y validación.
-  - **Google AI SDK (@google/genai)** tiene herramientas que facilitan el uso de la IA de Gemini.
+  - **Google AI SDK (@google/generative-ai)** tiene herramientas que facilitan el uso de la IA de Gemini.
     - **Gestión de Memoria**: ofrece "startChat" para mantener el hilo conversacional sin lógica manual compleja.
     - **Manejo de Contexto**: optimiza el envío de grandes volúmenes de datos y el flujo de tokens en cada sesión.
