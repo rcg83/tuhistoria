@@ -78,6 +78,21 @@ export const getStories = async (req, res) => {
   }
 }
 
+export const deleteStory = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const deletedStory = await StoryTemplate.findByIdAndDelete(id);
+
+    if (!deletedStory) {
+      return res.status(404).json({ message: 'Historia no encontrada' });
+    }
+
+    res.status(200).json({ message: 'Historia eliminada correctamente' });
+  } catch (error) {
+    res.status(500).json({ message: 'Error al eliminar', error: error.message });
+  }
+};
+
 export const chatWithStory = async (req, res) => {
   try {
     const { id } = req.params;
