@@ -22,5 +22,18 @@ services:
       - ./api:/app
       - /app/node_modules
 
+  frontend:
+    build: ./frontend
+    container_name: frontend_tuhistoria
+    ports:
+      - "5173:5173"
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+    environment:
+      - VITE_API_URL=http://localhost:5000
+    depends_on:
+      - api
+
 volumes:
   mongo_data:
