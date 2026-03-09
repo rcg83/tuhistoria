@@ -3,6 +3,13 @@
 - Uso de **Docker** para facilitar el despliegue.
 - **Stack MERN** (MongoDB, Express, React y Node).
 
+# FRONTEND
+
+  # Tecnologías empleadas:
+  - **React** para la creación de interfaces basadas en componentes.
+  - **TypeScript** JavaScript tipado para un desarrollo más seguro.
+  - **SASS** para organizar mejor los estilos del proyecto.
+
 # BACKEND
 
   # Tecnologías empleadas:
