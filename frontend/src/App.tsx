@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import checkAPI from './api/api.ts';
+import { checkAPI } from './api/api.ts';
 
 const App = () => {
 
