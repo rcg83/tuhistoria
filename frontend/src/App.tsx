@@ -21,9 +21,9 @@ function App() {
   }, []);
 
   return (
-    <div style={{ padding: "2rem", fontFamily: "sans-serif" }}>
-      <h1>TuHistoria Frontend</h1>
-      {apiMessage && <p>API responde: {apiMessage}</p>}
+    <div>
+      <h1>tuhistoria Frontend</h1>
+      {apiMessage && <p>Respuesta: {apiMessage}</p>}
       {error && <p style={{ color: "red" }}>{error}</p>}
     </div>
   );
