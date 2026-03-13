@@ -1,31 +1,16 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
+import checkAPI from './api/api.ts';
 
-function App() {
-  const [apiMessage, setApiMessage] = useState<string | null>(null);
-  const [error, setError] = useState<string | null>(null);
+const App = () => {
 
   useEffect(() => {
-    const checkAPI = async () => {
-      try {
-        const res = await fetch(`${import.meta.env.VITE_API_URL}`);
-        if (!res.ok) throw new Error(`Error ${res.status}`);
-        const data = await res.json();
-        setApiMessage(data.mensaje || data.message || "API funcionando");
-      } catch (err: any) {
-        setError("API no disponible");
-        console.error(err);
-      }
-    };
-
     checkAPI();
   }, []);
 
   return (
-    <div>
+    <>
       <h1>tuhistoria Frontend</h1>
-      {apiMessage && <p>Respuesta: {apiMessage}</p>}
-      {error && <p style={{ color: "red" }}>{error}</p>}
-    </div>
+    </>
   );
 }
 
