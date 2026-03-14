@@ -1,0 +1,14 @@
+@use 'variables' as v;
+
+@mixin respond-to($device) {
+  @if $device == 'tablet' {
+    @media (min-width: v.$breakpoint-tablet) {
+      @content;
+    }
+  }
+  @else if $device == 'desktop' {
+    @media (min-width: v.$breakpoint-desktop) {
+      @content;
+    }
+  }
+}
