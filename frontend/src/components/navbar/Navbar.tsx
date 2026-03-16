@@ -1,18 +1,14 @@
-import Logo from '../logo/Logo.tsx';
+import { Logo } from '../logo/Logo.tsx';
 import './Navbar.scss';
 
 type NavbarProps = {
-  appName: string;
-
+  appName?: string;
 }
 
-export const Navbar = ({ appName }: NavbarProps) => {
+export const Navbar = ({ appName = 'tuhistoria' }: NavbarProps) => {
   return (
     <nav>
-      <Logo
-        src='/tuhistoria.svg'
-        alt='logotipo de la aplicación web tuhistoria'
-      />
+      <Logo />
       <h2>{appName}</h2>
     </nav>
   );
