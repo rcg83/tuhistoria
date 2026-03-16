@@ -1,5 +1,6 @@
-import { useEffect } from "react";
+import { useEffect } from 'react';
 import { checkAPI } from './api/api.ts';
+import { Navbar } from './components/navbar/Navbar.tsx';
 
 const App = () => {
 
@@ -9,7 +10,7 @@ const App = () => {
 
   return (
     <>
-      <h1>tuhistoria Frontend</h1>
+      <Navbar appName='tuhistoria' />
     </>
   );
 }
