@@ -17,6 +17,7 @@ export const Logo = ({ width = 64, height = 64, className }: LogoProps) => {
         viewBox="0 0 640 640"
         className="logo-icon"
       >
+
         <path
           id="Elipse_2"
           data-name="Elipse 2"

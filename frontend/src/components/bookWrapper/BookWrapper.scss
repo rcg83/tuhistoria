@@ -1,0 +1,28 @@
+@use '../../styles/variables.scss' as v;
+
+.bookwrapper-container {
+  display: flex;
+  justify-content: space-between;
+  padding: 0 6em;
+
+  .left-page {
+    background-color: v.$color-container;
+    width: 50%;
+    height: 84vh;
+    padding: 1em;
+    border-radius: 15px 0 0 15px;
+  }
+
+  .book-spine {
+    background-color: v.$color-interact;
+    width: 2%;
+  }
+
+  .right-page {
+    background-color: v.$color-container;
+    width: 50%;
+    height: 84vh;
+    padding: 1em;
+    border-radius: 0 15px 15px 0;
+  }
+}
