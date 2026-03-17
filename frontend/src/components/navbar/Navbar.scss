@@ -4,5 +4,8 @@ nav {
     display: flex;
     justify-items: left;
     align-items: center;
-    background-color: $primary;
+
+    svg {
+        fill: $color-text;
+    }
 }

@@ -5,10 +5,10 @@ type NavbarProps = {
   appName?: string;
 }
 
-export const Navbar = ({ appName = 'tuhistoria' }: NavbarProps) => {
+export const Navbar = ({ appName }: NavbarProps) => {
   return (
     <nav>
-      <Logo />
+      <Logo width={48} height={48}/>
       <h2>{appName}</h2>
     </nav>
   );

@@ -6,7 +6,7 @@ type FooterProps = {
   year?: number;
 }
 
-export const Footer = ({text = 'Todos los derechos reservados.', year = new Date().getFullYear()}: FooterProps) => {
+export const Footer = ({text = 'tuhistoria - ', year = new Date().getFullYear()}: FooterProps) => {
   return (
     <footer>
       <p>{text}{year}</p>
