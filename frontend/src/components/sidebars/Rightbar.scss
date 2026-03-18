@@ -4,15 +4,8 @@ nav {
   display: flex;
   flex-direction: column;
   align-items: center;
+  background-color: v.$color-bg-main;
   padding: 2rem 1rem;
   gap: 1.5rem;
   height: 100vh;
-  background-color: v.$color-bg-main;
-  
-  h2 {
-    writing-mode: vertical-rl;
-    text-orientation: mixed;
-    margin: 0;
-    font-size: 1.2rem;
-  }
 }
