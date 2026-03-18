@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { checkAPI } from './api/api.ts';
-import { Navbar } from './components/navbar/Navbar.tsx';
+import { MainLayout } from './components/layout/MainLayout.tsx';
 import { Footer } from './components/footer/Footer.tsx';
 import { BookWrapper } from './components/bookWrapper/BookWrapper.tsx';
 
@@ -11,11 +11,10 @@ const App = () => {
   }, []);
 
   return (
-    <>
-      <Navbar />
+    <MainLayout>
       <BookWrapper />
       <Footer />
-    </>
+    </MainLayout>
   );
 }
 
