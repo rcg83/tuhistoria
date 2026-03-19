@@ -1,9 +1,11 @@
 import './Rightbar.scss';
 
 export const Rightbar = () => {
-  return(
+  return (
     <>
-      <div className='user'>USER</div>
+      <nav className='rightbar-container'>
+        USER
+      </nav>
     </>
   );
 }

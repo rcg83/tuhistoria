@@ -3,8 +3,8 @@ import './Leftbar.scss';
 
 export const Leftbar = () => {
   return (
-    <nav>
-      <Logo width={48} height={48}/>
+    <nav className='leftbar-container'>
+      <Logo width={48} height={48} className='dark-theme'/>
     </nav>
   );
 }

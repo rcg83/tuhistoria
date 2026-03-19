@@ -1,6 +1,6 @@
 @use '../../styles/variables.scss' as v;
 
-nav {
+.leftbar-container {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -9,11 +9,4 @@ nav {
   height: 100vh;
   width: 10vh;
   background-color: v.$color-bg-main;
-  
-  h2 {
-    writing-mode: vertical-rl;
-    text-orientation: mixed;
-    margin: 0;
-    font-size: 1.2rem;
-  }
 }

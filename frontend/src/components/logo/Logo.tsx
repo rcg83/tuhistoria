@@ -10,12 +10,12 @@ export const Logo = ({ width = 64, height = 64, className }: LogoProps) => {
   return (
     <div className={`logo-container ${className || ''}`}>
       <svg
+        className="logo-icon"
         xmlns="http://www.w3.org/2000/svg"
         xmlnsXlink="http://www.w3.org/1999/xlink"
         width={width}
         height={height}
         viewBox="0 0 640 640"
-        className="logo-icon"
       >
 
         <path
