@@ -1,8 +1,7 @@
-
+import { Routes, Route } from 'react-router-dom';
 import { useEffect } from 'react';
 import { checkAPI } from './api/api.ts';
 import { MainLayout } from './components/layout/MainLayout.tsx';
-import { Footer } from './components/footer/Footer.tsx';
 import { BookWrapper } from './components/bookWrapper/BookWrapper.tsx';
 
 const App = () => {
@@ -12,10 +11,11 @@ const App = () => {
   }, []);
 
   return (
-    <MainLayout>
-      <BookWrapper />
-      <Footer />
-    </MainLayout>
+    <Routes>
+      <Route path='/' element={<MainLayout />}>
+        <Route index element={<BookWrapper />} />
+      </Route>
+    </Routes>
   );
 }
 
