@@ -1,3 +1,4 @@
+
 import { useEffect } from 'react';
 import { checkAPI } from './api/api.ts';
 import { MainLayout } from './components/layout/MainLayout.tsx';
