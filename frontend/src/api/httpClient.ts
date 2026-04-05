@@ -32,7 +32,7 @@ const handleErrors = async (response: Response) => {
   return response.json();
 };
 
-export const httpClient = async (endpoint: string, options: RequestOptions = {}) => {
+export const httpClient = async (endpoint: string, options: RequestOptions) => {
   const { method = "GET", body, headers } = options;
 
   const response = await fetch(`${BASE_URL}${endpoint}`, {
