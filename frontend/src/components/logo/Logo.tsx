@@ -6,7 +6,7 @@ type LogoProps = {
   className?: string;
 };
 
-export const Logo = ({ width = 64, height = 64, className }: LogoProps) => {
+export const Logo = ({ width, height, className }: LogoProps) => {
   return (
     <div className={`logo-container ${className || ''}`}>
       <svg

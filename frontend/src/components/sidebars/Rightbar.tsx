@@ -15,19 +15,13 @@ export const Rightbar = () => {
 
   return (
     <nav className="rightbar">
-      {isLoggedIn && user ? (
+      <div className="rightbar__user-container">
         <UserButton 
-          username={user.username} 
-          onLogout={logout} 
+          isLoggedIn={isLoggedIn}
+          username={user?.username}
+          onAction={isLoggedIn ? logout : () => setIsModalOpen(true)}
         />
-      ) : (
-        <button 
-          className="rightbar__login-btn" 
-          onClick={() => setIsModalOpen(true)}
-        >
-          Iniciar Sesión
-        </button>
-      )}
+      </div>
 
       {isModalOpen && (
         <LoginModal onClose={() => setIsModalOpen(false)} />
