@@ -3,11 +3,10 @@ import type { AuthApi, LoginParams } from "../domain/AuthApi";
 export const loginUseCase = async (api: AuthApi, params: LoginParams, setState: Function) => {
   setState((prev: any) => ({ ...prev, isLoading: true, error: null }));
   try {
-    const { accessToken } = await api.authenticate(params);
+    const { accessToken, user } = await api.authenticate(params);
     localStorage.setItem("token", accessToken);
     
-    const authData = await api.getAuth();
-    setState({ user: authData.user, isLoggedIn: true, isLoading: false, error: null });
+    setState({ user, isLoggedIn: true, isLoading: false, error: null });
   } catch (err: any) {
     setState((prev: any) => ({ ...prev, isLoading: false, error: "Error de login" }));
   }

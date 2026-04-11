@@ -1,7 +1,7 @@
 export type JWToken = string;
 
 export interface LoginParams {
-  username: string;
+  email: string;
   password: string;
 }
 
@@ -18,7 +18,12 @@ export interface Auth {
     error?: Error | Error[] | null;
 }
 
+export interface AuthenticateResponse {
+  accessToken: string;
+  user: User;
+}
+
 export interface AuthApi {
-    authenticate(params: { username: string; password: string }): Promise<{ accessToken: JWToken }>;
-    getAuth(): Promise<Auth>;
+  authenticate(params: LoginParams): Promise<AuthenticateResponse>;
+  getAuth(): Promise<Auth>;
 }
