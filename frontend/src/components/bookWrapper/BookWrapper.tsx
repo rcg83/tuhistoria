@@ -8,10 +8,10 @@ type BookProps = {
 
 export const BookWrapper = ({leftPage, rightPage}: BookProps) => {
   return (
-    <div className='bookwrapper-container'>
-      <div className='left-page'>{leftPage}</div>
-      <div className='book-spine'></div>
-      <div className='right-page'>{rightPage}</div>
+    <div className='book'>
+      <div className='book__page book__page--left'>{leftPage}</div>
+      <div className='book__spine'></div>
+      <div className='book__page book__page--right'>{rightPage}</div>
     </div>
   );
 }
