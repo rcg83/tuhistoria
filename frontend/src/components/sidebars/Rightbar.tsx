@@ -1,17 +1,23 @@
-import { useState } from 'react';
 import { useAuthContext } from '../../modules/infrastructure/react/useAuthContext';
-import { LoginModal } from '../auth/LoginModal';
 import { UserButton } from '../auth/UserButton';
 import './Rightbar.scss';
 
 export const Rightbar = () => {
-  const { state, logout } = useAuthContext();
-  const { user, isLoggedIn, isLoading } = state;
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const { state, logout, toggleLogin } = useAuthContext();
+  const { user, isLoggedIn, isLoading, isLoginOpen } = state;
 
   if (isLoading) {
     return <nav className="rightbar">Cargando...</nav>;
   }
+
+  const handleAction = () => {
+    if (isLoggedIn) {
+      logout();
+    } else {
+      // Si está abierto lo cerramos, si está cerrado lo abrimos
+      toggleLogin(!isLoginOpen);
+    }
+  };
 
   return (
     <nav className="rightbar">
@@ -19,13 +25,9 @@ export const Rightbar = () => {
         <UserButton
           isLoggedIn={isLoggedIn}
           username={user?.username}
-          onAction={isLoggedIn ? logout : () => setIsModalOpen(true)}
+          onAction={handleAction}
         />
       </div>
-
-      {isModalOpen && (
-        <LoginModal onClose={() => setIsModalOpen(false)} />
-      )}
     </nav>
   );
 };

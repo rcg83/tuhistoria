@@ -17,7 +17,6 @@ router.get('/', protect, authorize('admin'), getStories);
 router.put('/:id', protect, authorize('admin'), updateStoryTemplateById);
 router.delete('/delete/:id', protect, authorize('admin'), deleteStory);
 
-
 /* Función solo para probar que esté funcionando la API de IA. */
 router.get('/test-ai', async (req, res) => {
   try {

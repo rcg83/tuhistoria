@@ -9,15 +9,30 @@ export const useAuthStoreInternal = () => {
     user: null,
     isLoggedIn: false,
     isLoading: false,
+    isLoginOpen: false,
     error: null,
   });
 
-  const login = (params: LoginParams) => loginUseCase(httpAuthApi, params, setState);
-  const checkAuth = () => checkAuthUseCase(httpAuthApi, setState);
-  const logout = () => {
-    localStorage.removeItem("token");
-    setState({ user: null, isLoggedIn: false, isLoading: false, error: null });
+  const login = async (params: LoginParams) => {
+    await loginUseCase(httpAuthApi, params, setState);
   };
 
-  return { state, login, logout, checkAuth };
+  const checkAuth = () => checkAuthUseCase(httpAuthApi, setState);
+
+  const logout = () => {
+    localStorage.removeItem("token");
+    setState({
+      user: null,
+      isLoggedIn: false,
+      isLoading: false,
+      isLoginOpen: false,
+      error: null,
+    });
+  };
+
+  const toggleLogin = (isOpen: boolean) => {
+    setState(prev => ({ ...prev, isLoginOpen: isOpen }));
+  };
+
+  return { state, login, logout, checkAuth, toggleLogin };
 };

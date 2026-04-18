@@ -5,6 +5,7 @@ const initialState: AuthState = {
   user: null,
   isLoggedIn: false,
   isLoading: false,
+  isLoginOpen: false,
   error: null,
 };
 
@@ -17,7 +18,8 @@ export const authStore = (api: AuthApi): AuthStore => ({
       const { accessToken } = await api.authenticate(params);
       localStorage.setItem("token", accessToken);
 
-      await this.checkAuth(); 
+      await this.checkAuth();
+      this.toggleLogin(false);
     } catch (err: any) {
       this.state = { ...this.state, isLoading: false, error: err.message || "Error al iniciar sesión" };
     }
@@ -41,5 +43,9 @@ export const authStore = (api: AuthApi): AuthStore => ({
   logout() {
     localStorage.removeItem("token");
     this.state = initialState;
+  },
+
+  toggleLogin(isOpen: boolean) {
+    this.state = { ...this.state, isLoginOpen: isOpen };
   },
 });

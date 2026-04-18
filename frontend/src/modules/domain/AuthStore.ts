@@ -4,6 +4,7 @@ export interface AuthState {
   user: Auth['user'];
   isLoggedIn: boolean;
   isLoading: boolean;
+  isLoginOpen: boolean;
   error: string | null;
 }
 
@@ -12,4 +13,5 @@ export interface AuthStore {
   login: (params: LoginParams) => Promise<void>;
   logout: () => void;
   checkAuth: () => Promise<void>;
+  toggleLogin: (isOpen: boolean) => void;
 }
