@@ -2,7 +2,9 @@ import { httpClient } from "../../../api/httpClient";
 import { 
   type AuthApi, 
   type Auth, 
-  type AuthenticateResponse 
+  type AuthenticateResponse,
+  type RegisterResponse,
+  type RegisterParams
 } from "../../domain/AuthApi";
 
 export const httpAuthApi: AuthApi = {
@@ -25,6 +27,13 @@ export const httpAuthApi: AuthApi = {
             } 
         };
     },
+
+    async register(params: RegisterParams): Promise<RegisterResponse> {
+    return httpClient<RegisterResponse>("/api/users/register", {
+      method: "POST",
+      body: params,
+    });
+  },
 
     async getAuth(): Promise<Auth> {
         const user = await httpClient<{

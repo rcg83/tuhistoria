@@ -5,6 +5,11 @@ export interface LoginParams {
   password: string;
 }
 
+export interface RegisterParams {
+  email: string;
+  password: string;
+}
+
 export interface User {
     id: string;
     username: string;
@@ -23,7 +28,13 @@ export interface AuthenticateResponse {
   user: User;
 }
 
+export interface RegisterResponse {
+  message: string;
+  userId: string;
+}
+
 export interface AuthApi {
   authenticate(params: LoginParams): Promise<AuthenticateResponse>;
+  register(params: RegisterParams): Promise<RegisterResponse>;
   getAuth(): Promise<Auth>;
 }
