@@ -15,30 +15,28 @@ export const initialAuthState: AuthState = {
   error: null,
 };
 
-export const initialAuthContextValue = {
-  ...initialAuthState,
-  login: async (_params: LoginParams) => {},
-  logout: () => {},
-};
-
 type SetState = (fn: (state: AuthState) => AuthState) => void;
 
-export const createAuthStore = (api: AuthApi, setState: SetState) => {
+export const createAuthStore = (api: AuthApi, state: AuthState, setState: SetState) => {
   const execute = async (task: () => Promise<any>) => {
-    setState((state) => ({ ...state, isLoading: true, error: null }));
+    setState((prev) => ({ ...prev, isLoading: true, error: null }));
     try {
       const user = await task();
-      setState((state) => ({ ...state, user, isLoggedIn: true, isLoading: false }));
+      setState((prev) => ({ ...prev, user, isLoggedIn: true, isLoading: false }));
     } catch (err) {
-      setState((state) => ({ ...state, isLoading: false, error: "Error en la operación" }));
+      setState((prev) => ({ ...prev, isLoading: false, error: "Error en la operación" }));
     }
   };
 
   return {
+    user: state.user,
+    isLoggedIn: state.isLoggedIn,
+    isLoading: state.isLoading,
+    error: state.error,
     login: (params: LoginParams) => execute(() => loginUseCase(api, params)),
     logout: () => {
       logoutUseCase();
       setState(() => initialAuthState);
-    }
+    },
   };
 };

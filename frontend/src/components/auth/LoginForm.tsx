@@ -1,12 +1,20 @@
-import React, { useState } from 'react';
-import { useAuthContext } from '../../modules/infrastructure/react/useAuthContext';
+import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../../features/auth/context/AuthContext';
 import './LoginForm.scss';
 
 export const LoginForm = () => {
-  const { login } = useAuthContext();
+  const { login, isLoading, error, isLoggedIn } = useAuth();
   const [isRegister, setIsRegister] = useState<boolean>(false);
   const [identifier, setIdentifier] = useState<string>('');
   const [pass, setPass] = useState<string>('');
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (isLoggedIn) {
+      navigate('/');
+    }
+  }, [isLoggedIn, navigate]);
 
   const handleSubmit = async (e: React.BaseSyntheticEvent) => {
     e.preventDefault();
@@ -32,6 +40,7 @@ export const LoginForm = () => {
           onChange={e => setIdentifier(e.target.value)}
           placeholder="Email"
           required
+          disabled={isLoading}
         />
         <input
           type="password"
@@ -39,17 +48,21 @@ export const LoginForm = () => {
           onChange={e => setPass(e.target.value)}
           placeholder="Contraseña"
           required
+          disabled={isLoading}
         />
         
+        {error && <p className="book-login__error">{error}</p>}
+
         <div className="book-login__actions">
-          <button type="submit" className="book-login__submit">
-            {isRegister ? 'Registrarse' : 'Entrar'}
+          <button type="submit" className="book-login__submit" disabled={isLoading}>
+            {isLoading ? 'Cargando...' : (isRegister ? 'Registrarse' : 'Entrar')}
           </button>
           
           <button 
             type="button" 
             className="book-login__switch"
             onClick={() => setIsRegister(!isRegister)}
+            disabled={isLoading}
           >
             {isRegister ? '¿Ya tienes cuenta?' : '¿Eres nuevo aquí?'}
           </button>
