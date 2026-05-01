@@ -3,15 +3,18 @@ import { UserButton } from '../auth/UserButton';
 import './Rightbar.scss';
 
 export const Rightbar = () => {
-  const { user, isLoggedIn, isLoading, logout } = useAuth();
+  const { user, isLoggedIn, isLoading, setLoginOpen, logout } = useAuth();
 
   if (isLoading) {
     return <nav className="rightbar">Cargando...</nav>;
   }
 
   const handleAction = () => {
+    console.log("button pushed");
     if (isLoggedIn) {
       logout();
+    } else {
+      setLoginOpen(true);
     }
   };
 
