@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useState, useMemo } from 'react';
 import { type AuthState, initialAuthState, createAuthStore } from '../../../modules/auth/application/authStoreFactory';
-import { type AuthApi } from "../../../modules/domain/AuthApi";
+import { type AuthApi } from "../../../modules/auth/domain/AuthApi";
 
 export type AuthStoreContextType = ReturnType<typeof createAuthStore>;
 

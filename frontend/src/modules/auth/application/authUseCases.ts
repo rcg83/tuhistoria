@@ -1,4 +1,4 @@
-import type { AuthApi, LoginParams } from "../../domain/AuthApi";
+import type { AuthApi, LoginParams } from "../../auth/domain/AuthApi";
 
 export const loginUseCase = async (api: AuthApi, params: LoginParams) => {
   const { accessToken, user } = await api.authenticate(params);

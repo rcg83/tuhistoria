@@ -1,5 +1,5 @@
 import { loginUseCase, logoutUseCase } from "./authUseCases";
-import type { AuthApi, LoginParams } from "../../domain/AuthApi";
+import type { AuthApi, LoginParams } from "../../auth/domain/AuthApi";
 
 export interface AuthState {
   user: any | null;

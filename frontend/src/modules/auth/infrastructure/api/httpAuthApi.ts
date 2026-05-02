@@ -1,11 +1,11 @@
-import { httpClient } from "../../../api/httpClient";
+import { httpClient } from "../../../../api/httpClient";
 import {
   type AuthApi,
   type Auth,
   type AuthenticateResponse,
   type RegisterResponse,
   type RegisterParams
-} from "../../domain/AuthApi";
+} from "../../../auth/domain/AuthApi";
 
 export const httpAuthApi: AuthApi = {
   async authenticate(params): Promise<AuthenticateResponse> {

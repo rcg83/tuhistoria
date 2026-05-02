@@ -4,14 +4,16 @@ import { BookWrapper } from './BookWrapper';
 import { LoginForm } from '../auth/LoginForm';
 
 export const BookLayout = () => {
-  const { isLoginOpen } = useAuth();
+  const { isLoginOpen, user } = useAuth();
 
-  return (
-    <BookWrapper 
-      leftPage={<div>Contenido Izquierdo (Portada, etc.)</div>}
-      rightPage={
-        isLoginOpen ? <LoginForm /> : <Outlet />
-      }
-    />
-  );
+  if (isLoginOpen || !user) {
+    return (
+      <BookWrapper 
+        leftPage={<div className="book__cover">MERN Project</div>}
+        rightPage={<LoginForm />}
+      />
+    );
+  }
+
+  return <Outlet />;
 };
