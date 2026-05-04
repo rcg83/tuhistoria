@@ -8,12 +8,12 @@ import { testGemini, continueStory } from '../services/geminiService.js';
 const router = express.Router();
 
 /* RUTAS PROTEGIDAS a nivel rol "user" */
+router.get('/', protect, getStories);
 router.post('/start', protect, startStory);
 router.post('/:id/chat', protect, chatWithStory);
 
 /* RUTAS PROTEGIDAS a nivel rol "admin" */
 router.post('/', protect, authorize('admin'), createStoryTemplate);
-router.get('/', protect, authorize('admin'), getStories);
 router.put('/:id', protect, authorize('admin'), updateStoryTemplateById);
 router.delete('/delete/:id', protect, authorize('admin'), deleteStory);
 

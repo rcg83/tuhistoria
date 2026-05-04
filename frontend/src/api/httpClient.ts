@@ -1,4 +1,4 @@
-type RequestMethod = "GET" | "POST" | "PUT" | "DELETE";
+/*type RequestMethod = "GET" | "POST" | "PUT" | "DELETE";
 
 interface RequestOptions {
   method: RequestMethod;
@@ -45,4 +45,29 @@ export const httpClient = async <T>(
   });
 
   return handleErrors<T>(response);
+};
+*/
+
+// Eliminamos RequestMethod y RequestOptions manuales
+// Usamos RequestInit, que es la interfaz estándar de fetch
+
+export const httpClient = async <T>(
+  url: string,
+  options?: RequestInit // Ya incluye method, headers, body, etc.
+): Promise<T> => {
+  
+  const response = await fetch(url, {
+    ...options,
+    headers: {
+      "Content-Type": "application/json",
+      ...options?.headers,
+    },
+  });
+
+  if (!response.ok) {
+    const errorData = await response.json().catch(() => ({}));
+    throw { status: response.status, data: errorData };
+  }
+
+  return response.json() as Promise<T>;
 };

@@ -1,5 +1,5 @@
-import StoryTemplate from '../schemas/StoryTemplate.js';
-import StoryInstance from '../schemas/StoryInstance.js';
+import { MongoStoryTemplateModel as StoryTemplate } from '../modules/stories/infrastructure/persistence/MongoStoryModel.js';
+import { MongoStoryInstanceModel as StoryInstance } from '../modules/stories/infrastructure/persistence/StoryInstance.js';
 
 export const createStoryTemplate = async (req, res) => {
   try {
