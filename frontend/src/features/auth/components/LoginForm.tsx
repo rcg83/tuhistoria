@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useAuth } from '../../features/auth/context/AuthContext';
+import { useAuth } from 'src/features/auth/context/AuthContext';
 import './LoginForm.scss';
 
 export const LoginForm = () => {
