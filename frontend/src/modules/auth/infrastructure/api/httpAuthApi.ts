@@ -1,4 +1,4 @@
-import { httpClient } from "../../../../api/httpClient";
+import { fetcher } from "../../../../lib/fetcher";
 import {
   type AuthApi,
   type Auth,
@@ -11,7 +11,7 @@ const API_URL = import.meta.env.VITE_API_URL || "http://localhost:5000";
 
 export const httpAuthApi: AuthApi = {
   async authenticate(params): Promise<AuthenticateResponse> {
-    const data = await httpClient<{
+    const data = await fetcher<{
       message: string;
       token: string;
       user: { id: string; username: string; user: string };
@@ -31,7 +31,7 @@ export const httpAuthApi: AuthApi = {
   },
 
   async register(params: RegisterParams): Promise<RegisterResponse> {
-    return httpClient<RegisterResponse>("/api/users/register", {
+    return fetcher<RegisterResponse>(`${API_URL}/api/users/register`, {
       method: "POST",
       body: JSON.stringify(params),
     });
@@ -40,7 +40,7 @@ export const httpAuthApi: AuthApi = {
   async getAuth(): Promise<Auth> {
     const token = localStorage.getItem("token");
 
-    const user = await httpClient<{
+    const user = await fetcher<{
       id: string;
       username: string;
       user: string;

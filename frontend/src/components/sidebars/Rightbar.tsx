@@ -1,5 +1,5 @@
 import { useAuth } from '../../features/auth/context/AuthContext';
-import { UserButton } from '../auth/UserButton';
+import { UserButton } from '../../features/auth/components/UserButton';
 import './Rightbar.scss';
 
 export const Rightbar = () => {
