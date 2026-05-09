@@ -10,7 +10,6 @@ export const Rightbar = () => {
   }
 
   const handleAction = () => {
-    console.log("button pushed");
     if (isLoggedIn) {
       logout();
     } else {

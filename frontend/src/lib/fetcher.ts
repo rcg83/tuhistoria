@@ -12,9 +12,8 @@ export const fetcher = async <T>(
   });
 
   if (!response.ok) {
-    const errorData = await response.json().catch(() => ({}));
-    throw { status: response.status, data: errorData };
+    throw new Error(`Error ${response.status}: ${response.statusText}`);
   }
-
+  
   return response.json() as Promise<T>;
 };

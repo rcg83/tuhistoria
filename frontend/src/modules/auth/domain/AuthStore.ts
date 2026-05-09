@@ -1,4 +1,4 @@
-import { type LoginParams, type Auth } from "./AuthApi";
+import type { LoginParams, Auth } from "./AuthApi";
 
 export interface AuthState {
   user: Auth['user'];
