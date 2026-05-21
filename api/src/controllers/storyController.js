@@ -93,6 +93,46 @@ export const deleteStory = async (req, res) => {
   }
 };
 
+export const getMyStories = async (req, res) => {
+  try {
+    const stories = await StoryInstance.find({ user: req.user.id })
+      .populate('template')
+      .sort({ _id: -1 });
+
+    if (stories.length === 0) {
+      const mockStories = [
+        {
+          _id: 'mock-titanic-001',
+          template: {
+            _id: 'mock-titanic-tpl',
+            title: 'La última noche del Titanic',
+            description: 'Estamos a bordo del Titanic en su viaje inaugural. La noche del 14 de abril de 1912, algo está a punto de ocurrir...',
+            initialText: 'La noche es fría y el océano está en calma...',
+            imageUrl: ''
+          },
+          messages: []
+        },
+        {
+          _id: 'mock-medusa-002',
+          template: {
+            _id: 'mock-medusa-tpl',
+            title: 'La isla de la Medusa',
+            description: 'Una expedición en busca de la mítica isla donde habita la Medusa. Entre niebla y leyendas, nada es lo que parece.',
+            initialText: 'El barco corta la niebla mientras el vigía grita: "¡Tierra a la vista!"...',
+            imageUrl: ''
+          },
+          messages: []
+        }
+      ];
+      return res.json(mockStories);
+    }
+
+    res.json(stories);
+  } catch (error) {
+    res.status(500).json({ message: 'Error al obtener tus historias' });
+  }
+};
+
 export const chatWithStory = async (req, res) => {
   try {
     const { id } = req.params;
