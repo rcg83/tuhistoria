@@ -1,73 +1,51 @@
-# React + TypeScript + Vite
+# tuhistoria — frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+React 19 + Vite 7 + TypeScript (strict) + SASS. Parte del stack MERN de tuhistoria — app de narración interactiva impulsada por Google Gemini AI.
 
-Currently, two official plugins are available:
+## Arquitectura
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Hexagonal (puertos y adaptadores) dividida en dos árboles de directorios:
 
-## React Compiler
-
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```
+src/
+  modules/        Capas dominio/aplicación/infraestructura (TS puro, sin framework)
+    auth/         Interfaz AuthApi, AuthStore, casos de uso, adaptador HTTP
+    stories/      Modelo de dominio Story y store (aplicación + infraestructura pendiente)
+  features/       Conexión con React: Context providers + componentes presentacionales
+    auth/         AuthContext (inyecta httpAuthApi), LoginForm, UserButton
+    stories/      Scaffolding (components/, context/ vacíos)
+  pages/          Componentes de página (Home)
+  components/     UI reutilizable (BookWrapper, layout, sidebar, footer)
+  lib/            Utilerías genéricas (fetcher.ts)
+  styles/         SCSS global (variables, mixins, hoja de estilos principal)
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+- **`modules/`** — capas de arquitectura limpia: `domain/` (interfaces, tipos, contratos de store), `application/` (casos de uso, fábricas), `infrastructure/` (clientes HTTP, adaptadores React).
+- **`features/`** — providers de React Context que conectan los stores de dominio con el árbol de componentes, más componentes UI que los consumen.
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+### Conexión
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
 ```
+main.tsx → BrowserRouter → App.tsx
+  └─ AuthProvider (inyectado con httpAuthApi desde modules/auth/infrastructure)
+      └─ Routes → MainLayout → BookLayout → Home
+```
+
+El auth usa un patrón de store liviano: `createAuthStore(api, state, setState)` dentro de un React Context. El token JWT y el usuario persisten en `localStorage`.
+
+## Comandos
+
+| Comando | Descripción |
+|---|---|
+| `npm run dev` | Servidor de desarrollo Vite (con polling para compatibilidad Docker) |
+| `npm run build` | `tsc -b && vite build` (typecheck primero, luego bundle) |
+| `npm run lint` | ESLint (config plana, TS + React hooks + React Refresh) |
+| `npm run preview` | Vista previa del build de producción |
+
+## Configuración clave
+
+- **Alias de ruta**: `src/` → `./src` (`vite.config.ts` + `tsconfig.app.json`). Usa `import { x } from 'src/features/...'`.
+- **TypeScript**: `strict: true`, `noUnusedLocals`, `noUnusedParameters`, `erasableSyntaxOnly`.
+- **SCSS**: indentación de 2 espacios, `_variables.scss` (colores, breakpoints), `_mixins.scss` (`respond-to()`).
+- **Vite polling**: `usePolling: true, interval: 100` — necesario para recarga en caliente dentro de Docker.
+- **Sin framework de tests** ni formateador configurado.

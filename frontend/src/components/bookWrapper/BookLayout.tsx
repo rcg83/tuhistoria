@@ -1,18 +1,12 @@
-import { Outlet } from 'react-router-dom';
+import { Outlet, Navigate, useLocation } from 'react-router-dom';
 import { useAuth } from '../../features/auth/context/AuthContext';
-import { BookWrapper } from './BookWrapper';
-import { LoginForm } from '../../features/auth/components/LoginForm';
 
 export const BookLayout = () => {
-  const { isLoginOpen, user } = useAuth();
+  const { user } = useAuth();
+  const location = useLocation();
 
-  if (isLoginOpen || !user) {
-    return (
-      <BookWrapper 
-        leftPage={<div className="book__cover">MERN Project</div>}
-        rightPage={<LoginForm />}
-      />
-    );
+  if (!user) {
+    return <Navigate to="/login" state={{ from: location }} replace />;
   }
 
   return <Outlet />;

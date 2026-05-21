@@ -3,18 +3,32 @@ import { AuthProvider } from './features/auth/context/AuthContext.tsx';
 import { httpAuthApi } from './modules/auth/infrastructure/api/httpAuthApi.ts';
 import { MainLayout } from './components/layout/MainLayout.tsx';
 import { BookLayout } from './components/bookWrapper/BookLayout.tsx';
+import { BookWrapper } from './components/bookWrapper/BookWrapper.tsx';
+import { LoginForm } from './features/auth/components/LoginForm.tsx';
 import { Home } from './pages/home/Home';
 
 export const App = () => {
   return (
     <AuthProvider api={httpAuthApi}>
       <Routes>
+        <Route 
+          path='/login' 
+          element={
+            <BookWrapper 
+              leftPage={<div className="book__cover">MERN Project</div>}
+              rightPage={<LoginForm />}
+            />
+          } 
+        />
+
         <Route path='/' element={<MainLayout />}>
           <Route element={<BookLayout />}>
             <Route index element={<Navigate to="/home" replace />} />
             <Route path='home' element={<Home />} />
           </Route>
         </Route>
+
+        <Route path='*' element={<Navigate to="/home" replace />} />
       </Routes>
     </AuthProvider>
   );
