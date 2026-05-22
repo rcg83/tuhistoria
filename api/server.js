@@ -2,6 +2,7 @@ import express from 'express';
 import cors from "cors";
 import dotenv from 'dotenv';
 import { connectDB } from './src/config/db.ts';
+import { seed } from './src/config/seeder.ts';
 import userRoutes from './src/routes/userRoutes.js';
 import storyRoutes from './src/routes/storyRoutes.js';
 
@@ -12,7 +13,7 @@ dotenv.config();
 const app = express();
 
 /* Inicializa la conexión con MongoDB. */
-connectDB();
+connectDB().then(() => seed());
 
 app.use(cors());
 
