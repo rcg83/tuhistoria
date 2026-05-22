@@ -1,5 +1,5 @@
 import express from 'express';
-import { createStoryTemplate, startStory, getStories, deleteStory, chatWithStory, updateStoryTemplateById, getMyStories } from '../controllers/storyController.js';
+import { createStoryTemplate, startStory, getStories, deleteStory, chatWithStory, updateStoryTemplateById, getMyStories } from '../modules/stories/infrastructure/http/StoryController.js';
 import { protect, authorize } from '../middlewares/authMiddlewares.js';
 
 import { testGemini, continueStory } from '../services/geminiService.js';
