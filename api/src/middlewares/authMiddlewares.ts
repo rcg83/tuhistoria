@@ -1,12 +1,11 @@
 import jwt from 'jsonwebtoken';
-import type { Request, Response, NextFunction } from 'express';
 
-export const protect = (req: Request, res: Response, next: NextFunction): void => {
+export const protect = (req, res, next): void => {
   const token = req.headers.authorization;
 
   if (token && token.startsWith('Bearer')) {
     try {
-      const decoded = jwt.verify(token.split(' ')[1], process.env.JWT_SECRET as string) as { id: string; role: string };
+      const decoded = jwt.verify(token.split(' ')[1], process.env.JWT_SECRET) as { id: string; role: string };
       req.user = decoded;
       next();
     } catch {
@@ -18,7 +17,7 @@ export const protect = (req: Request, res: Response, next: NextFunction): void =
 };
 
 export const authorize = (...roles: string[]) => {
-  return (req: Request, res: Response, next: NextFunction): void => {
+  return (req, res, next): void => {
     if (!roles.includes(req.user.role)) {
       res.status(403).json({ message: 'No tienes permisos para esta acción' });
       return;

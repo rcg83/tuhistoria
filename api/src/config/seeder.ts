@@ -1,5 +1,5 @@
-import User from '../schemas/User.js';
-import UserProfile from '../schemas/UserProfile.js';
+import { MongoUserModel } from '../modules/user/infrastructure/persistence/MongoUserModel.js';
+import { MongoUserProfileModel } from '../modules/user/infrastructure/persistence/MongoUserProfileModel.js';
 import bcrypt from 'bcryptjs';
 import { MongoStoryTemplateModel } from '../modules/stories/infrastructure/persistence/MongoStoryModel.js';
 
@@ -26,7 +26,7 @@ const DEFAULT_TEMPLATES = [
 ];
 
 export async function seed(): Promise<void> {
-  const existing = await User.findOne({ email: DEFAULT_USER.email });
+  const existing = await MongoUserModel.findOne({ email: DEFAULT_USER.email });
   if (existing) {
     console.log('Seeder: usuario por defecto ya existe');
     return;
@@ -35,14 +35,14 @@ export async function seed(): Promise<void> {
   const salt = await bcrypt.genSalt(10);
   const hashedPassword = await bcrypt.hash(DEFAULT_USER.password, salt);
 
-  const user = await User.create({
+  const user = await MongoUserModel.create({
     username: DEFAULT_USER.username,
     email: DEFAULT_USER.email,
     password: hashedPassword,
     role: DEFAULT_USER.role,
   });
 
-  await UserProfile.create({
+  await MongoUserProfileModel.create({
     user: user._id,
     bio: '',
     avatarUrl: '',
