@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useAuth } from 'src/features/auth/context/AuthContext';
-import { BookWrapper } from 'src/components/bookWrapper/BookWrapper';
+import { BookWrapper } from 'src/components/layout/BookWrapper';
 import { fetcher } from 'src/lib/fetcher';
 import './Home.scss';
 

@@ -1,10 +1,10 @@
 import { Routes, Route, Navigate } from 'react-router-dom';
-import { AuthProvider } from './features/auth/context/AuthContext.tsx';
-import { httpAuthApi } from './modules/auth/infrastructure/api/httpAuthApi.ts';
-import { MainLayout } from './components/layout/MainLayout.tsx';
-import { BookLayout } from './components/bookWrapper/BookLayout.tsx';
-import { BookWrapper } from './components/bookWrapper/BookWrapper.tsx';
-import { LoginForm } from './features/auth/components/LoginForm.tsx';
+import { AuthProvider } from './features/auth/context/AuthContext';
+import { httpAuthApi } from './modules/auth/infrastructure/api/httpAuthApi';
+import { MainLayout } from './components/layout/MainLayout';
+import { ProtectedRoute } from './features/auth/guards/ProtectedRoute';
+import { BookWrapper } from './components/layout/BookWrapper';
+import { LoginForm } from './features/auth/components/LoginForm';
 import { Home } from './pages/home/Home';
 
 export const App = () => {
@@ -21,14 +21,14 @@ export const App = () => {
           } 
         />
 
-        <Route path='/' element={<MainLayout />}>
-          <Route element={<BookLayout />}>
-            <Route index element={<Navigate to="/home" replace />} />
-            <Route path='home' element={<Home />} />
+        <Route element={<ProtectedRoute />}>
+          <Route path='/' element={<MainLayout />}>
+            <Route index element={<Home />} />
+            <Route path='home' element={<Navigate to="/" replace />} />
           </Route>
         </Route>
 
-        <Route path='*' element={<Navigate to="/home" replace />} />
+        <Route path='*' element={<Navigate to="/" replace />} />
       </Routes>
     </AuthProvider>
   );

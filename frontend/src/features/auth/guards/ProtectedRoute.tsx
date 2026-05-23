@@ -1,7 +1,7 @@
 import { Outlet, Navigate, useLocation } from 'react-router-dom';
-import { useAuth } from '../../features/auth/context/AuthContext';
+import { useAuth } from 'src/features/auth/context/AuthContext';
 
-export const BookLayout = () => {
+export const ProtectedRoute = () => {
   const { user } = useAuth();
   const location = useLocation();
 
