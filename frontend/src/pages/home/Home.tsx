@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useAuth } from 'src/features/auth/context/AuthContext';
 import { BookWrapper } from 'src/components/layout/BookWrapper';
 import { fetcher } from 'src/lib/fetcher';
@@ -20,9 +21,11 @@ interface Story {
 
 export const Home = () => {
   const { user } = useAuth();
+  const navigate = useNavigate();
   const [stories, setStories] = useState<Story[]>([]);
   const [selected, setSelected] = useState<Story | null>(null);
   const [error, setError] = useState<string | null>(null);
+  const [starting, setStarting] = useState(false);
 
   useEffect(() => {
     const token = localStorage.getItem('token');
@@ -43,11 +46,33 @@ export const Home = () => {
       });
   }, []);
 
+  const handleStartStory = async (templateId: string) => {
+    const token = localStorage.getItem('token');
+    if (!token) return;
+
+    setStarting(true);
+    try {
+      const result = await fetcher<{ storyInstanceId: string }>(
+        `${API_URL}/api/stories/start`,
+        {
+          method: 'POST',
+          headers: { Authorization: `Bearer ${token}` },
+          body: JSON.stringify({ templateId }),
+        }
+      );
+      navigate(`/story/${result.storyInstanceId}`);
+    } catch (err) {
+      console.error(err);
+    } finally {
+      setStarting(false);
+    }
+  };
+
   return (
     <BookWrapper
       leftPage={
         <div className="home-sidebar">
-          <h2>Mis Historias</h2>
+          <h2>Historias</h2>
           {error ? (
             <p className="story-list--error">{error}</p>
           ) : (
@@ -73,11 +98,20 @@ export const Home = () => {
               <h1>{selected.template.title}</h1>
               <p className="home-content__desc">{selected.template.description}</p>
               <p className="home-content__text">{selected.template.initialText}</p>
+              {selected.messages.length === 0 && (
+                <button
+                  className="home-content__start-btn"
+                  onClick={() => handleStartStory(selected.template._id)}
+                  disabled={starting}
+                >
+                  {starting ? 'Iniciando...' : 'Comenzar esta historia'}
+                </button>
+              )}
             </>
           ) : (
             <>
               <h1>Bienvenido, {user?.username}</h1>
-              <p>Selecciona una historia para continuar.</p>
+              <p>Selecciona una historia para comenzar.</p>
             </>
           )}
         </div>

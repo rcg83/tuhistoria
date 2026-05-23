@@ -4,10 +4,12 @@ import { useAuth } from 'src/features/auth/context/AuthContext';
 import './LoginForm.scss';
 
 export const LoginForm = () => {
-  const { login, isLoading, error, isLoggedIn } = useAuth();
+  const { login, register, isLoading, error, isLoggedIn } = useAuth();
   const [isRegister, setIsRegister] = useState<boolean>(false);
+  const [username, setUsername] = useState<string>('');
   const [identifier, setIdentifier] = useState<string>('');
   const [pass, setPass] = useState<string>('');
+  const [successMsg, setSuccessMsg] = useState<string>('');
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -16,10 +18,20 @@ export const LoginForm = () => {
     }
   }, [isLoggedIn, navigate]);
 
+  const switchMode = () => {
+    setIsRegister(!isRegister);
+    setUsername('');
+    setIdentifier('');
+    setPass('');
+    setSuccessMsg('');
+  };
+
   const handleSubmit = async (e: React.BaseSyntheticEvent) => {
     e.preventDefault();
     if (isRegister) {
-      console.log('Registro no implementado');
+      await register({ username, email: identifier, password: pass });
+      setSuccessMsg('Registro exitoso. Ahora puedes iniciar sesión.');
+      setIsRegister(false);
     } else {
       await login({ email: identifier, password: pass });
     }
@@ -34,6 +46,16 @@ export const LoginForm = () => {
       </div>
 
       <form onSubmit={handleSubmit} className="book-login__form">
+        {isRegister && (
+          <input
+            type="text"
+            value={username}
+            onChange={e => setUsername(e.target.value)}
+            placeholder="Nombre de usuario"
+            required
+            disabled={isLoading}
+          />
+        )}
         <input
           type="text"
           value={identifier}
@@ -52,6 +74,7 @@ export const LoginForm = () => {
         />
         
         {error && <p className="book-login__error">{error}</p>}
+        {successMsg && <p className="book-login__success">{successMsg}</p>}
 
         <div className="book-login__actions">
           <button type="submit" className="book-login__submit" disabled={isLoading}>
@@ -61,7 +84,7 @@ export const LoginForm = () => {
           <button 
             type="button" 
             className="book-login__switch"
-            onClick={() => setIsRegister(!isRegister)}
+            onClick={switchMode}
             disabled={isLoading}
           >
             {isRegister ? '¿Ya tienes cuenta?' : '¿Eres nuevo aquí?'}

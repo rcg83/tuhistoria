@@ -24,34 +24,25 @@ export const startStoryUseCase = (
   };
 };
 
-export const getMyStoriesUseCase = (instanceRepo: StoryInstanceRepository) => {
+export const getMyStoriesUseCase = (
+  instanceRepo: StoryInstanceRepository,
+  templateRepo?: StoryTemplateRepository
+) => {
   return async (userId: string): Promise<Record<string, unknown>[]> => {
     const stories = await instanceRepo.findByUser(userId);
-    if (stories.length === 0) {
-      return [
-        {
-          _id: 'mock-titanic-001',
-          template: {
-            _id: 'mock-titanic-tpl',
-            title: 'La última noche del Titanic',
-            description: 'Estamos a bordo del Titanic en su viaje inaugural. La noche del 14 de abril de 1912, algo está a punto de ocurrir...',
-            initialText: 'La noche es fría y el océano está en calma...',
-            imageUrl: ''
-          },
-          messages: []
+    if (stories.length === 0 && templateRepo) {
+      const templates = await templateRepo.findAll();
+      return templates.map((t: Record<string, unknown>) => ({
+        _id: t._id,
+        template: {
+          _id: t._id,
+          title: t.title,
+          description: t.description,
+          initialText: t.initialText,
+          imageUrl: t.imageUrl || ''
         },
-        {
-          _id: 'mock-medusa-002',
-          template: {
-            _id: 'mock-medusa-tpl',
-            title: 'La isla de la Medusa',
-            description: 'Una expedición en busca de la mítica isla donde habita la Medusa. Entre niebla y leyendas, nada es lo que parece.',
-            initialText: 'El barco corta la niebla mientras el vigía grita: "¡Tierra a la vista!"...',
-            imageUrl: ''
-          },
-          messages: []
-        }
-      ];
+        messages: []
+      }));
     }
     return stories;
   };

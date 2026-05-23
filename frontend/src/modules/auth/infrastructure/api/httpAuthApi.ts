@@ -14,7 +14,7 @@ export const httpAuthApi: AuthApi = {
     const data = await fetcher<{
       message: string;
       token: string;
-      user: { id: string; username: string; user: string };
+      user: { id: string; username: string; role: string };
     }>(`${API_URL}/api/users/login`, {
       method: "POST",
       body: JSON.stringify(params),
@@ -25,7 +25,7 @@ export const httpAuthApi: AuthApi = {
       user: {
         id: data.user.id,
         username: data.user.username,
-        role: data.user.user
+        role: data.user.role
       }
     };
   },
@@ -43,7 +43,7 @@ export const httpAuthApi: AuthApi = {
     const user = await fetcher<{
       id: string;
       username: string;
-      user: string;
+      role: string;
     }>(`${API_URL}/api/account`, {
       method: "GET",
       headers: {
@@ -57,7 +57,7 @@ export const httpAuthApi: AuthApi = {
       user: {
         id: user.id,
         username: user.username,
-        role: user.user,
+        role: user.role,
       },
       error: null,
     };

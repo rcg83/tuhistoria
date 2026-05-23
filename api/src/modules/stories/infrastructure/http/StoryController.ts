@@ -21,7 +21,7 @@ const update = updateStoryTemplateByIdUseCase(templateRepo);
 const list = getStoriesUseCase(templateRepo);
 const remove = deleteStoryUseCase(templateRepo);
 const start = startStoryUseCase(instanceRepo, templateRepo);
-const myStories = getMyStoriesUseCase(instanceRepo);
+const myStories = getMyStoriesUseCase(instanceRepo, templateRepo);
 const chat = chatWithStoryUseCase(instanceRepo);
 
 export const createStoryTemplate = async (req: Request, res: Response): Promise<void> => {

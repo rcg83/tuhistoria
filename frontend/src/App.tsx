@@ -6,6 +6,7 @@ import { ProtectedRoute } from './features/auth/guards/ProtectedRoute';
 import { BookWrapper } from './components/layout/BookWrapper';
 import { LoginForm } from './features/auth/components/LoginForm';
 import { Home } from './pages/home/Home';
+import { StoryPage } from './pages/story/StoryPage';
 
 export const App = () => {
   return (
@@ -25,6 +26,7 @@ export const App = () => {
           <Route path='/' element={<MainLayout />}>
             <Route index element={<Home />} />
             <Route path='home' element={<Navigate to="/" replace />} />
+            <Route path='story/:id' element={<StoryPage />} />
           </Route>
         </Route>
 

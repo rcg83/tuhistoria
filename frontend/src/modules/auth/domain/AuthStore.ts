@@ -1,4 +1,4 @@
-import type { LoginParams, Auth } from "./AuthApi";
+import type { LoginParams, RegisterParams, Auth } from "./AuthApi";
 
 export interface AuthState {
   user: Auth['user'];
@@ -11,6 +11,7 @@ export interface AuthState {
 export interface AuthStore {
   state: AuthState;
   login: (params: LoginParams) => Promise<void>;
+  register: (params: RegisterParams) => Promise<void>;
   logout: () => void;
   checkAuth: () => Promise<void>;
   toggleLogin: (isOpen: boolean) => void;

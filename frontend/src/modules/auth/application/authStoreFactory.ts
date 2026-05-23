@@ -1,5 +1,5 @@
-import { loginUseCase, logoutUseCase } from "./authUseCases";
-import type { AuthApi, LoginParams } from "../../auth/domain/AuthApi";
+import { loginUseCase, registerUseCase, logoutUseCase } from "./authUseCases";
+import type { AuthApi, LoginParams, RegisterParams } from "../../auth/domain/AuthApi";
 
 export interface AuthState {
   user: any | null;
@@ -47,6 +47,16 @@ export const createAuthStore = (api: AuthApi, state: AuthState, setState: SetSta
     }
   };
 
+  const executeRegister = async (task: () => Promise<any>) => {
+    setState((prev) => ({ ...prev, isLoading: true, error: null }));
+    try {
+      await task();
+      setState((prev) => ({ ...prev, isLoading: false, error: null }));
+    } catch (err) {
+      setState((prev) => ({ ...prev, isLoading: false, error: "Error en la operación" }));
+    }
+  };
+
   return {
     user: state.user,
     isLoggedIn: state.isLoggedIn,
@@ -55,6 +65,7 @@ export const createAuthStore = (api: AuthApi, state: AuthState, setState: SetSta
     error: state.error,
     setLoginOpen: (open: boolean) => setState((prev) => ({ ...prev, isLoginOpen: open })),
     login: (params: LoginParams) => execute(() => loginUseCase(api, params)),
+    register: (params: RegisterParams) => executeRegister(() => registerUseCase(api, params)),
     logout: () => {
       logoutUseCase();
       setState(() => ({

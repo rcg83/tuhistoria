@@ -21,7 +21,7 @@
     width: 100%;
     height: auto;
     min-height: 25rem;
-    padding: 1em;
+    padding: 2rem;
     box-sizing: border-box;
 
     @include mixs.respond-to('desktop') {
@@ -31,10 +31,10 @@
     }
 
     &--left {
-      border-radius: 1rem 1rem 0 0;
+      border-radius: 1rem;
 
       @include mixs.respond-to('desktop') {
-        border-radius: 60% 1.8rem 55% 1.1rem / 1.2% 1.2rem 2% 12%;
+        border-radius: 6% 1.8rem 55% 1.1rem / 1.2% 1.2rem 2% 3%;
 
         background-image: linear-gradient(
           to right,
@@ -46,10 +46,10 @@
     }
 
     &--right {
-      border-radius: 0 0 1rem 1rem;
+      border-radius: 1rem;
 
       @include mixs.respond-to('desktop') {
-        border-radius: 1.8rem 60% 1.1rem 55% / 1.2rem 1% 12% 1.2%;
+        border-radius: 1.1rem 6% 1.1rem 55% / 1.2rem 1.2rem 3% 2%;
 
         background-image: linear-gradient(
           to left,

@@ -1,4 +1,4 @@
-import type { AuthApi, LoginParams } from "../../auth/domain/AuthApi";
+import type { AuthApi, LoginParams, RegisterParams } from "../../auth/domain/AuthApi";
 
 export const loginUseCase = async (api: AuthApi, params: LoginParams) => {
   const { accessToken, user } = await api.authenticate(params);
@@ -7,6 +7,10 @@ export const loginUseCase = async (api: AuthApi, params: LoginParams) => {
   localStorage.setItem("auth_user", JSON.stringify(user)); 
   
   return user;
+};
+
+export const registerUseCase = async (api: AuthApi, params: RegisterParams) => {
+  return api.register(params);
 };
 
 export const logoutUseCase = () => {
