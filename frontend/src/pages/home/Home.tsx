@@ -5,7 +5,7 @@ import { BookWrapper } from 'src/components/layout/BookWrapper';
 import { fetcher } from 'src/lib/fetcher';
 import './Home.scss';
 
-const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000';
+const API_URL = import.meta.env.VITE_API_URL;
 
 interface Story {
   _id: string;

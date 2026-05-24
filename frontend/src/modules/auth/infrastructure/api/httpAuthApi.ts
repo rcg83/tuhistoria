@@ -7,7 +7,7 @@ import {
   type RegisterParams
 } from "../../../auth/domain/AuthApi";
 
-const API_URL = import.meta.env.VITE_API_URL || "http://localhost:5000";
+const API_URL = import.meta.env.VITE_API_URL;
 
 export const httpAuthApi: AuthApi = {
   async authenticate(params): Promise<AuthenticateResponse> {
