@@ -1,3 +1,4 @@
+import { useState, useEffect, useRef } from 'react';
 import './UserButton.scss';
 
 interface UserButtonProps {
@@ -8,21 +9,40 @@ interface UserButtonProps {
 }
 
 export const UserButton = ({ username, isLoggedIn, onAction, avatarUrl }: UserButtonProps) => {
+  const [open, setOpen] = useState(false);
+  const ref = useRef<HTMLDivElement>(null);
   const initial = username ? username.charAt(0).toUpperCase() : '';
 
+  useEffect(() => {
+    const handleClickOutside = (e: MouseEvent) => {
+      if (ref.current && !ref.current.contains(e.target as Node)) {
+        setOpen(false);
+      }
+    };
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
+
+  const handleAction = () => {
+    setOpen(false);
+    onAction();
+  };
+
   return (
-    <div className={`user-button ${!isLoggedIn ? 'user-button--guest' : ''}`} onClick={onAction}>
-      <div className="user-button__avatar">
+    <div className={`user-button ${!isLoggedIn ? 'user-button--guest' : ''}`} ref={ref}>
+      <div className="user-button__avatar" onClick={() => setOpen((p) => !p)}>
         {isLoggedIn ? (
           avatarUrl ? <img src={avatarUrl} alt={username} className="user-button__image" /> : <span className="user-button__initial">{initial}</span>
         ) : (
           <span className="user-button__icon">👤</span>
         )}
       </div>
-      {isLoggedIn && username && (
-        <div className="user-button__details">
-          <span className="user-button__name">{username}</span>
-          <span className="user-button__logout-text">Cerrar sesión</span>
+
+      {open && (
+        <div className="user-button__dropdown">
+          <button className="user-button__dropdown-item" onClick={handleAction}>
+            Desconectarse
+          </button>
         </div>
       )}
     </div>

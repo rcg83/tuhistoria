@@ -1,9 +1,8 @@
-@use '../../styles/variables' as v;
+@use 'src/styles/variables' as v;
 
 .nav-button {
   display: block;
   width: 100%;
-  padding: 0.6rem 1rem;
   text-align: center;
   text-decoration: none;
   color: v.$color-text;

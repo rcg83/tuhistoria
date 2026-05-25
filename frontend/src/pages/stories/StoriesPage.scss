@@ -23,10 +23,6 @@
 }
 
 .story-list {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-
   &--empty {
     color: v.$color-interact;
     font-style: italic;
@@ -35,25 +31,6 @@
   &--error {
     color: #c0392b;
     font-style: italic;
-  }
-
-  &__item {
-    padding: 0.6rem 0.8rem;
-    margin-bottom: 0.4rem;
-    border-radius: 4px;
-    cursor: pointer;
-    color: v.$color-text;
-    background: v.$color-container;
-    transition: background 0.2s;
-
-    &:hover {
-      background: v.$color-accent;
-    }
-
-    &--active {
-      background: v.$color-accent;
-      font-weight: 600;
-    }
   }
 }
 

@@ -1,9 +1,9 @@
 @use './variables' as v;
 
-@import url('https://fonts.googleapis.com');
+@import url('https://fonts.googleapis.com/css2?family=Vollkorn:wght@400;700&family=Lexend:wght@100..900&display=swap');
 
 body {
-  font-family: 'Lexend', arial;
+  font-family: 'Vollkorn', 'Lexend', Arial, sans-serif;
   margin: 0;
   background-color: v.$color-bg-main;
 }

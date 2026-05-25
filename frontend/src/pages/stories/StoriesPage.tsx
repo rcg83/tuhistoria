@@ -1,6 +1,7 @@
 import { useAuth } from 'src/features/auth/context/AuthContext';
 import { BookWrapper } from 'src/components/layout/BookWrapper';
 import { useStories } from 'src/features/stories/context/StoriesContext';
+import { StoryCard } from 'src/features/stories/components/StoryCard';
 import './StoriesPage.scss';
 
 export const StoriesPage = () => {
@@ -16,18 +17,17 @@ export const StoriesPage = () => {
             {error ? (
               <p className="story-list--error">{error}</p>
             ) : (
-              <ul className="story-list">
+              <div className="story-list">
                 {stories.length === 0 && <p className="story-list--empty">Cargando...</p>}
                 {stories.map((s) => (
-                  <li
+                  <StoryCard
                     key={s._id}
-                    className={`story-list__item ${selected?._id === s._id ? 'story-list__item--active' : ''}`}
+                    story={s}
+                    isActive={selected?._id === s._id}
                     onClick={() => selectStory(s)}
-                  >
-                    {s.template.title}
-                  </li>
+                  />
                 ))}
-              </ul>
+              </div>
             )}
           </div>
         }

@@ -1,19 +1,18 @@
-@use '../../../styles/variables' as v;
+@use 'src/styles/variables' as v;
 
 .user-button {
+  position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 100%;
-  cursor: pointer;
-  box-sizing: border-box;
 
   &__avatar {
-    width: 100%;
-    aspect-ratio: 1 / 1;
+    width: 2.5rem;
+    height: 2.5rem;
     display: flex;
     align-items: center;
     justify-content: center;
+    cursor: pointer;
     transition: transform 0.2s ease;
 
     &:hover {
@@ -22,34 +21,43 @@
   }
 
   &__icon {
-    font-size: 2rem;
-  }
-
-  &__initial {
-    color: white;
-    font-weight: bold;
     font-size: 1.5rem;
   }
 
-  &__details {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin-top: 0.5rem;
-    text-align: center;
+  &__initial {
+    color: v.$color-text;
+    font-size: 1.25rem;
+    font-weight: bold;
   }
 
-  &__name {
-    font-size: 0.8rem;
-    font-weight: 600;
-    width: 100%;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+  &__dropdown {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    background: v.$color-container;
+    border: 1px solid v.$color-bg-main;
+    border-radius: 4px;
+    min-width: 160px;
+    z-index: 1000;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
   }
 
-  &__logout-text {
-    font-size: 0.7rem;
+  &__dropdown-item {
+    display: block;
+    width: 100%;
+    padding: 0.8rem 1.2rem;
+    text-align: left;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: v.$color-text;
+    font-family: inherit;
+    font-size: inherit;
+    transition: background 0.2s;
+
+    &:hover {
+      background: v.$color-accent;
+      color: v.$color-container;
+    }
   }
 }

@@ -8,6 +8,7 @@ export interface StoryInstance {
     text: string;
     timestamp: Date;
   }[];
+  createdAt: Date;
 }
 
 const storyInstanceSchema = new Schema<StoryInstance>({
@@ -25,7 +26,8 @@ const storyInstanceSchema = new Schema<StoryInstance>({
     role: { type: String, enum: ['user', 'model'], required: true },
     text: { type: String, required: true },
     timestamp: { type: Date, default: Date.now }
-  }]
+  }],
+  createdAt: { type: Date, default: Date.now }
 });
 
 export const MongoStoryInstanceModel = mongoose.model<StoryInstance>('StoryInstance', storyInstanceSchema);

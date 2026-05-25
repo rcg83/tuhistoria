@@ -6,12 +6,10 @@
   flex-direction: column;
   justify-content: center;
   width: 100%;
-  box-sizing: border-box;
 
   @include mixs.respond-to('desktop') {
     flex-direction: row;
-    max-width: 75rem;
-    margin: 0 auto;
+    margin: 0;
     height: 100vh;
     align-items: stretch;
   }
@@ -25,7 +23,6 @@
     box-sizing: border-box;
 
     @include mixs.respond-to('desktop') {
-      width: 48%;
       height: calc(100% - 4rem);
       margin: 2rem 0;
     }

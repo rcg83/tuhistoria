@@ -64,35 +64,4 @@
       font-weight: 600;
     }
   }
-
-  &__divider {
-    height: 1px;
-    background-color: v.$color-bg-main;
-    margin: 0.4rem 0;
-  }
-
-  &__story-item {
-    display: block;
-    width: 100%;
-    padding: 0.6rem 1.2rem;
-    text-align: left;
-    background: none;
-    border: none;
-    cursor: pointer;
-    color: v.$color-text;
-    font-family: inherit;
-    font-size: inherit;
-    transition: background 0.2s;
-
-    &:hover {
-      background: v.$color-accent;
-      color: v.$color-container;
-    }
-
-    &--active {
-      background: v.$color-accent;
-      color: v.$color-container;
-      font-weight: 600;
-    }
-  }
 }

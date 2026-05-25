@@ -1,4 +1,4 @@
-import { createContext, useContext, useState, useEffect, type ReactNode } from 'react';
+import { createContext, useContext, useState, useEffect, useCallback, type ReactNode } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { fetcher } from 'src/lib/fetcher';
 
@@ -14,6 +14,7 @@ export interface Story {
     imageUrl: string;
   };
   messages: { role: string; text: string; timestamp: string }[];
+  createdAt?: string;
 }
 
 interface StoriesContextValue {
@@ -34,24 +35,30 @@ export const StoriesProvider = ({ children }: { children: ReactNode }) => {
   const [error, setError] = useState<string | null>(null);
   const [starting, setStarting] = useState(false);
 
-  useEffect(() => {
+  const fetchStories = useCallback(async () => {
     const token = localStorage.getItem('token');
     if (!token) {
       setError('No hay sesión activa');
       return;
     }
-    fetcher<Story[]>(`${API_URL}/api/stories/my-stories`, {
-      headers: { Authorization: `Bearer ${token}` },
-    })
-      .then((data) => {
-        setStories(data);
-        if (data.length > 0) setSelected(data[0]);
-      })
-      .catch((err) => {
-        console.error(err);
-        setError(err.message || 'Error al cargar historias');
+    try {
+      const data = await fetcher<Story[]>(`${API_URL}/api/stories/my-stories`, {
+        headers: { Authorization: `Bearer ${token}` },
       });
+      setStories(data);
+      return data;
+    } catch (err) {
+      console.error(err);
+      setError(err instanceof Error ? err.message : 'Error al cargar historias');
+      return [];
+    }
   }, []);
+
+  useEffect(() => {
+    fetchStories().then((data) => {
+      if (data && data.length > 0) setSelected(data[0]);
+    });
+  }, [fetchStories]);
 
   const startStory = async (templateId: string) => {
     const token = localStorage.getItem('token');
@@ -67,6 +74,11 @@ export const StoriesProvider = ({ children }: { children: ReactNode }) => {
           body: JSON.stringify({ templateId }),
         }
       );
+
+      const data = await fetchStories();
+      const newStory = data?.find((s) => s._id === result.storyInstanceId);
+      if (newStory) setSelected(newStory);
+
       navigate(`/story/${result.storyInstanceId}`);
     } catch (err) {
       console.error(err);
