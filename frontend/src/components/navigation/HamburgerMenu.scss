@@ -1,0 +1,98 @@
+@use '../../styles/variables' as v;
+
+.hamburger-menu {
+  position: relative;
+
+  &__toggle {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+
+    span {
+      display: block;
+      width: 24px;
+      height: 3px;
+      background-color: v.$color-text;
+      border-radius: 2px;
+      transition: transform 0.2s, opacity 0.2s;
+    }
+
+    &--open {
+      span:nth-child(1) {
+        transform: rotate(45deg) translate(5px, 6px);
+      }
+      span:nth-child(2) {
+        opacity: 0;
+      }
+      span:nth-child(3) {
+        transform: rotate(-45deg) translate(5px, -6px);
+      }
+    }
+  }
+
+  &__dropdown {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background: v.$color-container;
+    border: 1px solid v.$color-bg-main;
+    border-radius: 4px;
+    min-width: 200px;
+    z-index: 1000;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  }
+
+  &__link {
+    display: block;
+    padding: 0.8rem 1.2rem;
+    text-decoration: none;
+    color: v.$color-text;
+    transition: background 0.2s;
+
+    &:hover {
+      background: v.$color-accent;
+      color: v.$color-container;
+    }
+
+    &--active {
+      background: v.$color-accent;
+      color: v.$color-container;
+      font-weight: 600;
+    }
+  }
+
+  &__divider {
+    height: 1px;
+    background-color: v.$color-bg-main;
+    margin: 0.4rem 0;
+  }
+
+  &__story-item {
+    display: block;
+    width: 100%;
+    padding: 0.6rem 1.2rem;
+    text-align: left;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: v.$color-text;
+    font-family: inherit;
+    font-size: inherit;
+    transition: background 0.2s;
+
+    &:hover {
+      background: v.$color-accent;
+      color: v.$color-container;
+    }
+
+    &--active {
+      background: v.$color-accent;
+      color: v.$color-container;
+      font-weight: 600;
+    }
+  }
+}

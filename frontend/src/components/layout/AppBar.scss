@@ -1,0 +1,37 @@
+@use '../../styles/variables' as v;
+
+.app-bar {
+  display: flex;
+  align-items: center;
+  height: 60px;
+  padding: 0 1rem;
+  background-color: v.$color-bg-main;
+  flex-shrink: 0;
+
+  &__left {
+    flex: 0 0 auto;
+  }
+
+  &__center {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+  }
+
+  &__right {
+    flex: 0 0 auto;
+
+    .user-button__details {
+      display: none;
+    }
+
+    .user-button {
+      padding: 0;
+    }
+  }
+
+  &__logo {
+    width: 36px;
+    height: auto;
+  }
+}

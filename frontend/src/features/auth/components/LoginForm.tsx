@@ -14,7 +14,7 @@ export const LoginForm = () => {
 
   useEffect(() => {
     if (isLoggedIn) {
-      navigate('/');
+      navigate('/stories');
     }
   }, [isLoggedIn, navigate]);
 

@@ -1,0 +1,23 @@
+@use '../../styles/variables' as v;
+
+.nav-button {
+  display: block;
+  width: 100%;
+  padding: 0.6rem 1rem;
+  text-align: center;
+  text-decoration: none;
+  color: v.$color-text;
+  border-radius: 4px;
+  transition: background 0.2s, color 0.2s;
+
+  &:hover {
+    background: v.$color-accent;
+    color: v.$color-container;
+  }
+
+  &--active {
+    background: v.$color-accent;
+    color: v.$color-container;
+    font-weight: 600;
+  }
+}
