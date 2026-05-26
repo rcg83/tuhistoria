@@ -23,6 +23,8 @@
     box-sizing: border-box;
 
     @include mixs.respond-to('desktop') {
+      flex: 1;
+      width: auto;
       height: calc(100% - 4rem);
       margin: 2rem 0;
     }
