@@ -6,7 +6,10 @@
   text-align: center;
   text-decoration: none;
   color: v.$color-text;
-  border-radius: 4px;
+  font-family: 'Aguafina Script';
+  font-size: 1.8rem;
+  overflow-wrap: break-word;
+  line-height: 1.15;
   transition: background 0.2s, color 0.2s;
 
   &:hover {
@@ -15,8 +18,8 @@
   }
 
   &--active {
-    background: v.$color-accent;
-    color: v.$color-container;
-    font-weight: 600;
+    background: transparent;
+    color: v.$color-text;
+    font-weight: bold;
   }
 }

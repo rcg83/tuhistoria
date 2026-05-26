@@ -42,7 +42,7 @@ export const HamburgerMenu = () => {
             }
             onClick={handleNavClick}
           >
-            Historias
+            Tu historia
           </NavLink>
 
           {selected && (
@@ -53,9 +53,19 @@ export const HamburgerMenu = () => {
               }
               onClick={handleNavClick}
             >
-              Historia actual
+              Populares
             </NavLink>
           )}
+
+          <NavLink
+            to="/stories"
+            className={({ isActive }) =>
+              `hamburger-menu__link${isActive ? ' hamburger-menu__link--active' : ''}`
+            }
+            onClick={handleNavClick}
+          >
+            Favoritas
+          </NavLink>
         </div>
       )}
     </div>

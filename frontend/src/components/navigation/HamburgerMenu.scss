@@ -1,4 +1,4 @@
-@use '../../styles/variables' as v;
+@use 'src/styles/variables' as v;
 
 .hamburger-menu {
   position: relative;
@@ -51,6 +51,8 @@
     padding: 0.8rem 1.2rem;
     text-decoration: none;
     color: v.$color-text;
+    font-family: 'Aguafina Script', cursive;
+    font-size: 1.3rem;
     transition: background 0.2s;
 
     &:hover {
@@ -59,9 +61,10 @@
     }
 
     &--active {
-      background: v.$color-accent;
-      color: v.$color-container;
-      font-weight: 600;
+      background: transparent;
+      color: v.$color-text;
+      font-weight: bold;
+      font-size: 1.6rem;
     }
   }
 }
