@@ -1,6 +1,6 @@
 import { Logo } from '../logo/Logo.tsx';
 import { NavButton } from '../navigation/NavButton';
-import { useStories } from '../../features/stories/context/StoriesContext';
+import { useStories } from 'src/features/stories/context/StoriesContext';
 import './Leftbar.scss';
 
 export const Leftbar = () => {

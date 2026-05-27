@@ -7,9 +7,10 @@
   text-decoration: none;
   color: v.$color-text;
   font-family: 'Caveat';
+  margin-left: -0.4rem;
   font-size: 1.8rem;
   overflow-wrap: break-word;
-  line-height: 1.15;
+  line-height: 1;
   transition: background 0.2s, color 0.2s;
 
   &:hover {

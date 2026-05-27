@@ -1,12 +1,78 @@
+import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useAuth } from 'src/features/auth/context/AuthContext';
 import { BookWrapper } from 'src/components/layout/BookWrapper';
-import { useStories } from 'src/features/stories/context/StoriesContext';
 import { StoryCard } from 'src/features/stories/components/StoryCard';
+import { fetcher } from 'src/lib/fetcher';
+import type { Story } from 'src/features/stories/context/StoriesContext';
 import './StoriesPage.scss';
+
+const API_URL = import.meta.env.VITE_API_URL;
+
+interface Template {
+  _id: string;
+  title: string;
+  description: string;
+  initialText: string;
+  imageUrl?: string;
+}
 
 export const StoriesPage = () => {
   const { user } = useAuth();
-  const { stories, selected, selectStory, error, starting, startStory } = useStories();
+  const navigate = useNavigate();
+  const [templates, setTemplates] = useState<Template[]>([]);
+  const [selectedId, setSelectedId] = useState<string | null>(null);
+  const [error, setError] = useState<string | null>(null);
+  const [starting, setStarting] = useState(false);
+
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    if (!token) {
+      setError('No hay sesión activa');
+      return;
+    }
+    fetcher<Template[]>(`${API_URL}/api/stories`, {
+      headers: { Authorization: `Bearer ${token}` },
+    })
+      .then((data) => {
+        setTemplates(data);
+        if (data.length > 0) setSelectedId(data[0]._id);
+      })
+      .catch((err) => {
+        console.error(err);
+        setError(err.message || 'Error al cargar historias');
+      });
+  }, []);
+
+  const selected = templates.find((t) => t._id === selectedId) || null;
+
+  const handleStart = async (templateId: string) => {
+    const token = localStorage.getItem('token');
+    if (!token) return;
+
+    setStarting(true);
+    try {
+      const result = await fetcher<{ storyInstanceId: string }>(
+        `${API_URL}/api/stories/start`,
+        {
+          method: 'POST',
+          headers: { Authorization: `Bearer ${token}` },
+          body: JSON.stringify({ templateId }),
+        }
+      );
+      navigate(`/story/${result.storyInstanceId}`);
+    } catch (err) {
+      console.error(err);
+    } finally {
+      setStarting(false);
+    }
+  };
+
+  const asStory = (t: Template): Story => ({
+    _id: t._id,
+    template: { ...t, _id: t._id },
+    messages: [],
+  });
 
   return (
     <div className="stories-page">
@@ -18,13 +84,13 @@ export const StoriesPage = () => {
               <p className="story-list--error">{error}</p>
             ) : (
               <div className="story-list">
-                {stories.length === 0 && <p className="story-list--empty">Cargando...</p>}
-                {stories.map((s) => (
+                {templates.length === 0 && <p className="story-list--empty">Cargando...</p>}
+                {templates.map((t) => (
                   <StoryCard
-                    key={s._id}
-                    story={s}
-                    isActive={selected?._id === s._id}
-                    onClick={() => selectStory(s)}
+                    key={t._id}
+                    story={asStory(t)}
+                    isActive={selectedId === t._id}
+                    onClick={() => setSelectedId(t._id)}
                   />
                 ))}
               </div>
@@ -35,18 +101,16 @@ export const StoriesPage = () => {
           <div className="stories-content">
             {selected ? (
               <>
-                <h1>{selected.template.title}</h1>
-                <p className="stories-content__desc">{selected.template.description}</p>
-                <p className="stories-content__text">{selected.template.initialText}</p>
-                {selected.messages.length === 0 && (
-                  <button
-                    className="stories-content__start-btn"
-                    onClick={() => startStory(selected.template._id)}
-                    disabled={starting}
-                  >
-                    {starting ? 'Iniciando...' : 'Comenzar esta historia'}
-                  </button>
-                )}
+                <h1>{selected.title}</h1>
+                <p className="stories-content__desc">{selected.description}</p>
+                <p className="stories-content__text">{selected.initialText}</p>
+                <button
+                  className="stories-content__start-btn"
+                  onClick={() => handleStart(selected._id)}
+                  disabled={starting}
+                >
+                  {starting ? 'Iniciando...' : 'Comenzar esta historia'}
+                </button>
               </>
             ) : (
               <>

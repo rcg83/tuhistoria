@@ -1,5 +1,5 @@
-@use '../../styles/variables' as v;
-@use '../../styles/mixins' as mixs;
+@use 'src/styles/variables' as v;
+@use 'src/styles/mixins' as mixs;
 
 .main-layout {
   display: flex;
@@ -36,10 +36,6 @@
     &__right {
       display: block;
       flex: 0 0 10%;
-      width: 10%;
-      min-width: 10%;
-      max-width: 10%;
-      overflow: hidden;
     }
 
     .content-area {

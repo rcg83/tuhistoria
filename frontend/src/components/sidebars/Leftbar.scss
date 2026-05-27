@@ -1,4 +1,4 @@
-@use '../../styles/variables.scss' as v;
+@use 'src/styles/variables.scss' as vars;
 
 .leftbar {
 box-sizing: border-box;
@@ -8,7 +8,6 @@ box-sizing: border-box;
   width: 100%;
   height: 100vh;
   padding: 1.5rem 0;
-  background-color: v.$color-bg-main;
 
   &__logo-container {
     width: 50%;
