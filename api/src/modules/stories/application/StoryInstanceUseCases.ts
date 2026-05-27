@@ -53,18 +53,55 @@ export const chatWithStoryUseCase = (instanceRepo: StoryInstanceRepository) => {
     data?: Record<string, unknown>;
     error?: string;
     status?: number;
-  } | undefined> => {
+  }> => {
     const story = await instanceRepo.findById(id);
     if (!story) {
       return { error: 'Historia no encontrada', status: 404 };
     }
-    const history = ((story.messages as { role: string; text: string }[]) || []).map(msg => ({
-      role: msg.role,
-      parts: [{ text: msg.text }]
-    }));
-    try {
-      const aiResponse = await continueStory(history, userInput);
-    } catch (error) {
+
+    const template = story.template as Record<string, unknown> | undefined;
+    const history: { role: string; parts: { text: string }[] }[] = [];
+
+    if (template?.initialText) {
+      history.push(
+        { role: 'user', parts: [{ text: 'Eres un narrador de historias. Continúa la siguiente historia de forma natural e inmersiva.' }] },
+        { role: 'model', parts: [{ text: template.initialText as string }] }
+      );
     }
+
+    const msgs = (story.messages as { role: string; text: string }[]) || [];
+    for (const msg of msgs) {
+      history.push({ role: msg.role, parts: [{ text: msg.text }] });
+    }
+
+    try {
+      await instanceRepo.pushMessage(id, { role: 'user', text: userInput, timestamp: new Date() });
+
+      const aiResponse = await continueStory(history, userInput);
+
+      await instanceRepo.pushMessage(id, { role: 'model', text: aiResponse, timestamp: new Date() });
+
+      return { data: { response: aiResponse } };
+    } catch (error) {
+      const msg = error instanceof Error ? error.message : 'Error al comunicarse con la IA';
+      return { error: msg, status: 500 };
+    }
+  };
+};
+
+export const getStoryUseCase = (instanceRepo: StoryInstanceRepository) => {
+  return async (id: string, userId: string): Promise<{
+    data?: Record<string, unknown>;
+    error?: string;
+    status?: number;
+  }> => {
+    const story = await instanceRepo.findById(id);
+    if (!story) {
+      return { error: 'Historia no encontrada', status: 404 };
+    }
+    if (story.user?.toString() !== userId) {
+      return { error: 'No autorizado', status: 403 };
+    }
+    return { data: story };
   };
 };

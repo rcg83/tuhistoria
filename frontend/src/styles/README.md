@@ -4,7 +4,7 @@
 
 - **Vollkorn** — principal, texto general del body
 - **Lexend** — secundaria, variantes de peso para títulos, cuerpo
-- **Aguafina Script** — decorativa, solo en la letra inicial del botón de usuario
+- **Caveat** — decorativa, solo en la letra inicial del botón de usuario
 
 Cargadas desde Google Fonts en `main.scss` línea 3.
 

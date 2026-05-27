@@ -10,7 +10,8 @@ import {
 import {
   startStoryUseCase,
   getMyStoriesUseCase,
-  chatWithStoryUseCase
+  chatWithStoryUseCase,
+  getStoryUseCase
 } from '../../application/StoryInstanceUseCases.js';
 
 const templateRepo = mongoStoryTemplateRepository;
@@ -23,6 +24,7 @@ const remove = deleteStoryUseCase(templateRepo);
 const start = startStoryUseCase(instanceRepo, templateRepo);
 const myStories = getMyStoriesUseCase(instanceRepo, templateRepo);
 const chat = chatWithStoryUseCase(instanceRepo);
+const get = getStoryUseCase(instanceRepo);
 
 export const createStoryTemplate = async (req: Request, res: Response): Promise<void> => {
   try {
@@ -111,13 +113,34 @@ export const chatWithStory = async (req: Request, res: Response): Promise<void> 
   try {
     const id = req.params.id as string;
     const { userInput } = req.body;
-    const result = await chat(id, userInput);
-    if (result?.error) {
-      res.status(result.status!).json({ message: result.error });
+    if (!userInput || typeof userInput !== 'string') {
+      res.status(400).json({ message: 'Se requiere userInput' });
       return;
     }
-    // No response sent — matches original incomplete behavior
+    const result = await chat(id, userInput);
+    if (result.error) {
+      res.status(result.status).json({ message: result.error });
+      return;
+    }
+    res.json({ response: result.data!.response });
   } catch (error: unknown) {
-    // Empty catch — matches original storyController.js
+    const msg = error instanceof Error ? error.message : 'Error al procesar el mensaje';
+    res.status(500).json({ message: msg });
+  }
+};
+
+export const getStory = async (req: Request, res: Response): Promise<void> => {
+  try {
+    const id = req.params.id as string;
+    const user = (req as unknown as { user: { id: string } }).user;
+    const result = await get(id, user.id);
+    if (result.error) {
+      res.status(result.status).json({ message: result.error });
+      return;
+    }
+    res.json(result.data);
+  } catch (error: unknown) {
+    const msg = error instanceof Error ? error.message : 'Unknown error';
+    res.status(500).json({ message: 'Error al obtener la historia', error: msg });
   }
 };

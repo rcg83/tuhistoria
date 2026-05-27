@@ -12,7 +12,14 @@ export const fetcher = async <T>(
   });
 
   if (!response.ok) {
-    throw new Error(`Error ${response.status}: ${response.statusText}`);
+    let detail = '';
+    try {
+      const body = await response.json();
+      detail = body.message || body.error || '';
+    } catch {
+      /* ignore parse errors */
+    }
+    throw new Error(detail || `Error ${response.status}: ${response.statusText}`);
   }
   
   return response.json() as Promise<T>;

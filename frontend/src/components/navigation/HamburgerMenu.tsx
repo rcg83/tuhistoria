@@ -34,17 +34,6 @@ export const HamburgerMenu = () => {
 
       {open && (
         <div className="hamburger-menu__dropdown">
-          <NavLink
-            to="/stories"
-            end
-            className={({ isActive }) =>
-              `hamburger-menu__link${isActive ? ' hamburger-menu__link--active' : ''}`
-            }
-            onClick={handleNavClick}
-          >
-            Tu historia
-          </NavLink>
-
           {selected && (
             <NavLink
               to={`/story/${selected._id}`}
@@ -53,18 +42,19 @@ export const HamburgerMenu = () => {
               }
               onClick={handleNavClick}
             >
-              Populares
+              Sigue tu historia
             </NavLink>
           )}
 
           <NavLink
             to="/stories"
+            end
             className={({ isActive }) =>
               `hamburger-menu__link${isActive ? ' hamburger-menu__link--active' : ''}`
             }
             onClick={handleNavClick}
           >
-            Favoritas
+            Historias
           </NavLink>
         </div>
       )}

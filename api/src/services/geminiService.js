@@ -25,6 +25,12 @@ export const continueStory = async (history, prompt) => {
     history: history 
   });
 
-  const result = await chat.sendMessage(prompt);
+  const TIMEOUT_MS = 25000;
+  const result = await Promise.race([
+    chat.sendMessage(prompt),
+    new Promise((_, reject) =>
+      setTimeout(() => reject(new Error('La IA no respondió a tiempo')), TIMEOUT_MS)
+    )
+  ]);
   return result.response.text();
 };

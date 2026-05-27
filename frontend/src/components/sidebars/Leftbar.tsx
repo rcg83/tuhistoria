@@ -15,7 +15,6 @@ export const Leftbar = () => {
         {selected && (
           <NavButton to={`/story/${selected._id}`}>Sigue tu historia</NavButton>
         )}
-        <NavButton to="/stories">Historias favoritas</NavButton>
         <NavButton to="/stories">Historias</NavButton>
       </div>
     </nav>

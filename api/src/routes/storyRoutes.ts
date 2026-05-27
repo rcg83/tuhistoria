@@ -1,5 +1,5 @@
 import { Router, Request, Response } from 'express';
-import { createStoryTemplate, startStory, getStories, deleteStory, chatWithStory, updateStoryTemplateById, getMyStories } from '../modules/stories/infrastructure/http/StoryController.js';
+import { createStoryTemplate, startStory, getStories, deleteStory, chatWithStory, updateStoryTemplateById, getMyStories, getStory } from '../modules/stories/infrastructure/http/StoryController.js';
 import { protect, authorize } from '../middlewares/authMiddlewares.js';
 
 import { testGemini, continueStory } from '../services/geminiService.js';
@@ -8,6 +8,7 @@ const router: Router = Router();
 
 router.get('/', protect, getStories);
 router.get('/my-stories', protect, getMyStories);
+router.get('/:id', protect, getStory);
 router.post('/start', protect, startStory);
 router.post('/:id/chat', protect, chatWithStory);
 

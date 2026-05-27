@@ -8,7 +8,8 @@ export const mongoStoryInstanceRepository: StoryInstanceRepository = {
   },
 
   async findById(id: string): Promise<Record<string, unknown> | null> {
-    const doc = await MongoStoryInstanceModel.findById(id);
+    const doc = await MongoStoryInstanceModel.findById(id)
+      .populate('template');
     return doc ? doc.toObject() : null;
   },
 
@@ -17,5 +18,11 @@ export const mongoStoryInstanceRepository: StoryInstanceRepository = {
       .populate('template')
       .sort({ _id: -1 });
     return docs.map(d => d.toObject());
+  },
+
+  async pushMessage(id: string, message: { role: 'user' | 'model'; text: string }): Promise<void> {
+    await MongoStoryInstanceModel.findByIdAndUpdate(id, {
+      $push: { messages: message }
+    });
   }
 };
