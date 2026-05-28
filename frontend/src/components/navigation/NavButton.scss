@@ -11,13 +11,6 @@
   font-size: 1.8rem;
   overflow-wrap: break-word;
   line-height: 1;
-  transition: background 0.2s, color 0.2s;
-
-  &:hover {
-    background: v.$color-accent;
-    color: v.$color-container;
-  }
-
   &--active {
     background: transparent;
     color: v.$color-text;

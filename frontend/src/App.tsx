@@ -17,7 +17,7 @@ export const App = () => {
           path='/login' 
           element={
             <BookWrapper 
-              leftPage={<div className="book__cover">MERN Project</div>}
+              singlePage
               rightPage={<LoginForm />}
             />
           } 

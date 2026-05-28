@@ -53,13 +53,6 @@
     color: v.$color-text;
     font-family: 'Caveat', cursive;
     font-size: 1.3rem;
-    transition: background 0.2s;
-
-    &:hover {
-      background: v.$color-accent;
-      color: v.$color-container;
-    }
-
     &--active {
       background: transparent;
       color: v.$color-text;

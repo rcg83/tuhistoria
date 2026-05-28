@@ -33,7 +33,7 @@
       border-radius: 1rem;
 
       @include mixs.respond-to('desktop') {
-        border-radius: 6% 1.8rem 55% 1.1rem / 1.2% 1.2rem 2% 3%;
+        border-radius: 0.55rem 27.5% 27.5% 0.55rem / 1.5% 1% 1% 1.5%;
 
         background-image: linear-gradient(
           to right,
@@ -48,7 +48,7 @@
       border-radius: 1rem;
 
       @include mixs.respond-to('desktop') {
-        border-radius: 1.1rem 6% 1.1rem 55% / 1.2rem 1.2rem 3% 2%;
+        border-radius: 27.5% 0.55rem 0.55rem 27.5% / 1% 1.5% 1.5% 1%;
 
         background-image: linear-gradient(
           to left,
@@ -56,6 +56,18 @@
           vars.$color-bg-main 99.8%,
           vars.$color-interact 100%
         );
+      }
+    }
+  }
+
+  &--single {
+    @include mixs.respond-to('desktop') {
+      justify-content: center;
+
+      .book__page--right {
+        flex: 0 1 auto;
+        max-width: 500px;
+        width: 100%;
       }
     }
   }
