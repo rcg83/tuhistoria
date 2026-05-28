@@ -41,14 +41,14 @@
 
   &__title {
     margin: 0 0 0.2rem;
-    font-size: 0.95rem;
+    font-size: 1.2rem;
     font-weight: 600;
     color: v.$color-text;
   }
 
   &__desc {
     margin: 0 0 0.3rem;
-    font-size: 0.78rem;
+    font-size: 1.2rem;
     color: v.$color-interact;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -57,7 +57,7 @@
   &__meta {
     display: flex;
     gap: 0.6rem;
-    font-size: 0.7rem;
+    font-size: 1.2rem;
     color: v.$color-interact;
   }
 }

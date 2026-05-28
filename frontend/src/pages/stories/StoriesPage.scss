@@ -17,7 +17,7 @@
 .stories-sidebar {
   h2 {
     color: v.$color-text;
-    font-size: 1.2rem;
+    font-size: 2rem;
     margin-bottom: 1rem;
   }
 }
@@ -35,15 +35,22 @@
 }
 
 .stories-content {
+  h1 {
+    font-size: 2rem;
+    color: v.$color-text;
+  }
+
   &__desc {
     color: v.$color-interact;
     font-style: italic;
     margin-bottom: 1rem;
+    font-size: 1.2rem;
   }
 
   &__text {
     color: v.$color-text;
     line-height: 1.6;
+    font-size: 1.2rem;
   }
 
   &__start-btn {
