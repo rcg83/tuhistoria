@@ -18,8 +18,6 @@ function formatDate(dateStr?: string): string {
 }
 
 export const StoryCard = ({ story, isActive, onClick }: StoryCardProps) => {
-  const msgCount = story.messages.length;
-
   return (
     <div
       className={`story-card${isActive ? ' story-card--active' : ''}`}
@@ -36,7 +34,6 @@ export const StoryCard = ({ story, isActive, onClick }: StoryCardProps) => {
         <h3 className="story-card__title">{story.template.title}</h3>
         <p className="story-card__desc">{story.template.description}</p>
         <div className="story-card__meta">
-          <span>📝 {msgCount}</span>
           {story.createdAt && <span>🕐 {formatDate(story.createdAt)}</span>}
         </div>
       </div>

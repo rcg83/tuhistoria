@@ -21,12 +21,8 @@
   }
 
   &--active {
-    background: v.$color-accent;
-
-    .story-card__title,
-    .story-card__desc,
-    .story-card__meta {
-      color: v.$color-container;
+    .story-card__title {
+      font-weight: bold;
     }
   }
 
