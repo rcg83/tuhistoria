@@ -11,52 +11,50 @@ Express 4 + Mongoose 7 + JWT + Google Gemini AI. Backend del stack MERN de tuhis
 | Base de datos | MongoDB via Mongoose 7 |
 | Auth | bcryptjs + jsonwebtoken (JWT) |
 | IA | `@google/generative-ai` (modelo `gemini-2.5-flash`) |
-| Loader | `ts-node/esm` para archivos `.ts`, node nativo para `.js` |
+| Loader | `ts-node/esm` para archivos `.ts` |
 
 ## Arquitectura
 
 ```
 src/
-  config/           db.ts (conexión MongoDB), seeder.ts (vacío)
-  controllers/      userController.js, storyController.js
-  middlewares/       authMiddlewares.js (protect + authorize)
-  routes/           userRoutes.js, storyRoutes.js
-  schemas/          Modelos legacy: User.js, UserProfile.js, StoryMessage.js
-  services/         geminiService.js (comunicación con Gemini API)
+  config/           db.ts (conexión MongoDB), seeder.ts
+  middlewares/       authMiddlewares.ts (protect + authorize)
+  routes/           userRoutes.ts, storyRoutes.ts
+  services/         geminiService.ts (comunicación con Gemini API)
   modules/          Capas DDD (parcialmente implementadas)
     auth/           Vacío (application/, domain/, infrastructure/ sin archivos)
     stories/
-      domain/       Story.ts (interfaces Message, Story)
-      application/  Vacío
+      domain/       Story.ts, StoryInstance.ts, StoryTemplate.ts
+      application/  StoryInstanceUseCases.ts, StoryTemplateUseCases.ts
       infrastructure/persistence/
-        MongoStoryModel.ts   (StoryTemplate schema+model)
-        StoryInstance.ts     (StoryInstance interface+schema+model)
+        MongoStoryTemplateModel.ts    (StoryTemplate schema+model)
+        MongoStoryInstanceModel.ts    (StoryInstance schema+model)
 ```
 
-- **Rutas** → **Controladores** → **Schemas/Modelos** (flujo principal, estilo MVC)
-- **Rutas** → **Servicios** (ruta `/test-ai` y `/test-chat` llaman directo a `geminiService.js`)
-- **`modules/`** arquitectura hexagonal esbozada: solo la capa de persistencia de stories tiene modelos; el resto está vacío.
+- **Rutas** → **Controladores** → **Modelos** (flujo principal)
+- **Rutas** → **Servicios** (ruta `/test-ai` y `/test-chat` llaman directo a `geminiService.ts`)
+- **`modules/`** arquitectura hexagonal esbozada
 
 ## Modelos de datos
 
-### User (schemas/User.js)
+### User (modules/user/infrastructure/persistence/MongoUserModel.ts)
 ```
 username, email, password (hash), role: 'user'|'admin' (default 'user'), createdAt
 ```
 
-### UserProfile (schemas/UserProfile.js)
+### UserProfile (modules/user/infrastructure/persistence/MongoUserProfileModel.ts)
 ```
 user (ref: User), bio, avatarUrl, location, timestamps
 ```
 Relación 1:1 con User. Se crea automáticamente al registrar.
 
-### StoryTemplate (modules/stories/infrastructure/persistence/MongoStoryModel.ts)
+### StoryTemplate (modules/stories/infrastructure/persistence/MongoStoryTemplateModel.ts)
 ```
 title, description, initialText, imageUrl
 ```
 Plantillas precargadas por un admin.
 
-### StoryInstance (modules/stories/infrastructure/persistence/StoryInstance.ts)
+### StoryInstance (modules/stories/infrastructure/persistence/MongoStoryInstanceModel.ts)
 ```
 user (ref: User), template (ref: StoryTemplate), messages[{ role, text, timestamp }]
 ```
@@ -112,8 +110,7 @@ Instancia de una historia en curso, creada cuando un usuario la inicia.
 
 ## Pendientes / notas
 
-- `chatWithStory` en `storyController.js`: tiene el catch block vacío y la respuesta de IA (`aiResponse`) se calcula pero nunca se retorna.
+- `chatWithStory` en `StoryController.ts`: tiene el catch block vacío y la respuesta de IA (`aiResponse`) se calcula pero nunca se retorna.
 - `modules/auth/` completo está vacío (solo existe la estructura de carpetas).
-- `src/config/seeder.ts` existe pero está vacío.
-- El código es mixto `.js`/`.ts`: los archivos `.ts` se cargan con `ts-node/esm`; los `.js` con node nativo. `tsconfig.json` tiene `strict: false` y `checkJs: false`.
+- `tsconfig.json` tiene `strict: false` y `checkJs: false`.
 - Sin framework de tests, sin formateador, sin CI.

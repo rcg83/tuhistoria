@@ -1,4 +1,4 @@
-import { MongoStoryTemplateModel } from './MongoStoryModel.js';
+import { MongoStoryTemplateModel } from './MongoStoryTemplateModel.js';
 import type { StoryTemplateRepository } from '../../domain/StoryTemplateRepository.js';
 import type { StoryTemplate } from '../../domain/StoryTemplate.js';
 

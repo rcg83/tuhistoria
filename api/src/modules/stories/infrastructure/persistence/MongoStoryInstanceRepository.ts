@@ -1,4 +1,4 @@
-import { MongoStoryInstanceModel } from './StoryInstance.js';
+import { MongoStoryInstanceModel } from './MongoStoryInstanceModel.js';
 import type { StoryInstanceRepository } from '../../domain/StoryInstanceRepository.js';
 
 export const mongoStoryInstanceRepository: StoryInstanceRepository = {

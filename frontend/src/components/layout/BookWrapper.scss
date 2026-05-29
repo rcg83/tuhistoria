@@ -19,7 +19,7 @@
     width: 100%;
     height: auto;
     min-height: 25rem;
-    padding: 2rem;
+    padding: 3rem 4rem;
     box-sizing: border-box;
 
     @include mixs.respond-to('desktop') {

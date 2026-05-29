@@ -20,17 +20,13 @@
   &__error {
     font-family: serif;
     color: v.$color-text;
-    padding: 2rem;
+    padding: 3rem;
     text-align: center;
-  }
-
-  &__history {
-    padding: 1.5rem;
   }
 
   &__title {
     font-family: serif;
-    font-size: 1.5rem;
+    font-size: v.$font-big;
     font-weight: normal;
     color: v.$color-text;
     margin: 0 0 0.25rem;
@@ -38,7 +34,7 @@
 
   &__desc {
     font-family: serif;
-    font-size: 0.85rem;
+    font-size: v.$font-medium;
     color: v.$color-interact;
     margin: 0 0 1rem;
     font-style: italic;
@@ -46,7 +42,7 @@
 
   &__initial {
     font-family: serif;
-    font-size: 1rem;
+    font-size: v.$font-medium;
     line-height: 1.6;
     color: v.$color-text;
   }
@@ -56,7 +52,6 @@
     display: flex;
     flex-direction: column;
     min-height: 0;
-    padding: 1.5rem;
   }
 
   &__messages {
@@ -90,7 +85,7 @@
 
   &__msg {
     font-family: serif;
-    font-size: 0.95rem;
+    font-size: v.$font-medium;
     line-height: 1.5;
     margin-bottom: 0.75rem;
     padding: 0.5rem 0.75rem;
@@ -111,7 +106,7 @@
 
   &__label {
     display: block;
-    font-size: 0.75rem;
+    font-size: v.$font-medium;
     font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 0.05em;
@@ -128,7 +123,7 @@
 
   &__error-msg {
     font-family: serif;
-    font-size: 0.85rem;
+    font-size: v.$font-medium;
     color: #b33;
     background: rgba(#b33, 0.08);
     padding: 0.5rem 0.75rem;
@@ -147,7 +142,7 @@
   &__input {
     width: 100%;
     font-family: serif;
-    font-size: 0.95rem;
+    font-size: v.$font-medium;
     color: v.$color-text;
     background: v.$color-container;
     border: 1px solid v.$color-bg-main;
@@ -168,7 +163,7 @@
 
   &__send {
     font-family: serif;
-    font-size: 0.95rem;
+    font-size: v.$font-medium;
     color: #fff;
     background: v.$color-interact;
     border: none;

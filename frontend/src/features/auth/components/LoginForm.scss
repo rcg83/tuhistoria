@@ -15,7 +15,7 @@
   }
 
   &__title {
-    font-size: 1.8rem;
+    font-size: v.$font-big;
     color: v.$color-text;
     font-weight: normal;
     border-bottom: 1px solid rgba(v.$color-interact, 0.2);
@@ -35,7 +35,7 @@
       border-bottom: 1px solid rgba(v.$color-interact, 0.3);
       padding: 0.8rem 0.2rem;
       font-family: serif;
-      font-size: 1.1rem;
+      font-size: v.$font-medium;
       color: v.$color-text;
       outline: none;
       transition: border-bottom 0.3s ease;
@@ -43,7 +43,7 @@
       &::placeholder {
         color: rgba(v.$color-text, 0.4);
         font-style: italic;
-        font-size: 0.9rem;
+        font-size: v.$font-medium;
       }
 
       &:focus {
@@ -55,7 +55,7 @@
   &__error {
     color: #d32f2f;
     font-family: serif;
-    font-size: 0.85rem;
+    font-size: v.$font-medium;
     text-align: center;
     margin: 0;
   }
@@ -63,7 +63,7 @@
   &__success {
     color: #2e7d32;
     font-family: serif;
-    font-size: 0.85rem;
+    font-size: v.$font-medium;
     text-align: center;
     margin: 0;
   }
@@ -99,7 +99,7 @@
     color: rgba(v.$color-text, 0.6);
     font-family: serif;
     font-style: italic;
-    font-size: 0.9rem;
+    font-size: v.$font-medium;
     cursor: pointer;
     text-decoration: underline;
     transition: color 0.3s ease;

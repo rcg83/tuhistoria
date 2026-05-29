@@ -1,7 +1,7 @@
 import { MongoUserModel } from '../modules/user/infrastructure/persistence/MongoUserModel.js';
 import { MongoUserProfileModel } from '../modules/user/infrastructure/persistence/MongoUserProfileModel.js';
 import bcrypt from 'bcryptjs';
-import { MongoStoryTemplateModel } from '../modules/stories/infrastructure/persistence/MongoStoryModel.js';
+import { MongoStoryTemplateModel } from '../modules/stories/infrastructure/persistence/MongoStoryTemplateModel.js';
 
 const DEFAULT_USER = {
   username: 'viajero',
