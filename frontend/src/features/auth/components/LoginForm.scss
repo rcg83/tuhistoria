@@ -1,13 +1,31 @@
 @use '../../../styles/variables.scss' as v;
-@use '../../../styles/mixins.scss' as m;
 
 .book-login {
   display: flex;
   flex-direction: column;
-  justify-content: flex-start;
   align-items: center;
   height: 100%;
-  font-family: serif;
+
+  &__top {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-shrink: 0;
+    padding-top: 2rem;
+
+    .logo-icon {
+      fill: v.$color-interact;
+    }
+  }
+
+  &__bottom {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    flex: 1;
+    width: 100%;
+  }
 
   &__header {
     margin-bottom: 3rem;
@@ -34,7 +52,6 @@
       border: none;
       border-bottom: 1px solid rgba(v.$color-interact, 0.3);
       padding: 0.8rem 0.2rem;
-      font-family: serif;
       font-size: v.$font-medium;
       color: v.$color-text;
       outline: none;
@@ -54,7 +71,6 @@
 
   &__error {
     color: #d32f2f;
-    font-family: serif;
     font-size: v.$font-medium;
     text-align: center;
     margin: 0;
@@ -62,7 +78,6 @@
 
   &__success {
     color: #2e7d32;
-    font-family: serif;
     font-size: v.$font-medium;
     text-align: center;
     margin: 0;
@@ -80,7 +95,6 @@
     border: 1px solid v.$color-interact;
     color: v.$color-interact;
     padding: 0.7rem;
-    font-family: sans-serif;
     font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 2px;
@@ -97,7 +111,6 @@
     background: none;
     border: none;
     color: rgba(v.$color-text, 0.6);
-    font-family: serif;
     font-style: italic;
     font-size: v.$font-medium;
     cursor: pointer;

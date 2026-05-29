@@ -67,7 +67,6 @@ export const StoryPage = () => {
     };
 
     setMessages(prev => [...prev, userMsg]);
-    setInput('');
     setSendError(null);
     setSending(true);
 
@@ -85,6 +84,8 @@ export const StoryPage = () => {
         }
       );
       clearTimeout(timeout);
+
+      setInput('');
 
       const aiMsg: Message = {
         role: 'model',
@@ -128,10 +129,14 @@ export const StoryPage = () => {
     <div className="story-page">
       <BookWrapper
         leftPage={
-          <div className="story-page__history">
+          <div className="story-page__left">
             <h1 className="story-page__title">{story.template.title}</h1>
             <p className="story-page__desc">{story.template.description}</p>
-            <p className="story-page__initial">{story.template.initialText}</p>
+            <img
+              className="story-page__image"
+              src={story.template.imageUrl}
+              alt={story.template.title}
+            />
           </div>
         }
         rightPage={

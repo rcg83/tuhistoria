@@ -1,7 +1,7 @@
 import { MongoUserModel } from '../modules/user/infrastructure/persistence/MongoUserModel.js';
 import { MongoUserProfileModel } from '../modules/user/infrastructure/persistence/MongoUserProfileModel.js';
-import bcrypt from 'bcryptjs';
 import { MongoStoryTemplateModel } from '../modules/stories/infrastructure/persistence/MongoStoryTemplateModel.js';
+import bcrypt from 'bcryptjs';
 
 const DEFAULT_USER = {
   username: 'viajero',
@@ -15,17 +15,24 @@ const DEFAULT_TEMPLATES = [
     title: 'La última noche del Titanic',
     description: 'Estamos a bordo del Titanic en su viaje inaugural. La noche del 14 de abril de 1912, algo está a punto de ocurrir...',
     initialText: 'La noche es fría y el océano está en calma...',
-    imageUrl: '',
+    imageUrl: '/images/titanic.png',
   },
   {
     title: 'La isla de la Medusa',
     description: 'Una expedición en busca de la mítica isla donde habita la Medusa. Entre niebla y leyendas, nada es lo que parece.',
     initialText: 'El barco corta la niebla mientras el vigía grita: "¡Tierra a la vista!"...',
-    imageUrl: '',
+    imageUrl: '/images/medusa.png',
   },
 ];
 
 export async function seed(): Promise<void> {
+  for (const tpl of DEFAULT_TEMPLATES) {
+    await MongoStoryTemplateModel.updateOne(
+      { title: tpl.title },
+      { $set: { imageUrl: tpl.imageUrl } }
+    );
+  }
+
   const existing = await MongoUserModel.findOne({ email: DEFAULT_USER.email });
   if (existing) {
     console.log('Seeder: usuario por defecto ya existe');

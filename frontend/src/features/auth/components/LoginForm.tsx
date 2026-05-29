@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from 'src/features/auth/context/AuthContext';
+import { Logo } from 'src/components/logo/Logo';
 import './LoginForm.scss';
 
 export const LoginForm = () => {
@@ -39,11 +40,16 @@ export const LoginForm = () => {
 
   return (
     <div className="book-login">
-      <div className="book-login__header">
-        <h2 className="book-login__title">
-          {isRegister ? 'Crea tu historia' : 'Continúa tu historia'}
-        </h2>
+      <div className="book-login__top">
+        <Logo width={140} height={140} />
       </div>
+
+      <div className="book-login__bottom">
+        <div className="book-login__header">
+          <h2 className="book-login__title">
+            {isRegister ? 'Crea tu historia' : 'Continúa tu historia'}
+          </h2>
+        </div>
 
       <form onSubmit={handleSubmit} className="book-login__form">
         {isRegister && (
@@ -91,6 +97,7 @@ export const LoginForm = () => {
           </button>
         </div>
       </form>
+      </div>
     </div>
   );
 };

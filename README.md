@@ -5,7 +5,7 @@
 ### Global
 - **Docker**: Contenerización de la infraestructura para asegurar un despliegue consistente.
 - **Stack MERN**: Arquitectura basada en MongoDB, Express, React y Node.js.
-- **TypeScript**: Implementación de tipado estático en todo el stack para un desarrollo más seguro y escalable.
+- **TypeScript**: Implementación de tipado en todo el stack para un desarrollo más seguro y escalable.
 
 ### Frontend
 - **React**: Biblioteca para la creación de interfaces de usuario dinámicas basadas en componentes.

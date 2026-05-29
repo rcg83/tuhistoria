@@ -1,11 +1,8 @@
-/* Servicio encargado de la comunicación directa con la API de Google Gemini. */
-
 import { GoogleGenerativeAI } from "@google/generative-ai";
 import 'dotenv/config';
 
 const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY as string);
 
-/* Función solo para probar que funcione Gemini. */
 export const testGemini = async (prompt: string): Promise<string> => {
   const model = genAI.getGenerativeModel({
     model: "gemini-flash-latest"
@@ -15,12 +12,15 @@ export const testGemini = async (prompt: string): Promise<string> => {
   return result.response.text();
 };
 
-/* Función para continuar la historia con el contexto de los mensajes. */
 export const continueStory = async (
   history: { role: string; parts: { text: string }[] }[],
-  prompt: string
+  prompt: string,
+  systemInstruction?: string
 ): Promise<string> => {
-  const model = genAI.getGenerativeModel({ model: "gemini-2.5-flash" });
+  const model = genAI.getGenerativeModel({
+    model: "gemini-2.5-flash",
+    ...(systemInstruction ? { systemInstruction: { role: 'user', parts: [{ text: systemInstruction }] } } : {})
+  });
 
   const chat = model.startChat({
     history: history

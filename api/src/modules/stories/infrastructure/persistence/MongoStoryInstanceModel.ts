@@ -8,6 +8,7 @@ export interface StoryInstance {
     text: string;
     timestamp: Date;
   }[];
+  summary?: string;
   createdAt: Date;
 }
 
@@ -27,6 +28,7 @@ const storyInstanceSchema = new Schema<StoryInstance>({
     text: { type: String, required: true },
     timestamp: { type: Date, default: Date.now }
   }],
+  summary: { type: String, default: '' },
   createdAt: { type: Date, default: Date.now }
 });
 

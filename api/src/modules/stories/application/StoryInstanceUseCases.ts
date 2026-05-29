@@ -2,6 +2,14 @@ import type { StoryInstanceRepository } from '../domain/StoryInstanceRepository.
 import type { StoryTemplateRepository } from '../domain/StoryTemplateRepository.js';
 import { continueStory } from '../../../services/geminiService.js';
 
+const SYSTEM_PROMPT = `Eres el director de una partida de rol de narración. Describe la historia en segunda persona, como si el lector fuera el protagonista. Usa un tono inmersivo y descriptivo, estilo: "Estás en...", "De repente oyes...", "Frente a ti ves...".
+
+Responde siempre en el siguiente formato:
+<<NARRATIVA>>
+tu narrativa aquí
+<<RESUMEN>>
+resumen actualizado de toda la historia incluyendo esta última acción`;
+
 export const startStoryUseCase = (
   instanceRepo: StoryInstanceRepository,
   templateRepo: StoryTemplateRepository
@@ -20,7 +28,7 @@ export const startStoryUseCase = (
       user: userId,
       messages: []
     });
-    return { data: story };
+    return { data: { ...story, initialText: template.initialText } };
   };
 };
 
@@ -60,30 +68,51 @@ export const chatWithStoryUseCase = (instanceRepo: StoryInstanceRepository) => {
     }
 
     const template = story.template as Record<string, unknown> | undefined;
+    const currentSummary = (story as Record<string, unknown>).summary as string | undefined;
     const history: { role: string; parts: { text: string }[] }[] = [];
 
-    if (template?.initialText) {
+    if (currentSummary) {
       history.push(
-        { role: 'user', parts: [{ text: 'Eres un narrador de historias. Continúa la siguiente historia de forma natural e inmersiva.' }] },
+        { role: 'user', parts: [{ text: `Resume brevemente la historia hasta ahora en una línea.` }] },
+        { role: 'model', parts: [{ text: currentSummary }] }
+      );
+    } else if (template?.initialText) {
+      history.push(
+        { role: 'user', parts: [{ text: 'Comienza la historia.' }] },
         { role: 'model', parts: [{ text: template.initialText as string }] }
       );
     }
 
-    const msgs = (story.messages as { role: string; text: string }[]) || [];
-    for (const msg of msgs) {
-      history.push({ role: msg.role, parts: [{ text: msg.text }] });
-    }
+    const prompt = userInput;
 
     try {
       await instanceRepo.pushMessage(id, { role: 'user', text: userInput, timestamp: new Date() });
 
-      const aiResponse = await continueStory(history, userInput);
+      const aiResponse = await continueStory(history, prompt, SYSTEM_PROMPT);
 
-      await instanceRepo.pushMessage(id, { role: 'model', text: aiResponse, timestamp: new Date() });
+      const narrativeMatch = aiResponse.match(/<<NARRATIVA>>\s*([\s\S]*?)\s*<<RESUMEN>>/);
+      const summaryMatch = aiResponse.match(/<<RESUMEN>>\s*([\s\S]*)/);
 
-      return { data: { response: aiResponse } };
+      const narrative = narrativeMatch ? narrativeMatch[1].trim() : aiResponse.trim();
+      const newSummary = summaryMatch ? summaryMatch[1].trim() : '';
+
+      await instanceRepo.pushMessage(id, { role: 'model', text: narrative, timestamp: new Date() });
+
+      if (newSummary) {
+        await instanceRepo.updateSummary(id, newSummary);
+      }
+
+      return { data: { response: narrative } };
     } catch (error) {
-      const msg = error instanceof Error ? error.message : 'Error al comunicarse con la IA';
+      let msg = 'Error al comunicarse con la IA';
+      if (error instanceof Error) {
+        const fetchError = error as unknown as Record<string, unknown>;
+        if (fetchError.status === 503) {
+          msg = 'El servicio de IA está saturado. Intenta de nuevo en unos segundos.';
+        } else {
+          msg = error.message;
+        }
+      }
       return { error: msg, status: 500 };
     }
   };

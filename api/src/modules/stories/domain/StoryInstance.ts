@@ -9,5 +9,6 @@ export interface StoryInstance {
   user: string;
   template: string | Record<string, unknown>;
   messages: StoryMessage[];
+  summary?: string;
   createdAt?: Date;
 }

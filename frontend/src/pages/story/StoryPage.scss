@@ -24,6 +24,12 @@
     text-align: center;
   }
 
+  &__left {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+  }
+
   &__title {
     font-family: serif;
     font-size: v.$font-big;
@@ -40,11 +46,12 @@
     font-style: italic;
   }
 
-  &__initial {
-    font-family: serif;
-    font-size: v.$font-medium;
-    line-height: 1.6;
-    color: v.$color-text;
+  &__image {
+    flex: 1;
+    width: 100%;
+    min-height: 0;
+    object-fit: cover;
+    border-radius: 4px;
   }
 
   &__write {

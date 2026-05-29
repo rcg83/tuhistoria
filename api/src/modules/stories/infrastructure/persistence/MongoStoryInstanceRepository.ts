@@ -24,5 +24,9 @@ export const mongoStoryInstanceRepository: StoryInstanceRepository = {
     await MongoStoryInstanceModel.findByIdAndUpdate(id, {
       $push: { messages: message }
     });
+  },
+
+  async updateSummary(id: string, summary: string): Promise<void> {
+    await MongoStoryInstanceModel.findByIdAndUpdate(id, { summary });
   }
 };
