@@ -1,0 +1,111 @@
+@use '../../styles/variables' as v;
+
+.my-stories-page {
+  width: 100%;
+  height: 100%;
+
+  &--loading,
+  &--empty {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: v.$color-text;
+    padding: 2rem;
+  }
+
+  &__browse-btn {
+    display: inline-block;
+    margin-top: 1rem;
+    padding: 0.75rem 2rem;
+    background: v.$color-interact;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 4px;
+    font-size: v.$font-medium;
+  }
+}
+
+.my-stories-sidebar {
+  h2 {
+    color: v.$color-text;
+    font-size: v.$font-big;
+    margin-bottom: 1rem;
+  }
+}
+
+.my-stories-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+
+  &--error {
+    color: #c0392b;
+    font-style: italic;
+  }
+}
+
+.my-stories-content {
+  h1 {
+    font-size: v.$font-big;
+    color: v.$color-text;
+  }
+
+  &__desc {
+    color: v.$color-interact;
+    font-style: italic;
+    margin-bottom: 1rem;
+    font-size: v.$font-medium;
+  }
+
+  &__meta {
+    display: flex;
+    gap: 1rem;
+    font-size: v.$font-medium;
+    color: v.$color-interact;
+    margin-bottom: 1rem;
+  }
+
+  &__preview {
+    background: rgba(v.$color-container, 0.6);
+    border-left: 2px solid v.$color-interact;
+    padding: 0.75rem;
+    border-radius: 4px;
+    margin-bottom: 1.5rem;
+
+    &-label {
+      font-size: v.$font-medium;
+      font-weight: 600;
+      color: v.$color-interact;
+      margin: 0 0 0.25rem;
+    }
+
+    &-text {
+      font-size: v.$font-medium;
+      color: v.$color-text;
+      margin: 0;
+      line-height: 1.5;
+    }
+  }
+
+  &__continue-btn {
+    display: block;
+    width: 100%;
+    padding: 1rem 2rem;
+    background: v.$color-interact;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    font-size: v.$font-medium;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    cursor: pointer;
+    transition: background 0.3s;
+
+    &:hover {
+      background: v.$color-accent;
+    }
+  }
+}

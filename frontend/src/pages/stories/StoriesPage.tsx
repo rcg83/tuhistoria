@@ -70,7 +70,7 @@ export const StoriesPage = () => {
 
   const asStory = (t: Template): Story => ({
     _id: t._id,
-    template: { ...t, _id: t._id },
+    template: { ...t, _id: t._id, imageUrl: t.imageUrl || '' },
     messages: [],
   });
 

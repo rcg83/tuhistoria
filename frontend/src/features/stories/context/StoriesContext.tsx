@@ -1,4 +1,4 @@
-import { createContext, useContext, useState, useEffect, useCallback, type ReactNode } from 'react';
+import { createContext, useContext, useState, useCallback, type ReactNode } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { fetcher } from 'src/lib/fetcher';
 
@@ -19,8 +19,6 @@ export interface Story {
 
 interface StoriesContextValue {
   stories: Story[];
-  selected: Story | null;
-  selectStory: (story: Story | null) => void;
   error: string | null;
   starting: boolean;
   startStory: (templateId: string) => Promise<void>;
@@ -31,7 +29,6 @@ const StoriesContext = createContext<StoriesContextValue | null>(null);
 export const StoriesProvider = ({ children }: { children: ReactNode }) => {
   const navigate = useNavigate();
   const [stories, setStories] = useState<Story[]>([]);
-  const [selected, setSelected] = useState<Story | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [starting, setStarting] = useState(false);
 
@@ -54,12 +51,6 @@ export const StoriesProvider = ({ children }: { children: ReactNode }) => {
     }
   }, []);
 
-  useEffect(() => {
-    fetchStories().then((data) => {
-      if (data && data.length > 0) setSelected(data[0]);
-    });
-  }, [fetchStories]);
-
   const startStory = async (templateId: string) => {
     const token = localStorage.getItem('token');
     if (!token) return;
@@ -75,9 +66,7 @@ export const StoriesProvider = ({ children }: { children: ReactNode }) => {
         }
       );
 
-      const data = await fetchStories();
-      const newStory = data?.find((s) => s._id === result.storyInstanceId);
-      if (newStory) setSelected(newStory);
+      await fetchStories();
 
       navigate(`/story/${result.storyInstanceId}`);
     } catch (err) {
@@ -89,7 +78,7 @@ export const StoriesProvider = ({ children }: { children: ReactNode }) => {
 
   return (
     <StoriesContext.Provider
-      value={{ stories, selected, selectStory: setSelected, error, starting, startStory }}
+      value={{ stories, error, starting, startStory }}
     >
       {children}
     </StoriesContext.Provider>

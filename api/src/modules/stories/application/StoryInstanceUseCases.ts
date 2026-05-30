@@ -34,27 +34,9 @@ export const startStoryUseCase = (
   };
 };
 
-export const getMyStoriesUseCase = (
-  instanceRepo: StoryInstanceRepository,
-  templateRepo?: StoryTemplateRepository
-) => {
+export const getMyStoriesUseCase = (instanceRepo: StoryInstanceRepository) => {
   return async (userId: string): Promise<Record<string, unknown>[]> => {
-    const stories = await instanceRepo.findByUser(userId);
-    if (stories.length === 0 && templateRepo) {
-      const templates = await templateRepo.findAll();
-      return templates.map((t: Record<string, unknown>) => ({
-        _id: t._id,
-        template: {
-          _id: t._id,
-          title: t.title,
-          description: t.description,
-          initialText: t.initialText,
-          imageUrl: t.imageUrl || ''
-        },
-        messages: []
-      }));
-    }
-    return stories;
+    return await instanceRepo.findByUser(userId);
   };
 };
 

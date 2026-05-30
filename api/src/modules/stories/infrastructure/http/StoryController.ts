@@ -22,7 +22,7 @@ const update = updateStoryTemplateByIdUseCase(templateRepo);
 const list = getStoriesUseCase(templateRepo);
 const remove = deleteStoryUseCase(templateRepo);
 const start = startStoryUseCase(instanceRepo, templateRepo);
-const myStories = getMyStoriesUseCase(instanceRepo, templateRepo);
+const myStories = getMyStoriesUseCase(instanceRepo);
 const chat = chatWithStoryUseCase(instanceRepo);
 const get = getStoryUseCase(instanceRepo);
 

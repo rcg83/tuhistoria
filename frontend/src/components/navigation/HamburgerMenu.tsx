@@ -1,12 +1,10 @@
 import { useState, useEffect, useRef } from 'react';
 import { NavLink } from 'react-router-dom';
-import { useStories } from '../../features/stories/context/StoriesContext';
 import './HamburgerMenu.scss';
 
 export const HamburgerMenu = () => {
   const [open, setOpen] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
-  const { selected } = useStories();
 
   useEffect(() => {
     const handleClickOutside = (e: MouseEvent) => {
@@ -34,17 +32,15 @@ export const HamburgerMenu = () => {
 
       {open && (
         <div className="hamburger-menu__dropdown">
-          {selected && (
-            <NavLink
-              to={`/story/${selected._id}`}
-              className={({ isActive }) =>
-                `hamburger-menu__link${isActive ? ' hamburger-menu__link--active' : ''}`
-              }
-              onClick={handleNavClick}
-            >
-              Sigue tu historia
-            </NavLink>
-          )}
+          <NavLink
+            to="/my-stories"
+            className={({ isActive }) =>
+              `hamburger-menu__link${isActive ? ' hamburger-menu__link--active' : ''}`
+            }
+            onClick={handleNavClick}
+          >
+            Mis historias
+          </NavLink>
 
           <NavLink
             to="/stories"
