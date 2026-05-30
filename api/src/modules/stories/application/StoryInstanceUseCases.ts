@@ -3,6 +3,8 @@ import type { StoryTemplateRepository } from '../domain/StoryTemplateRepository.
 import { continueStory } from '../../../services/geminiService.js';
 
 const SYSTEM_PROMPT = `Eres el director de una partida de rol de narración. Describe la historia en segunda persona, como si el lector fuera el protagonista. Usa un tono inmersivo y descriptivo, estilo: "Estás en...", "De repente oyes...", "Frente a ti ves...".
+REGLAS DE LONGITUD CRUCIALES:
+1. Sé muy conciso. La NARRATIVA debe ocupar como máximo unas 40-50 palabras. No te extiendas.
 
 Responde siempre en el siguiente formato:
 <<NARRATIVA>>
@@ -88,7 +90,10 @@ export const chatWithStoryUseCase = (instanceRepo: StoryInstanceRepository) => {
     try {
       await instanceRepo.pushMessage(id, { role: 'user', text: userInput, timestamp: new Date() });
 
-      const aiResponse = await continueStory(history, prompt, SYSTEM_PROMPT);
+      const storyId = (story as Record<string, unknown>)._id as string;
+      const userId = (story as Record<string, unknown>).user as string;
+
+      const aiResponse = await continueStory(history, prompt, SYSTEM_PROMPT, { storyId, userId });
 
       const narrativeMatch = aiResponse.match(/<<NARRATIVA>>\s*([\s\S]*?)\s*<<RESUMEN>>/);
       const summaryMatch = aiResponse.match(/<<RESUMEN>>\s*([\s\S]*)/);

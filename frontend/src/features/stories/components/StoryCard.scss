@@ -7,18 +7,6 @@
   margin-bottom: 0.5rem;
   border-radius: 6px;
   cursor: pointer;
-  background: #ffffff;
-  transition: background 0.2s;
-
-  &:hover {
-    background: v.$color-accent;
-
-    .story-card__title,
-    .story-card__desc,
-    .story-card__meta {
-      color: v.$color-container;
-    }
-  }
 
   &--active {
     .story-card__title {

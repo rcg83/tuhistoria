@@ -18,7 +18,6 @@
 
   &__loading,
   &__error {
-    font-family: serif;
     color: v.$color-text;
     padding: 3rem;
     text-align: center;
@@ -31,7 +30,6 @@
   }
 
   &__title {
-    font-family: serif;
     font-size: v.$font-big;
     font-weight: normal;
     color: v.$color-text;
@@ -39,7 +37,6 @@
   }
 
   &__desc {
-    font-family: serif;
     font-size: v.$font-medium;
     color: v.$color-interact;
     margin: 0 0 1rem;
@@ -91,7 +88,6 @@
   }
 
   &__msg {
-    font-family: serif;
     font-size: v.$font-medium;
     line-height: 1.5;
     margin-bottom: 0.75rem;
@@ -129,7 +125,6 @@
   }
 
   &__error-msg {
-    font-family: serif;
     font-size: v.$font-medium;
     color: #b33;
     background: rgba(#b33, 0.08);
@@ -148,7 +143,6 @@
 
   &__input {
     width: 100%;
-    font-family: serif;
     font-size: v.$font-medium;
     color: v.$color-text;
     background: v.$color-container;
@@ -169,7 +163,6 @@
   }
 
   &__send {
-    font-family: serif;
     font-size: v.$font-medium;
     color: #fff;
     background: v.$color-interact;

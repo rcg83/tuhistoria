@@ -7,3 +7,4 @@ mongo_data/
 .opencode/
 AGENTS.md
 thesis/
+api/logs/
