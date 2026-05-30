@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { BookWrapper } from 'src/components/layout/BookWrapper';
 import { StoryCard } from 'src/features/stories/components/StoryCard';
+import { StoryButton } from 'src/components/buttons/StoryButton';
 import { fetcher } from 'src/lib/fetcher';
 import type { Story } from 'src/features/stories/context/StoriesContext';
 import './MyStoriesPage.scss';
@@ -64,16 +65,18 @@ export const MyStoriesPage = () => {
         leftPage={
           <div className="my-stories-sidebar">
             <h2>Mis historias</h2>
-            {error && <p className="my-stories-list--error">{error}</p>}
-            <div className="my-stories-list">
-              {stories.map((s) => (
-                <StoryCard
-                  key={s._id}
-                  story={s}
-                  isActive={selectedId === s._id}
-                  onClick={() => setSelectedId(s._id)}
-                />
-              ))}
+            <div className="my-stories-sidebar__scroll">
+              {error && <p className="my-stories-list--error">{error}</p>}
+              <div className="my-stories-list">
+                {stories.map((s) => (
+                  <StoryCard
+                    key={s._id}
+                    story={s}
+                    isActive={selectedId === s._id}
+                    onClick={() => setSelectedId(s._id)}
+                  />
+                ))}
+              </div>
             </div>
           </div>
         }
@@ -97,12 +100,9 @@ export const MyStoriesPage = () => {
                     </p>
                   </div>
                 )}
-                <button
-                  className="my-stories-content__continue-btn"
-                  onClick={() => navigate(`/story/${selected._id}`)}
-                >
+                <StoryButton onClick={() => navigate(`/story/${selected._id}`)}>
                   Continuar historia
-                </button>
+                </StoryButton>
               </>
             )}
           </div>

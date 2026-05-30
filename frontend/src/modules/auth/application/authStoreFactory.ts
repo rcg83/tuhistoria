@@ -9,7 +9,23 @@ export interface AuthState {
   error: string | null;
 }
 
+const isTokenExpired = (): boolean => {
+  const token = localStorage.getItem('token');
+  if (!token) return true;
+  try {
+    const payload = JSON.parse(atob(token.split('.')[1]));
+    return payload.exp * 1000 < Date.now();
+  } catch {
+    return true;
+  }
+};
+
 const getInitialUser = () => {
+  if (isTokenExpired()) {
+    localStorage.removeItem('token');
+    localStorage.removeItem('auth_user');
+    return null;
+  }
   const savedUser = localStorage.getItem('auth_user');
   try {
     return savedUser ? JSON.parse(savedUser) : null;

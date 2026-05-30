@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { useAuth } from 'src/features/auth/context/AuthContext';
 import { BookWrapper } from 'src/components/layout/BookWrapper';
 import { StoryCard } from 'src/features/stories/components/StoryCard';
+import { StoryButton } from 'src/components/buttons/StoryButton';
 import { fetcher } from 'src/lib/fetcher';
 import type { Story } from 'src/features/stories/context/StoriesContext';
 import './StoriesPage.scss';
@@ -104,13 +105,13 @@ export const StoriesPage = () => {
                 <h1>{selected.title}</h1>
                 <p className="stories-content__desc">{selected.description}</p>
                 <p className="stories-content__text">{selected.initialText}</p>
-                <button
-                  className="stories-content__start-btn"
+                <StoryButton
+                  variant="outline"
                   onClick={() => handleStart(selected._id)}
                   disabled={starting}
                 >
                   {starting ? 'Iniciando...' : 'Comenzar esta historia'}
-                </button>
+                </StoryButton>
               </>
             ) : (
               <>

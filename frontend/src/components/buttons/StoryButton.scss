@@ -1,0 +1,45 @@
+@use 'src/styles/variables' as v;
+
+.story-button {
+  display: block;
+  width: 100%;
+  padding: 1rem 2rem;
+  font-size: v.$font-medium;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+
+  &--solid {
+    background: v.$color-interact;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+
+    &:hover:not(:disabled) {
+      background: v.$color-accent;
+    }
+
+    &:disabled {
+      opacity: 0.5;
+      cursor: default;
+    }
+  }
+
+  &--outline {
+    background: none;
+    border: 2px solid v.$color-interact;
+    color: v.$color-interact;
+
+    &:hover:not(:disabled) {
+      background-color: v.$color-interact;
+      color: v.$color-container;
+    }
+
+    &:disabled {
+      opacity: 0.5;
+      cursor: default;
+    }
+  }
+}

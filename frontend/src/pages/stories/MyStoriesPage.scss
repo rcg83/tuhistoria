@@ -28,10 +28,44 @@
 }
 
 .my-stories-sidebar {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  min-height: 0;
+
   h2 {
     color: v.$color-text;
     font-size: v.$font-big;
-    margin-bottom: 1rem;
+    margin: 0 0 1rem;
+    flex-shrink: 0;
+  }
+
+  &__scroll {
+    flex: 1;
+    min-height: 0;
+    overflow-y: auto;
+    padding-right: 0.5rem;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+
+    &::-webkit-scrollbar {
+      display: none;
+    }
+
+    mask-image: linear-gradient(
+      to bottom,
+      transparent 0%,
+      black 12%,
+      black 85%,
+      transparent 100%
+    );
+    -webkit-mask-image: linear-gradient(
+      to bottom,
+      transparent 0%,
+      black 12%,
+      black 85%,
+      transparent 100%
+    );
   }
 }
 
@@ -89,23 +123,5 @@
     }
   }
 
-  &__continue-btn {
-    display: block;
-    width: 100%;
-    padding: 1rem 2rem;
-    background: v.$color-interact;
-    color: #fff;
-    border: none;
-    border-radius: 4px;
-    font-size: v.$font-medium;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 3px;
-    cursor: pointer;
-    transition: background 0.3s;
 
-    &:hover {
-      background: v.$color-accent;
-    }
-  }
 }

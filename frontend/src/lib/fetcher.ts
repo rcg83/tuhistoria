@@ -12,6 +12,13 @@ export const fetcher = async <T>(
   });
 
   if (!response.ok) {
+    if (response.status === 401) {
+      localStorage.removeItem('token');
+      localStorage.removeItem('auth_user');
+      window.location.href = '/login';
+      throw new Error('Sesión expirada');
+    }
+
     let detail = '';
     try {
       const body = await response.json();

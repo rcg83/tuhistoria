@@ -18,7 +18,7 @@
   h2 {
     color: v.$color-text;
     font-size: v.$font-big;
-    margin-bottom: 1rem;
+    margin: 0 0 1rem;
   }
 }
 
@@ -57,29 +57,5 @@
     font-size: v.$font-medium;
   }
 
-  &__start-btn {
-    display: block;
-    width: 100%;
-    margin-top: 2rem;
-    padding: 1rem 2rem;
-    background: none;
-    border: 2px solid v.$color-interact;
-    color: v.$color-interact;
-    font-size: v.$font-medium;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 3px;
-    cursor: pointer;
-    transition: all 0.3s ease;
 
-    &:hover:not(:disabled) {
-      background-color: v.$color-interact;
-      color: v.$color-container;
-    }
-
-    &:disabled {
-      opacity: 0.5;
-      cursor: default;
-    }
-  }
 }
