@@ -1,11 +1,11 @@
-@use '../../styles/variables' as v;
+@use 'src/styles/variables' as vars;
 
 .app-bar {
   display: flex;
   align-items: center;
   height: 60px;
   padding: 0 1rem;
-  background-color: v.$color-bg-main;
+  background-color: vars.$color-bg-main;
   flex-shrink: 0;
 
   &__left {

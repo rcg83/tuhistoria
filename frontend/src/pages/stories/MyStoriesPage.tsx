@@ -39,73 +39,67 @@ export const MyStoriesPage = () => {
 
   const selected = stories.find((s) => s._id === selectedId) || null;
 
-  if (loading) {
-    return (
-      <div className="my-stories-page my-stories-page--loading">
-        <p>Cargando tus historias...</p>
-      </div>
-    );
-  }
-
-  if (stories.length === 0) {
-    return (
-      <div className="my-stories-page my-stories-page--empty">
-        <h1>Mis historias</h1>
-        <p>Aún no has empezado ninguna historia.</p>
-        <Link to="/stories" className="my-stories-page__browse-btn">
-          Explorar historias
-        </Link>
-      </div>
-    );
-  }
-
   return (
     <div className="my-stories-page">
       <BookWrapper
         leftPage={
           <div className="my-stories-sidebar">
             <h2>Mis historias</h2>
-            <div className="my-stories-sidebar__scroll">
-              {error && <p className="my-stories-list--error">{error}</p>}
-              <div className="my-stories-list">
-                {stories.map((s) => (
-                  <StoryCard
-                    key={s._id}
-                    story={s}
-                    isActive={selectedId === s._id}
-                    onClick={() => setSelectedId(s._id)}
-                  />
-                ))}
+            {loading ? (
+              <p>Cargando tus historias...</p>
+            ) : (
+              <div className="my-stories-sidebar__scroll">
+                {error && <p className="my-stories-list--error">{error}</p>}
+                <div className="my-stories-list">
+                  {stories.map((s) => (
+                    <StoryCard
+                      key={s._id}
+                      story={s}
+                      isActive={selectedId === s._id}
+                      onClick={() => setSelectedId(s._id)}
+                    />
+                  ))}
+                </div>
               </div>
-            </div>
+            )}
           </div>
         }
         rightPage={
-          <div className="my-stories-content">
-            {selected && (
-              <>
-                <h1>{selected.template.title}</h1>
-                <p className="my-stories-content__desc">{selected.template.description}</p>
-                <p className="my-stories-content__meta">
-                  {selected.createdAt && (
-                    <span>Creada el {new Date(selected.createdAt).toLocaleDateString('es-ES')}</span>
+          loading ? null : stories.length === 0 ? (
+            <div className="my-stories-content my-stories-content--empty">
+              <h1>Mis historias</h1>
+              <p>Aún no has empezado ninguna historia.</p>
+              <Link to="/stories" className="my-stories-page__browse-btn">
+                Explorar historias
+              </Link>
+            </div>
+          ) : (
+            <div className="my-stories-content">
+              {selected && (
+                <>
+                  <h1>{selected.template.title}</h1>
+                  <p className="my-stories-content__desc">{selected.template.description}</p>
+                  <p className="my-stories-content__meta">
+                    {selected.createdAt && (
+                      <span>Creada el {new Date(selected.createdAt).toLocaleDateString('es-ES')}</span>
+                    )}
+                    <span>{selected.messages.length} mensajes</span>
+                  </p>
+                  {selected.messages.length > 0 && (
+                    <div className="my-stories-content__preview">
+                      <p className="my-stories-content__preview-label">Último mensaje:</p>
+                      <p className="my-stories-content__preview-text">
+                        {selected.messages[selected.messages.length - 1].text}
+                      </p>
+                    </div>
                   )}
-                  <span>{selected.messages.length} mensajes</span>
-                </p>
-                {selected.messages.length > 0 && (
-                  <div className="my-stories-content__preview">
-                    <p className="my-stories-content__preview-label">Último mensaje:</p>
-                    <p className="my-stories-content__preview-text">
-                      {selected.messages[selected.messages.length - 1].text}
-                    </p>
-                  </div>
-                )}
-                <StoryButton onClick={() => navigate(`/story/${selected._id}`)}>
-                  Continuar historia
-                </StoryButton>
-              </>
-            )}
-          </div>
+                  <StoryButton onClick={() => navigate(`/story/${selected._id}`)}>
+                    Continuar historia
+                  </StoryButton>
+                </>
+              )}
+            </div>
+          )
         }
       />
     </div>

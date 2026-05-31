@@ -1,3 +1,4 @@
+@use 'src/styles/variables' as vars;
 @use 'src/styles/mixins' as mixs;
 
 .main-layout {
@@ -16,15 +17,13 @@
   .content-area {
     flex: 1;
     width: 100%;
-    display: grid;
-    grid-template: 1fr / 1fr;
-    place-items: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
     box-sizing: border-box;
     overflow: auto;
-
-    > * {
-      grid-area: 1 / 1;
-    }
+    background-color: vars.$color-container;
   }
 
   @include mixs.respond-to('desktop') {
@@ -50,6 +49,7 @@
       justify-content: center;
       align-items: center;
       box-sizing: border-box;
+      background-color: transparent;
     }
   }
 }

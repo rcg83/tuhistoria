@@ -1,4 +1,4 @@
-@use '../../../styles/variables.scss' as v;
+@use 'src/styles/variables.scss' as vars;
 
 .book-login {
   display: flex;
@@ -11,10 +11,10 @@
     justify-content: center;
     align-items: center;
     flex-shrink: 0;
-    padding-top: 2rem;
+    padding-top: 1rem;
 
     .logo-icon {
-      fill: v.$color-interact;
+      fill: vars.$color-interact;
     }
   }
 
@@ -28,15 +28,14 @@
   }
 
   &__header {
-    margin-bottom: 3rem;
     text-align: center;
   }
 
   &__title {
-    font-size: v.$font-big;
-    color: v.$color-text;
+    font-size: vars.$font-big;
+    color: vars.$color-text;
     font-weight: normal;
-    border-bottom: 1px solid rgba(v.$color-interact, 0.2);
+    border-bottom: 1px solid rgba(vars.$color-interact, 0.2);
     padding-bottom: 0.5rem;
   }
 
@@ -44,41 +43,40 @@
     display: flex;
     flex-direction: column;
     width: 100%;
-    max-width: 320px;
     gap: 2rem;
 
     input {
       background: transparent;
       border: none;
-      border-bottom: 1px solid rgba(v.$color-interact, 0.3);
+      border-bottom: 1px solid rgba(vars.$color-interact, 0.3);
       padding: 0.8rem 0.2rem;
-      font-size: v.$font-medium;
-      color: v.$color-text;
+      font-size: vars.$font-medium;
+      color: vars.$color-text;
       outline: none;
       transition: border-bottom 0.3s ease;
 
       &::placeholder {
-        color: rgba(v.$color-text, 0.4);
+        color: rgba(vars.$color-text, 0.4);
         font-style: italic;
-        font-size: v.$font-medium;
+        font-size: vars.$font-medium;
       }
 
       &:focus {
-        border-bottom: 1px solid v.$color-interact;
+        border-bottom: 1px solid vars.$color-interact;
       }
     }
   }
 
   &__error {
     color: #d32f2f;
-    font-size: v.$font-medium;
+    font-size: vars.$font-medium;
     text-align: center;
     margin: 0;
   }
 
   &__success {
     color: #2e7d32;
-    font-size: v.$font-medium;
+    font-size: vars.$font-medium;
     text-align: center;
     margin: 0;
   }
@@ -92,8 +90,8 @@
 
   &__submit {
     background: none;
-    border: 1px solid v.$color-interact;
-    color: v.$color-interact;
+    border: 1px solid vars.$color-interact;
+    color: vars.$color-interact;
     padding: 0.7rem;
     font-weight: 600;
     text-transform: uppercase;
@@ -102,23 +100,23 @@
     transition: all 0.3s ease;
 
     &:hover {
-      background-color: v.$color-interact;
-      color: v.$color-container;
+      background-color: vars.$color-interact;
+      color: vars.$color-container;
     }
   }
 
   &__switch {
     background: none;
     border: none;
-    color: rgba(v.$color-text, 0.6);
+    color: rgba(vars.$color-text, 0.6);
     font-style: italic;
-    font-size: v.$font-medium;
+    font-size: vars.$font-medium;
     cursor: pointer;
     text-decoration: underline;
     transition: color 0.3s ease;
 
     &:hover {
-      color: v.$color-interact;
+      color: vars.$color-interact;
     }
   }
 }

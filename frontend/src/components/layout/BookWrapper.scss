@@ -16,14 +16,14 @@
   }
 
   &__page {
-    background-color: vars.$color-container;
+
     width: 100%;
     height: auto;
     padding: 3rem 4rem;
     box-sizing: border-box;
 
     @include mixs.respond-to('desktop') {
-      box-shadow: 0 0.25rem 1.5rem rgba(0, 0, 0, 0.15);
+      //box-shadow: 0 0.25rem 1.5rem rgba(0, 0, 0, 0.15);
       flex: 1;
       width: auto;
       min-width: 0;
@@ -38,14 +38,14 @@
 
       @include mixs.respond-to('desktop') {
         border-radius: 0.55rem 27.5% 27.5% 0.55rem / 1.5% 1% 1% 1.5%;
-        padding-bottom: 3rem;
+        //padding-bottom: 3rem;
 
-        background-image: linear-gradient(
+        /*background-image: linear-gradient(
           to right,
           transparent 99%,
           vars.$color-bg-main 99.8%,
           vars.$color-interact 100%
-        );
+        );*/
       }
     }
 
@@ -53,15 +53,15 @@
       padding-top: 1rem;
 
       @include mixs.respond-to('desktop') {
-        border-radius: 27.5% 0.55rem 0.55rem 27.5% / 1% 1.5% 1.5% 1%;
+        //border-radius: 27.5% 0.55rem 0.55rem 27.5% / 1% 1.5% 1.5% 1%;
         padding-top: 3rem;
 
-        background-image: linear-gradient(
+        /*background-image: linear-gradient(
           to left,
           transparent 99%,
           vars.$color-bg-main 99.8%,
           vars.$color-interact 100%
-        );
+        );*/
       }
     }
   }
