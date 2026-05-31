@@ -9,6 +9,12 @@
   font-family: 'Caveat';
   font-size: v.$font-big;
   line-height: 1;
+  transition: transform 0.2s ease;
+
+  &:hover {
+    transform: scale(1.05);
+  }
+
   &--active {
     background: transparent;
     color: v.$color-text;
