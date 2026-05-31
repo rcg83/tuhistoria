@@ -26,6 +26,11 @@ export const Rightbar = () => {
           onAction={handleAction}
         />
       </div>
+      <div className="rightbar__nav">
+        <span className="rightbar__nav-item">Mis cosas</span>
+        <span className="rightbar__nav-item">Logros</span>
+        <span className="rightbar__nav-item rightbar__nav-item--push-bottom">Hasta luego</span>
+      </div>
     </nav>
   );
 };

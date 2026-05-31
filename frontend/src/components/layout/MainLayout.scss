@@ -23,7 +23,7 @@
     align-items: center;
     box-sizing: border-box;
     overflow: auto;
-    background-color: vars.$color-container;
+    background-color: vars.$color-page;
   }
 
   @include mixs.respond-to('desktop') {

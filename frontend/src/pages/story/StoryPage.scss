@@ -38,7 +38,7 @@
 
   &__desc {
     font-size: v.$font-medium;
-    color: v.$color-interact;
+    color: v.$color-text-soft;
     margin: 0 0 1rem;
     font-style: italic;
   }
@@ -101,9 +101,9 @@
     }
 
     &--model {
-      background: rgba(v.$color-container, 0.6);
+      background: rgba(v.$color-page, 0.6);
       margin-right: 1rem;
-      border-left: 2px solid v.$color-interact;
+      border-left: 2px solid v.$color-text-soft;
     }
   }
 
@@ -120,7 +120,7 @@
     }
 
     .story-page__msg--model & {
-      color: v.$color-interact;
+      color: v.$color-text-soft;
     }
   }
 
@@ -145,8 +145,8 @@
     width: 100%;
     font-size: v.$font-medium;
     color: v.$color-text;
-    background: v.$color-container;
-    border: 1px solid v.$color-bg-main;
+    background: v.$color-page;
+    border: 1px solid v.$color-background;
     border-radius: 4px;
     padding: 0.75rem;
     resize: none;
@@ -165,7 +165,7 @@
   &__send {
     font-size: v.$font-medium;
     color: #fff;
-    background: v.$color-interact;
+    background: v.$color-text-soft;
     border: none;
     border-radius: 4px;
     padding: 0.6rem 1.5rem;

@@ -39,8 +39,8 @@
     position: absolute;
     top: 100%;
     right: 0;
-    background: v.$color-container;
-    border: 1px solid v.$color-bg-main;
+    background: v.$color-page;
+    border: 1px solid v.$color-background;
     border-radius: 4px;
     min-width: 160px;
     z-index: 1000;
@@ -62,7 +62,7 @@
 
     &:hover {
       background: v.$color-accent;
-      color: v.$color-container;
+      color: v.$color-page;
     }
   }
 }

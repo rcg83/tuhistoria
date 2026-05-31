@@ -4,11 +4,11 @@ footer {
   display: flex;
   justify-content: center;
   align-items: center;
-  color: v.$color-container;
+  color: v.$color-page;
   font-size: 1em;
   
   svg {
     width: 32px;
-    fill: v.$color-container;
+    fill: v.$color-page;
   }
 }

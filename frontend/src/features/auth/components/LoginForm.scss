@@ -14,7 +14,7 @@
     padding-top: 1rem;
 
     .logo-icon {
-      fill: vars.$color-interact;
+      fill: vars.$color-text-soft;
     }
   }
 
@@ -35,7 +35,7 @@
     font-size: vars.$font-big;
     color: vars.$color-text;
     font-weight: normal;
-    border-bottom: 1px solid rgba(vars.$color-interact, 0.2);
+    border-bottom: 1px solid rgba(vars.$color-text-soft, 0.2);
     padding-bottom: 0.5rem;
   }
 
@@ -48,7 +48,7 @@
     input {
       background: transparent;
       border: none;
-      border-bottom: 1px solid rgba(vars.$color-interact, 0.3);
+      border-bottom: 1px solid rgba(vars.$color-text-soft, 0.3);
       padding: 0.8rem 0.2rem;
       font-size: vars.$font-medium;
       color: vars.$color-text;
@@ -62,7 +62,7 @@
       }
 
       &:focus {
-        border-bottom: 1px solid vars.$color-interact;
+        border-bottom: 1px solid vars.$color-text-soft;
       }
     }
   }
@@ -90,8 +90,8 @@
 
   &__submit {
     background: none;
-    border: 1px solid vars.$color-interact;
-    color: vars.$color-interact;
+    border: 1px solid vars.$color-text-soft;
+    color: vars.$color-text-soft;
     padding: 0.7rem;
     font-weight: 600;
     text-transform: uppercase;
@@ -100,8 +100,8 @@
     transition: all 0.3s ease;
 
     &:hover {
-      background-color: vars.$color-interact;
-      color: vars.$color-container;
+      background-color: vars.$color-text-soft;
+      color: vars.$color-page;
     }
   }
 
@@ -116,7 +116,7 @@
     transition: color 0.3s ease;
 
     &:hover {
-      color: vars.$color-interact;
+      color: vars.$color-text-soft;
     }
   }
 }

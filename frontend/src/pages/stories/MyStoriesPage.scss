@@ -8,7 +8,7 @@
     display: inline-block;
     margin-top: 1rem;
     padding: 0.75rem 2rem;
-    background: v.$color-interact;
+    background: v.$color-text-soft;
     color: #fff;
     text-decoration: none;
     border-radius: 4px;
@@ -85,7 +85,7 @@
   }
 
   &__desc {
-    color: v.$color-interact;
+    color: v.$color-text-soft;
     font-style: italic;
     margin-bottom: 1rem;
     font-size: v.$font-medium;
@@ -95,13 +95,13 @@
     display: flex;
     gap: 1rem;
     font-size: v.$font-medium;
-    color: v.$color-interact;
+    color: v.$color-text-soft;
     margin-bottom: 1rem;
   }
 
   &__preview {
-    background: rgba(v.$color-container, 0.6);
-    border-left: 2px solid v.$color-interact;
+    background: rgba(v.$color-page, 0.6);
+    border-left: 2px solid v.$color-text-soft;
     padding: 0.75rem;
     border-radius: 4px;
     margin-bottom: 1.5rem;
@@ -109,7 +109,7 @@
     &-label {
       font-size: v.$font-medium;
       font-weight: 600;
-      color: v.$color-interact;
+      color: v.$color-text-soft;
       margin: 0 0 0.25rem;
     }
 

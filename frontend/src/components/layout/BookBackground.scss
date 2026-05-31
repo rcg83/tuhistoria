@@ -31,7 +31,7 @@
     width: 100%;
     padding: 3rem 4rem;
     box-sizing: border-box;
-    background-color: vars.$color-container;
+    background-color: vars.$color-page;
 
     @include mixs.respond-to('desktop') {
       flex: 1;
@@ -49,8 +49,8 @@
         background-image: linear-gradient(
           to right,
           transparent 99%,
-          vars.$color-bg-main 99.8%,
-          vars.$color-interact 100%
+          vars.$color-background 99.8%,
+          vars.$color-text 100%
         );
       }
     }
@@ -62,8 +62,8 @@
         background-image: linear-gradient(
           to left,
           transparent 99%,
-          vars.$color-bg-main 99.8%,
-          vars.$color-interact 100%
+          vars.$color-background 99.8%,
+          vars.$color-text 100%
         );
       }
     }

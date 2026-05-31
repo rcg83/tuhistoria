@@ -100,25 +100,45 @@ export const StoriesPage = () => {
         }
         rightPage={
           <div className="stories-content">
-            {selected ? (
-              <>
-                <h1>{selected.title}</h1>
-                <p className="stories-content__desc">{selected.description}</p>
-                <p className="stories-content__text">{selected.initialText}</p>
-                <StoryButton
-                  variant="outline"
-                  onClick={() => handleStart(selected._id)}
-                  disabled={starting}
-                >
-                  {starting ? 'Iniciando...' : 'Comenzar esta historia'}
-                </StoryButton>
-              </>
-            ) : (
-              <>
-                <h1>Bienvenido, {user?.username}</h1>
-                <p>Selecciona una historia desde el menú.</p>
-              </>
-            )}
+            <div className="stories-content__mobile-list">
+              <h2>Historias</h2>
+              {error ? (
+                <p className="story-list--error">{error}</p>
+              ) : (
+                <div className="story-list">
+                  {templates.length === 0 && <p className="story-list--empty">Cargando...</p>}
+                  {templates.map((t) => (
+                    <StoryCard
+                      key={t._id}
+                      story={asStory(t)}
+                      isActive={selectedId === t._id}
+                      onClick={() => setSelectedId(t._id)}
+                    />
+                  ))}
+                </div>
+              )}
+            </div>
+
+            <div className="stories-content__detail">
+              {selected ? (
+                <>
+                  <h1>{selected.title}</h1>
+                  <p className="stories-content__desc">{selected.description}</p>
+                  <p className="stories-content__text">{selected.initialText}</p>
+                  <StoryButton
+                    onClick={() => handleStart(selected._id)}
+                    disabled={starting}
+                  >
+                    {starting ? 'Iniciando...' : 'Comenzar esta historia'}
+                  </StoryButton>
+                </>
+              ) : (
+                <>
+                  <h1>Bienvenido, {user?.username}</h1>
+                  <p>Selecciona una historia desde el menú.</p>
+                </>
+              )}
+            </div>
           </div>
         }
       />
