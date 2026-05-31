@@ -41,7 +41,7 @@ export const LoginForm = () => {
   return (
     <div className="book-login">
       <div className="book-login__top">
-        <Logo width={140} height={140} />
+        <Logo width={140} height={140} decorative />
       </div>
 
       <div className="book-login__bottom">
