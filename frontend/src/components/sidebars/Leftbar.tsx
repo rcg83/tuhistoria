@@ -12,6 +12,11 @@ export const Leftbar = () => {
         <NavButton to="/my-stories">Mis historias</NavButton>
         <NavButton to="/stories">Historias</NavButton>
       </div>
+      <footer className="leftbar__footer">
+        <span>Proyecto 2º DAW</span>
+        <hr className="leftbar__footer-divider" />
+        <span>Autor Ramón Céspedes</span>
+      </footer>
     </nav>
   );
 };

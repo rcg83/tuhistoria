@@ -19,7 +19,7 @@
     background-color: vars.$color-page;
     width: 100%;
     height: auto;
-    padding: 3rem 4rem;
+    padding: 2rem 1.5rem;
     box-sizing: border-box;
 
     @include mixs.respond-to('desktop') {
@@ -70,6 +70,22 @@
   &__content {
     height: 100%;
     overflow-y: auto;
+  }
+
+  &--hide-left-mobile {
+    height: 100%;
+
+    .book__page--left {
+      display: none;
+
+      @include mixs.respond-to('desktop') {
+        display: block;
+      }
+    }
+
+    .book__page--right {
+      height: 100%;
+    }
   }
 
   &--single {
