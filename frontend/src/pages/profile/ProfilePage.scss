@@ -1,41 +1,47 @@
-@use 'src/styles/variables.scss' as vars;
+@use 'src/styles/variables' as vars;
 
-.book-login {
+.profile-left {
   display: flex;
   flex-direction: column;
+  justify-content: center;
   align-items: center;
   height: 100%;
-  overflow: hidden;
-
-  &__top {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-shrink: 0;
-    padding-top: 1rem;
-
-    .logo-icon {
-      fill: vars.$color-text-soft;
-    }
-  }
-
-  &__bottom {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    flex: 1;
-    width: 100%;
-  }
-
-  &__header {
-    text-align: center;
-  }
+  text-align: center;
 
   &__title {
     font-size: vars.$font-big;
-    color: vars.$color-text;
     font-weight: normal;
+    color: vars.$color-text;
+    margin: 0 0 0.5rem;
+  }
+
+  &__desc {
+    font-size: vars.$font-medium;
+    color: vars.$color-text-soft;
+    margin: 0;
+    font-style: italic;
+  }
+}
+
+.profile-page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
+  height: 100%;
+
+  &__loading {
+    font-size: vars.$font-medium;
+    color: vars.$color-text-soft;
+    text-align: center;
+    margin: auto;
+  }
+
+  &__title {
+    text-align: center;
+    font-size: vars.$font-big;
+    font-weight: normal;
+    color: vars.$color-text;
     border-bottom: 1px solid rgba(vars.$color-text-soft, 0.2);
     padding-bottom: 0.5rem;
   }
@@ -43,50 +49,53 @@
   &__form {
     display: flex;
     flex-direction: column;
-    gap: 2rem;
+    width: 100%;
+    gap: 1.5rem;
+  }
+
+  &__field {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+
+    span {
+      font-size: 0.8rem;
+      color: vars.$color-text-soft;
+    }
 
     input {
       box-sizing: border-box;
       background: transparent;
       border: none;
       border-bottom: 1px solid rgba(vars.$color-text-soft, 0.3);
-      padding: 0.8rem 0.5rem;
-      font-size: vars.$font-medium;
+      padding: 0.6rem 0.4rem;
+      font-size: 1rem;
       color: vars.$color-text;
       outline: none;
       transition: border-bottom 0.3s ease;
 
-      &::placeholder {
-        color: rgba(vars.$color-text, 0.4);
-        font-style: italic;
-        font-size: vars.$font-medium;
-      }
-
       &:focus {
         border-bottom: 1px solid vars.$color-text-soft;
+      }
+
+      &:disabled {
+        opacity: 0.5;
       }
     }
   }
 
-  &__error {
-    color: #d32f2f;
-    font-size: vars.$font-medium;
+  &__msg {
     text-align: center;
+    font-size: 0.9rem;
     margin: 0;
-  }
 
-  &__success {
-    color: #2e7d32;
-    font-size: vars.$font-medium;
-    text-align: center;
-    margin: 0;
-  }
+    &--ok {
+      color: #2e7d32;
+    }
 
-  &__actions {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-    margin-top: 1rem;
+    &--error {
+      color: #d32f2f;
+    }
   }
 
   &__submit {
@@ -104,20 +113,24 @@
       background-color: vars.$color-text-soft;
       color: vars.$color-page;
     }
+
+    &:disabled {
+      opacity: 0.5;
+      cursor: default;
+    }
   }
 
-  &__switch {
+  &__logout {
     background: none;
     border: none;
-    color: rgba(vars.$color-text, 0.6);
-    font-style: italic;
-    font-size: vars.$font-medium;
+    color: rgba(vars.$color-text, 0.5);
+    font-size: 0.85rem;
     cursor: pointer;
     text-decoration: underline;
     transition: color 0.3s ease;
 
     &:hover {
-      color: vars.$color-text-soft;
+      color: #d32f2f;
     }
   }
 }

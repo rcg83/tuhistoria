@@ -7,7 +7,7 @@ box-sizing: border-box;
   align-items: center;
   width: 100%;
   height: 100vh;
-  padding: 1.5rem 1rem 2.25rem;
+  padding: 1.5rem 0 2.25rem;
 
   &__logo-container {
     width: 50%;
@@ -26,24 +26,5 @@ box-sizing: border-box;
     display: flex;
     flex-direction: column;
     gap: 1.6rem;
-  }
-
-  &__footer {
-    margin-top: auto;
-    display: flex;
-    flex-direction: column;
-    align-items: start;
-    gap: 0.35rem;
-    font-size: 0.65rem;
-    color: vars.$color-text-soft;
-    line-height: 1.5;
-  }
-
-  &__footer-divider {
-    width: 100%;
-    border: none;
-    border-top: 1px solid vars.$color-text-soft;
-    margin: 0;
-    opacity: 0.4;
   }
 }

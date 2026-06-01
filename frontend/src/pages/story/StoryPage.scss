@@ -48,7 +48,10 @@
     width: 100%;
     min-height: 0;
     object-fit: cover;
+    object-position: top;
     border-radius: 4px;
+    mask-image: linear-gradient(to bottom, black 60%, transparent 100%);
+    -webkit-mask-image: linear-gradient(to bottom, black 60%, transparent 100%);
   }
 
   &__write {

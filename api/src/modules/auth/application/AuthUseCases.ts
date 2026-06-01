@@ -74,6 +74,7 @@ export const loginUseCase = (userRepo: UserRepository) => {
         user: {
           id: (user as { _id: string })._id,
           username: (user as { username: string }).username,
+          email: (user as { email: string }).email,
           role: (user as { role: string }).role,
         },
       },

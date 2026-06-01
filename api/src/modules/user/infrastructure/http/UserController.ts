@@ -1,6 +1,6 @@
 import { mongoUserRepository } from '../persistence/MongoUserRepository.js';
 import { mongoUserProfileRepository } from '../persistence/MongoUserProfileRepository.js';
-import { getAccountUseCase, getUsersUseCase, deleteUserUseCase } from '../../application/UserUseCases.js';
+import { getAccountUseCase, getUsersUseCase, deleteUserUseCase, updateAccountUseCase } from '../../application/UserUseCases.js';
 import { getProfileUseCase, updateProfileUseCase } from '../../application/UserProfileUseCases.js';
 
 const userRepo = mongoUserRepository;
@@ -9,6 +9,7 @@ const profileRepo = mongoUserProfileRepository;
 const getAccount = getAccountUseCase(userRepo);
 const listUsers = getUsersUseCase(userRepo);
 const removeUser = deleteUserUseCase(userRepo);
+const editAccount = updateAccountUseCase(userRepo);
 const getProfile = getProfileUseCase(profileRepo);
 const updateProfile = updateProfileUseCase(profileRepo);
 
@@ -44,6 +45,20 @@ export const updateMyProfile = async (req, res): Promise<void> => {
     res.json(updated);
   } catch {
     res.status(500).json({ message: 'Error al actualizar el perfil' });
+  }
+};
+
+export const updateMyAccount = async (req, res): Promise<void> => {
+  try {
+    const { username, email } = req.body;
+    const result = await editAccount(req.user.id, { username, email });
+    if (result.error) {
+      res.status(result.status).json({ message: result.error });
+      return;
+    }
+    res.json(result.data);
+  } catch {
+    res.status(500).json({ message: 'Error al actualizar la cuenta' });
   }
 };
 

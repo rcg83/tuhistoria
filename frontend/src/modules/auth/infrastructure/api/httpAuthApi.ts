@@ -14,7 +14,7 @@ export const httpAuthApi: AuthApi = {
     const data = await fetcher<{
       message: string;
       token: string;
-      user: { id: string; username: string; role: string };
+      user: { id: string; username: string; email: string; role: string };
     }>(`${API_URL}/api/users/login`, {
       method: "POST",
       body: JSON.stringify(params),
@@ -25,6 +25,7 @@ export const httpAuthApi: AuthApi = {
       user: {
         id: data.user.id,
         username: data.user.username,
+        email: data.user.email,
         role: data.user.role
       }
     };
@@ -41,10 +42,11 @@ export const httpAuthApi: AuthApi = {
     const token = localStorage.getItem("token");
 
     const user = await fetcher<{
-      id: string;
+      _id: string;
       username: string;
+      email: string;
       role: string;
-    }>(`${API_URL}/api/account`, {
+    }>(`${API_URL}/api/users/account`, {
       method: "GET",
       headers: {
         Authorization: `Bearer ${token}`
@@ -55,8 +57,9 @@ export const httpAuthApi: AuthApi = {
       isLoggedIn: true,
       isLoading: false,
       user: {
-        id: user.id,
+        id: user._id,
         username: user.username,
+        email: user.email,
         role: user.role,
       },
       error: null,

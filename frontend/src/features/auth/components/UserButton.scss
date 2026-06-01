@@ -54,6 +54,27 @@
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
   }
 
+  &__nav-item {
+    display: block;
+    width: 100%;
+    padding: 0.8rem 1.2rem;
+    text-align: left;
+    color: v.$color-text;
+    font-family: 'Caveat', cursive;
+    font-size: v.$font-medium;
+    cursor: pointer;
+    transition: background 0.2s;
+
+    &:hover {
+      background: v.$color-accent;
+      color: v.$color-page;
+    }
+
+    &--active {
+      font-weight: bold;
+    }
+  }
+
   &__dropdown-item {
     display: block;
     width: 100%;

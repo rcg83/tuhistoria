@@ -1,3 +1,4 @@
+@use 'src/styles/variables' as vars;
 @use 'src/styles/mixins' as mixs;
 
 .home-left {
@@ -6,12 +7,20 @@
   align-items: center;
   height: 100%;
   width: 100%;
+  cursor: pointer;
+  overflow: hidden;
+
+  &:hover .home-left__image {
+    transform: scale(1.03);
+  }
 
   &__image {
     max-width: 100%;
     max-height: 100%;
     object-fit: contain;
     border-radius: 4px;
+    opacity: 0.8;
+    transition: transform 0.25s ease;
   }
 }
 
@@ -26,6 +35,19 @@
     text-align: center;
   }
 
+  &__image-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.75rem;
+    cursor: pointer;
+    overflow: hidden;
+
+    &:hover .home-content__image {
+      transform: scale(1.03);
+    }
+  }
+
   &__image {
     max-width: 100%;
     max-height: 60%;
@@ -33,9 +55,20 @@
     height: auto;
     object-fit: contain;
     border-radius: 4px;
+    opacity: 0.8;
+    transition: transform 0.25s ease;
 
     @include mixs.respond-to('desktop') {
       max-height: 70%;
+    }
+  }
+
+  &__cta {
+    font-size: 0.75rem;
+    color: vars.$color-text-soft;
+
+    @include mixs.respond-to('desktop') {
+      display: none;
     }
   }
 }

@@ -1,9 +1,12 @@
+import { useNavigate, useLocation } from 'react-router-dom';
 import { useAuth } from '../../features/auth/context/AuthContext';
 import { UserButton } from '../../features/auth/components/UserButton';
 import './Rightbar.scss';
 
 export const Rightbar = () => {
   const { user, isLoggedIn, isLoading, setLoginOpen, logout } = useAuth();
+  const navigate = useNavigate();
+  const location = useLocation();
 
   if (isLoading) {
     return <nav className="rightbar">Cargando...</nav>;
@@ -27,8 +30,8 @@ export const Rightbar = () => {
         />
       </div>
       <div className="rightbar__nav">
-        <span className="rightbar__nav-item">Mis cosas</span>
-        <span className="rightbar__nav-item">Logros</span>
+        <span className={`rightbar__nav-item${location.pathname === '/profile' ? ' rightbar__nav-item--active' : ''}`} onClick={() => navigate('/profile')}>Mis cosas</span>
+        <span className={`rightbar__nav-item${location.pathname === '/achievements' ? ' rightbar__nav-item--active' : ''}`} onClick={() => navigate('/achievements')}>Logros</span>
         <span className="rightbar__nav-item rightbar__nav-item--push-bottom">Hasta luego</span>
       </div>
     </nav>

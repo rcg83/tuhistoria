@@ -82,6 +82,10 @@ export const createAuthStore = (api: AuthApi, state: AuthState, setState: SetSta
     setLoginOpen: (open: boolean) => setState((prev) => ({ ...prev, isLoginOpen: open })),
     login: (params: LoginParams) => execute(() => loginUseCase(api, params)),
     register: (params: RegisterParams) => executeRegister(() => registerUseCase(api, params)),
+    updateUser: (user: any) => {
+      localStorage.setItem('auth_user', JSON.stringify(user));
+      setState((prev) => ({ ...prev, user }));
+    },
     logout: () => {
       logoutUseCase();
       setState(() => ({

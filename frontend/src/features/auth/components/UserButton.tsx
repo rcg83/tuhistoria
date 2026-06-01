@@ -1,14 +1,17 @@
 import { useState, useEffect, useRef } from 'react';
 import './UserButton.scss';
 
+import type { ReactNode } from 'react';
+
 interface UserButtonProps {
   username?: string;
   isLoggedIn: boolean;
   onAction: () => void;
   avatarUrl?: string;
+  children?: ReactNode;
 }
 
-export const UserButton = ({ username, isLoggedIn, onAction, avatarUrl }: UserButtonProps) => {
+export const UserButton = ({ username, isLoggedIn, onAction, avatarUrl, children }: UserButtonProps) => {
   const [open, setOpen] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
   const initial = username ? username.charAt(0).toUpperCase() : '';
@@ -40,8 +43,9 @@ export const UserButton = ({ username, isLoggedIn, onAction, avatarUrl }: UserBu
 
       {open && (
         <div className="user-button__dropdown">
+          {children}
           <button className="user-button__dropdown-item" onClick={handleAction}>
-            Desconectarse
+            Hasta luego
           </button>
         </div>
       )}

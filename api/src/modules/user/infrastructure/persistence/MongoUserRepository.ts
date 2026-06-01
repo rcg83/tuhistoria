@@ -23,6 +23,11 @@ export const mongoUserRepository: UserRepository = {
     return docs.map(d => d.toObject());
   },
 
+  async updateById(id: string, data: Partial<User>): Promise<Record<string, unknown> | null> {
+    const doc = await MongoUserModel.findByIdAndUpdate(id, data, { new: true }).select('-password');
+    return doc ? doc.toObject() : null;
+  },
+
   async deleteById(id: string): Promise<Record<string, unknown> | null> {
     const doc = await MongoUserModel.findByIdAndDelete(id);
     return doc ? doc.toObject() : null;
