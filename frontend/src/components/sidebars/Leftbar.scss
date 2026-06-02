@@ -35,10 +35,22 @@
   }
 
   &__admin-link {
-    color: vars.$color-accent;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    padding-left: 0.5rem;
+    padding-right: 1rem;
     text-decoration: none;
+    color: vars.$color-text;
     font-family: 'Caveat';
     font-size: clamp(0.75rem, 2.5vw, vars.$font-big);
     line-height: 1;
+    -webkit-text-stroke: 1px vars.$color-accent;
+    transition: transform 0.2s ease;
+
+    &:hover {
+      transform: scale(1.05);
+    }
   }
 }

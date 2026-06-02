@@ -1,19 +1,14 @@
 @use 'src/styles/variables' as vars;
-@use 'src/styles/mixins' as mixs;
 
 .app-footer {
   position: fixed;
   bottom: 0.5rem;
-  left: 0.5rem;
+  left: 0;
+  width: 100%;
+  text-align: center;
   font-size: 0.65rem;
   color: vars.$color-text-soft;
   line-height: 1.5;
   pointer-events: none;
   z-index: -1;
-
-  @include mixs.respond-to('desktop') {
-    left: 30vw;
-    transform: translateX(-50%);
-    text-align: center;
-  }
 }

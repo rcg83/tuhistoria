@@ -3,8 +3,9 @@
 .ach-left {
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
+  padding-top: 25%;
   height: 100%;
   text-align: center;
 

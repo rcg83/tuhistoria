@@ -17,7 +17,10 @@ export const Leftbar = () => {
         <NavButton to="/my-stories">Mis historias</NavButton>
         <NavButton to="/stories">Historias</NavButton>
         {isAdmin && (
-          <NavLink to="/users" className="leftbar__admin-link">Usuarios</NavLink>
+          <>
+            <NavLink to="/users" className="leftbar__admin-link">Usuarios</NavLink>
+            <NavLink to="/templates" className="leftbar__admin-link">Plantillas</NavLink>
+          </>
         )}
       </div>
     </nav>
