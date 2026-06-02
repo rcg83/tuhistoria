@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { useAuth } from 'src/features/auth/context/AuthContext';
 import { fetcher } from 'src/lib/fetcher';
 import { BookWrapper } from 'src/components/layout/BookWrapper';
+import { useDebouncedLoading } from 'src/hooks/useDebouncedLoading';
 import './ProfilePage.scss';
 
 const API_URL = import.meta.env.VITE_API_URL;
@@ -12,6 +13,7 @@ export const ProfilePage = () => {
   const [email, setEmail] = useState('');
   const [saving, setSaving] = useState(false);
   const [loading, setLoading] = useState(true);
+  const showLoading = useDebouncedLoading(loading, 2000);
   const [msg, setMsg] = useState<{ type: 'ok' | 'error'; text: string } | null>(null);
 
   useEffect(() => {
@@ -60,13 +62,13 @@ export const ProfilePage = () => {
       hideLeftOnMobile
       leftPage={
         <div className="profile-left">
-          <h2 className="profile-left__title">Mis cosas</h2>
+          <h2 className="profile-left__title">Mi cuenta</h2>
           <p className="profile-left__desc">Revisa y edita tus datos personales</p>
         </div>
       }
       rightPage={
         <div className="profile-page">
-          {loading ? (
+          {showLoading ? (
             <p className="profile-page__loading">Cargando...</p>
           ) : (
             <>

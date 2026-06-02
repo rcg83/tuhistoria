@@ -9,6 +9,7 @@
   align-items: center;
   pointer-events: none;
   z-index: -10;
+  background: linear-gradient(180deg, rgba(vars.$color-background, 0.8), vars.$color-background);
 
   &__track {
     width: 100%;
@@ -30,7 +31,6 @@
   &__page {
     width: 100%;
     padding: 3rem 4rem;
-    box-sizing: border-box;
     background-color: vars.$color-page;
 
     @include mixs.respond-to('desktop') {

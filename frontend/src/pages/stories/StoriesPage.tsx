@@ -5,6 +5,7 @@ import { BookWrapper } from 'src/components/layout/BookWrapper';
 import { StoryCard } from 'src/features/stories/components/StoryCard';
 import { StoryButton } from 'src/components/buttons/StoryButton';
 import { fetcher } from 'src/lib/fetcher';
+import { useDebouncedLoading } from 'src/hooks/useDebouncedLoading';
 import type { Story } from 'src/features/stories/context/StoriesContext';
 import './StoriesPage.scss';
 
@@ -24,7 +25,9 @@ export const StoriesPage = () => {
   const [templates, setTemplates] = useState<Template[]>([]);
   const [selectedId, setSelectedId] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
-  const [starting, setStarting] = useState(false);
+  const [loading, setLoading] = useState(true);
+  const showLoading = useDebouncedLoading(loading, 2000);
+  const [starting] = useState(false);
 
   useEffect(() => {
     const token = localStorage.getItem('token');
@@ -42,31 +45,16 @@ export const StoriesPage = () => {
       .catch((err) => {
         console.error(err);
         setError(err.message || 'Error al cargar historias');
-      });
+      })
+      .finally(() => setLoading(false));
   }, []);
 
   const selected = templates.find((t) => t._id === selectedId) || null;
 
-  const handleStart = async (templateId: string) => {
-    const token = localStorage.getItem('token');
-    if (!token) return;
-
-    setStarting(true);
-    try {
-      const result = await fetcher<{ storyInstanceId: string }>(
-        `${API_URL}/api/stories/start`,
-        {
-          method: 'POST',
-          headers: { Authorization: `Bearer ${token}` },
-          body: JSON.stringify({ templateId }),
-        }
-      );
-      navigate(`/story/${result.storyInstanceId}`);
-    } catch (err) {
-      console.error(err);
-    } finally {
-      setStarting(false);
-    }
+  const handleStart = (templateId: string) => {
+    const t = templates.find(t => t._id === templateId);
+    if (!t) return;
+    navigate('/story/_new', { state: { templateId: t._id, initialText: t.initialText, title: t.title, description: t.description, imageUrl: t.imageUrl } });
   };
 
   const asStory = (t: Template): Story => ({
@@ -85,7 +73,8 @@ export const StoriesPage = () => {
               <p className="story-list--error">{error}</p>
             ) : (
               <div className="story-list">
-                {templates.length === 0 && <p className="story-list--empty">Cargando...</p>}
+                {showLoading && <p className="story-list--empty">Cargando...</p>}
+                {!loading && templates.length === 0 && !error && <p className="story-list--empty">No hay historias disponibles.</p>}
                 {templates.map((t) => (
                   <StoryCard
                     key={t._id}
@@ -106,7 +95,8 @@ export const StoriesPage = () => {
                 <p className="story-list--error">{error}</p>
               ) : (
                 <div className="story-list">
-                  {templates.length === 0 && <p className="story-list--empty">Cargando...</p>}
+                  {showLoading && <p className="story-list--empty">Cargando...</p>}
+                  {!loading && templates.length === 0 && !error && <p className="story-list--empty">No hay historias disponibles.</p>}
                   {templates.map((t) => (
                     <StoryCard
                       key={t._id}

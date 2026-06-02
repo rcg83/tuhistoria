@@ -6,7 +6,6 @@
   flex-direction: column;
   width: 100vw;
   height: 100vh;
-  box-sizing: border-box;
   overflow: hidden;
 
   &__left,
@@ -21,7 +20,6 @@
     flex-direction: column;
     justify-content: flex-start;
     align-items: center;
-    box-sizing: border-box;
     overflow: auto;
     background-color: vars.$color-page;
   }
@@ -48,7 +46,6 @@
       flex-direction: column;
       justify-content: center;
       align-items: center;
-      box-sizing: border-box;
       background-color: transparent;
     }
   }

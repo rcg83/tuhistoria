@@ -55,21 +55,22 @@ export const updateStoryTemplateById = async (req: Request, res: Response): Prom
 
 export const startStory = async (req: Request, res: Response): Promise<void> => {
   try {
-    const { templateId } = req.body;
+    const { templateId, userInput } = req.body;
     if (!templateId) {
       res.status(400).json({ message: 'Se requiere templateId' });
       return;
     }
     const user = (req as unknown as { user: { id: string } }).user;
-    const result = await start(templateId, user.id);
+    const result = await start(templateId, user.id, userInput);
     if (result.error) {
       res.status(result.status!).json({ message: result.error });
       return;
     }
-    res.status(201).json({
-      message: 'Historia iniciada correctamente',
-      storyInstanceId: result.data!._id
-    });
+    if (userInput) {
+      res.json({ storyInstanceId: result.data!.storyInstanceId, response: result.data!.response });
+    } else {
+      res.json(result.data);
+    }
   } catch (error: unknown) {
     res.status(500).json({ message: 'Error al iniciar la historia' });
   }

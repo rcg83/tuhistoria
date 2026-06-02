@@ -4,6 +4,7 @@ import { BookWrapper } from 'src/components/layout/BookWrapper';
 import { StoryCard } from 'src/features/stories/components/StoryCard';
 import { StoryButton } from 'src/components/buttons/StoryButton';
 import { fetcher } from 'src/lib/fetcher';
+import { useDebouncedLoading } from 'src/hooks/useDebouncedLoading';
 import type { Story } from 'src/features/stories/context/StoriesContext';
 import './MyStoriesPage.scss';
 
@@ -14,6 +15,7 @@ export const MyStoriesPage = () => {
   const [stories, setStories] = useState<Story[]>([]);
   const [selectedId, setSelectedId] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
+  const showLoading = useDebouncedLoading(loading, 2000);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
@@ -45,7 +47,7 @@ export const MyStoriesPage = () => {
         leftPage={
           <div className="my-stories-sidebar">
             <h2>Mis historias</h2>
-            {loading ? (
+            {showLoading ? (
               <p>Cargando tus historias...</p>
             ) : (
               <div className="my-stories-sidebar__scroll">

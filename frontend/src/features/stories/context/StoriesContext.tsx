@@ -21,7 +21,8 @@ interface StoriesContextValue {
   stories: Story[];
   error: string | null;
   starting: boolean;
-  startStory: (templateId: string) => Promise<void>;
+  startStory: (templateId: string) => void;
+  fetchStories: () => Promise<Story[] | void>;
 }
 
 const StoriesContext = createContext<StoriesContextValue | null>(null);
@@ -30,7 +31,7 @@ export const StoriesProvider = ({ children }: { children: ReactNode }) => {
   const navigate = useNavigate();
   const [stories, setStories] = useState<Story[]>([]);
   const [error, setError] = useState<string | null>(null);
-  const [starting, setStarting] = useState(false);
+  const [starting] = useState(false);
 
   const fetchStories = useCallback(async () => {
     const token = localStorage.getItem('token');
@@ -51,34 +52,13 @@ export const StoriesProvider = ({ children }: { children: ReactNode }) => {
     }
   }, []);
 
-  const startStory = async (templateId: string) => {
-    const token = localStorage.getItem('token');
-    if (!token) return;
-
-    setStarting(true);
-    try {
-      const result = await fetcher<{ storyInstanceId: string }>(
-        `${API_URL}/api/stories/start`,
-        {
-          method: 'POST',
-          headers: { Authorization: `Bearer ${token}` },
-          body: JSON.stringify({ templateId }),
-        }
-      );
-
-      await fetchStories();
-
-      navigate(`/story/${result.storyInstanceId}`);
-    } catch (err) {
-      console.error(err);
-    } finally {
-      setStarting(false);
-    }
+  const startStory = (_templateId: string) => {
+    navigate('/story/_new', { state: { templateId: _templateId } });
   };
 
   return (
     <StoriesContext.Provider
-      value={{ stories, error, starting, startStory }}
+      value={{ stories, error, starting, startStory, fetchStories }}
     >
       {children}
     </StoriesContext.Provider>

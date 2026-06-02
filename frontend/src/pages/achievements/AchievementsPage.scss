@@ -36,8 +36,8 @@
     gap: 0.5rem;
     padding: 0.6rem 1rem;
     border-radius: 4px;
-    background: linear-gradient(135deg, #f6d365, #fda085);
-    color: #fff;
+    background: vars.$color-accent;
+    color: vars.$color-page;
     font-size: 0.85rem;
     font-weight: 600;
     letter-spacing: 0.5px;
@@ -69,8 +69,8 @@
   transition: border-color 0.2s;
 
   &--unlocked {
-    border-color: rgba(#f6d365, 0.4);
-    background: rgba(#f6d365, 0.06);
+    border-color: rgba(vars.$color-accent, 0.4);
+    background: rgba(vars.$color-accent, 0.06);
   }
 
   &__icon {
@@ -85,7 +85,7 @@
     color: vars.$color-text-soft;
 
     .ach-card--unlocked & {
-      background: rgba(#f6d365, 0.2);
+      background: rgba(vars.$color-accent, 0.2);
     }
   }
 
@@ -94,7 +94,7 @@
     font-weight: 700;
 
     .ach-card--unlocked & {
-      color: #e6a020;
+      color: vars.$color-accent;
     }
   }
 
@@ -125,8 +125,8 @@
     align-items: center;
     justify-content: center;
     border-radius: 50%;
-    background: #2e7d32;
-    color: #fff;
+    background: vars.$color-accent;
+    color: vars.$color-page;
     font-size: 0.75rem;
     font-weight: bold;
   }

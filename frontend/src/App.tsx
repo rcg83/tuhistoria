@@ -7,6 +7,7 @@ import { BookBackground } from './components/layout/BookBackground';
 import { LoginPage } from './pages/login/LoginPage';
 import { ProfilePage } from './pages/profile/ProfilePage';
 import { AchievementsPage } from './pages/achievements/AchievementsPage';
+import { Footer } from './components/footer/Footer';
 import { Home } from './pages/home/Home';
 import { StoriesPage } from './pages/stories/StoriesPage';
 import { MyStoriesPage } from './pages/stories/MyStoriesPage';
@@ -21,7 +22,7 @@ export const App = () => {
     <AuthProvider api={httpAuthApi}>
       <div className="app-root">
         <BookBackground closed={isLogin} />
-        <footer className="app-footer">Proyecto 2º DAW - Autor Ramón Céspedes</footer>
+        <Footer text="Proyecto 2º DAW - tuhistoria - Ramón Céspedes" />
         <Routes>
           <Route path='/login' element={<LoginPage />} />
 

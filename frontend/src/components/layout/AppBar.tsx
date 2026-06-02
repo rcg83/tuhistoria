@@ -32,7 +32,7 @@ export const AppBar = () => {
           username={user?.username}
           onAction={handleAction}
         >
-          <span className={`user-button__nav-item${location.pathname === '/profile' ? ' user-button__nav-item--active' : ''}`} onClick={() => navigate('/profile')}>Mis cosas</span>
+          <span className={`user-button__nav-item${location.pathname === '/profile' ? ' user-button__nav-item--active' : ''}`} onClick={() => navigate('/profile')}>Mi cuenta</span>
           <span className={`user-button__nav-item${location.pathname === '/achievements' ? ' user-button__nav-item--active' : ''}`} onClick={() => navigate('/achievements')}>Logros</span>
         </UserButton>
       </div>

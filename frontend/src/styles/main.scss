@@ -1,9 +1,13 @@
-@use './variables' as v;
+@use './variables' as vars;
 
 @import url('https://fonts.googleapis.com/css2?family=Vollkorn:wght@400;700&family=Lexend:wght@100..900&family=Caveat&display=swap');
+
+*, *::before, *::after {
+  box-sizing: border-box;
+}
 
 body {
   font-family: 'Vollkorn', 'Lexend', Arial, sans-serif;
   margin: 0;
-  background-color: v.$color-background;
+  background-color: vars.$color-background;
 }

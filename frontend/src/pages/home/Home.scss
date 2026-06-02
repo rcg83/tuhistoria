@@ -11,7 +11,7 @@
   overflow: hidden;
 
   &:hover .home-left__image {
-    transform: scale(1.03);
+    opacity: 1;
   }
 
   &__image {
@@ -20,7 +20,7 @@
     object-fit: contain;
     border-radius: 4px;
     opacity: 0.8;
-    transition: transform 0.25s ease;
+    transition: opacity 0.25s ease;
   }
 }
 
@@ -44,7 +44,7 @@
     overflow: hidden;
 
     &:hover .home-content__image {
-      transform: scale(1.03);
+      opacity: 1;
     }
   }
 
@@ -56,7 +56,7 @@
     object-fit: contain;
     border-radius: 4px;
     opacity: 0.8;
-    transition: transform 0.25s ease;
+    transition: opacity 0.25s ease;
 
     @include mixs.respond-to('desktop') {
       max-height: 70%;

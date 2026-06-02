@@ -1,4 +1,3 @@
-import { Logo } from '../logo/Logo.tsx';
 import './Footer.scss';
 
 type FooterProps = {
@@ -6,11 +5,11 @@ type FooterProps = {
   year?: number;
 }
 
-export const Footer = ({text = 'tuhistoria - ', year = new Date().getFullYear()}: FooterProps) => {
+export const Footer = ({ text, year = new Date().getFullYear() }: FooterProps) => {
   return (
-    <footer>
-      <p>{text}{year}</p>
-      <Logo />
+    <footer className="app-footer">
+      {text && <span>{text} - {year}</span>}
+      {!text && <span>{year}</span>}
     </footer>
   );
 }

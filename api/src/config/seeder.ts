@@ -10,6 +10,13 @@ const DEFAULT_USER = {
   role: 'user' as const,
 };
 
+const ADMIN_USER = {
+  username: 'admin',
+  email: 'admin@tuhistoria.app',
+  password: '123456',
+  role: 'admin' as const,
+};
+
 const DEFAULT_TEMPLATES = [
   {
     title: 'La última noche del Titanic',
@@ -33,28 +40,37 @@ export async function seed(): Promise<void> {
     );
   }
 
-  const existing = await MongoUserModel.findOne({ email: DEFAULT_USER.email });
-  if (existing) {
-    console.log('Seeder: usuario por defecto ya existe');
-    return;
+  const salt = await bcrypt.genSalt(10);
+
+  const existingUser = await MongoUserModel.findOne({ email: DEFAULT_USER.email });
+  if (!existingUser) {
+    const hashed = await bcrypt.hash(DEFAULT_USER.password, salt);
+    const user = await MongoUserModel.create({
+      username: DEFAULT_USER.username,
+      email: DEFAULT_USER.email,
+      password: hashed,
+      role: DEFAULT_USER.role,
+    });
+    await MongoUserProfileModel.create({ user: user._id, bio: '', avatarUrl: '', location: '' });
+    console.log('Seeder: usuario viajero creado');
+  } else {
+    console.log('Seeder: usuario viajero ya existe');
   }
 
-  const salt = await bcrypt.genSalt(10);
-  const hashedPassword = await bcrypt.hash(DEFAULT_USER.password, salt);
-
-  const user = await MongoUserModel.create({
-    username: DEFAULT_USER.username,
-    email: DEFAULT_USER.email,
-    password: hashedPassword,
-    role: DEFAULT_USER.role,
-  });
-
-  await MongoUserProfileModel.create({
-    user: user._id,
-    bio: '',
-    avatarUrl: '',
-    location: '',
-  });
+  const existingAdmin = await MongoUserModel.findOne({ email: ADMIN_USER.email });
+  if (!existingAdmin) {
+    const hashed = await bcrypt.hash(ADMIN_USER.password, salt);
+    const admin = await MongoUserModel.create({
+      username: ADMIN_USER.username,
+      email: ADMIN_USER.email,
+      password: hashed,
+      role: ADMIN_USER.role,
+    });
+    await MongoUserProfileModel.create({ user: admin._id, bio: '', avatarUrl: '', location: '' });
+    console.log('Seeder: usuario admin creado');
+  } else {
+    console.log('Seeder: usuario admin ya existe');
+  }
 
   for (const tpl of DEFAULT_TEMPLATES) {
     const exists = await MongoStoryTemplateModel.findOne({ title: tpl.title });
@@ -63,5 +79,5 @@ export async function seed(): Promise<void> {
     }
   }
 
-  console.log('Seeder: usuario por defecto y plantillas creados');
+  console.log('Seeder: datos por defecto listos');
 }

@@ -30,7 +30,7 @@ export const Rightbar = () => {
         />
       </div>
       <div className="rightbar__nav">
-        <span className={`rightbar__nav-item${location.pathname === '/profile' ? ' rightbar__nav-item--active' : ''}`} onClick={() => navigate('/profile')}>Mis cosas</span>
+        <span className={`rightbar__nav-item${location.pathname === '/profile' ? ' rightbar__nav-item--active' : ''}`} onClick={() => navigate('/profile')}>Mi cuenta</span>
         <span className={`rightbar__nav-item${location.pathname === '/achievements' ? ' rightbar__nav-item--active' : ''}`} onClick={() => navigate('/achievements')}>Logros</span>
         <span className="rightbar__nav-item rightbar__nav-item--push-bottom">Hasta luego</span>
       </div>

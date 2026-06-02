@@ -1,14 +1,19 @@
-@use '../../styles/variables.scss' as v;
+@use 'src/styles/variables' as vars;
+@use 'src/styles/mixins' as mixs;
 
-footer {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  color: v.$color-page;
-  font-size: 1em;
-  
-  svg {
-    width: 32px;
-    fill: v.$color-page;
+.app-footer {
+  position: fixed;
+  bottom: 0.5rem;
+  left: 0.5rem;
+  font-size: 0.65rem;
+  color: vars.$color-text-soft;
+  line-height: 1.5;
+  pointer-events: none;
+  z-index: -1;
+
+  @include mixs.respond-to('desktop') {
+    left: 30vw;
+    transform: translateX(-50%);
+    text-align: center;
   }
 }

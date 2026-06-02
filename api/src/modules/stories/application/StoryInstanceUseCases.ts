@@ -16,7 +16,7 @@ export const startStoryUseCase = (
   instanceRepo: StoryInstanceRepository,
   templateRepo: StoryTemplateRepository
 ) => {
-  return async (templateId: string, userId: string): Promise<{
+  return async (templateId: string, userId: string, userInput?: string): Promise<{
     data?: Record<string, unknown>;
     error?: string;
     status?: number;
@@ -25,18 +25,73 @@ export const startStoryUseCase = (
     if (!template) {
       return { error: 'Template de la historia no encontrado', status: 404 };
     }
+
+    if (!userInput) {
+      return {
+        data: {
+          templateId,
+          initialText: template.initialText,
+          title: template.title,
+          description: template.description,
+          imageUrl: template.imageUrl
+        }
+      };
+    }
+
     const story = await instanceRepo.create({
       template: templateId,
       user: userId,
       messages: []
     });
-    return { data: { ...story, initialText: template.initialText } };
+
+    const storyId = story._id as string;
+    await instanceRepo.pushMessage(storyId, { role: 'user', text: userInput, timestamp: new Date() });
+
+    const history: { role: string; parts: { text: string }[] }[] = [];
+    if (template.initialText) {
+      history.push(
+        { role: 'user', parts: [{ text: 'Comienza la historia.' }] },
+        { role: 'model', parts: [{ text: template.initialText as string }] }
+      );
+    }
+
+    try {
+      const aiResponse = await continueStory(history, userInput, SYSTEM_PROMPT, { storyId, userId });
+
+      const narrativeMatch = aiResponse.match(/<<NARRATIVA>>\s*([\s\S]*?)\s*<<RESUMEN>>/);
+      const summaryMatch = aiResponse.match(/<<RESUMEN>>\s*([\s\S]*)/);
+      const narrative = narrativeMatch ? narrativeMatch[1].trim() : aiResponse.trim();
+      const newSummary = summaryMatch ? summaryMatch[1].trim() : '';
+
+      await instanceRepo.pushMessage(storyId, { role: 'model', text: narrative, timestamp: new Date() });
+
+      if (newSummary) {
+        await instanceRepo.updateSummary(storyId, newSummary);
+      }
+
+      return { data: { storyInstanceId: storyId, response: narrative } };
+    } catch (error) {
+      let msg = 'Error al comunicarse con la IA';
+      if (error instanceof Error) {
+        const fetchError = error as unknown as Record<string, unknown>;
+        if (fetchError.status === 503) {
+          msg = 'El servicio de IA está saturado. Intenta de nuevo en unos segundos.';
+        } else {
+          msg = error.message;
+        }
+      }
+      return { error: msg, status: 500 };
+    }
   };
 };
 
 export const getMyStoriesUseCase = (instanceRepo: StoryInstanceRepository) => {
   return async (userId: string): Promise<Record<string, unknown>[]> => {
-    return await instanceRepo.findByUser(userId);
+    const stories = await instanceRepo.findByUser(userId);
+    return stories.filter(s => {
+      const msgs = s.messages as unknown[];
+      return msgs && msgs.length > 0;
+    });
   };
 };
 

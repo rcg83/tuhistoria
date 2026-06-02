@@ -1,9 +1,13 @@
 @use 'src/styles/variables' as v;
 
 .nav-button {
-  display: block;
-  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   text-align: center;
+  width: 100%;
+  padding-left: 0.5rem;
+  padding-right: 1rem;
   text-decoration: none;
   color: v.$color-text;
   font-family: 'Caveat';
