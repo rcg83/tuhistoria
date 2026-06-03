@@ -13,15 +13,18 @@
   font-family: 'Caveat';
   font-size: clamp(0.75rem, 2.5vw, v.$font-big);
   line-height: 1;
-  transition: transform 0.2s ease;
+  text-shadow: 0 0 0 transparent;
+  border-radius: 4px;
+  transition: text-shadow 0.2s ease;
 
   &:hover {
-    transform: scale(1.05);
+    text-shadow: 0 0 0 v.$color-text, 0 0 0 v.$color-text, 0 0 0 v.$color-text;
   }
 
   &--active {
     background: transparent;
     color: v.$color-text;
-    font-weight: bold;
+    font-weight: 600;
+    text-shadow: 0 0 0 v.$color-text, 0 0 0 v.$color-text, 0 0 0 v.$color-text;
   }
 }

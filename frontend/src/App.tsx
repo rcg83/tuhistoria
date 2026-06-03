@@ -6,12 +6,15 @@ import { ProtectedRoute } from './features/auth/guards/ProtectedRoute';
 import { BookBackground } from './components/layout/BookBackground';
 import { LoginPage } from './pages/login/LoginPage';
 import { ProfilePage } from './pages/profile/ProfilePage';
+import { AdminUsersPage } from './pages/admin/AdminUsersPage';
+import { AdminTemplatesPage } from './pages/admin/AdminTemplatesPage';
 import { AchievementsPage } from './pages/achievements/AchievementsPage';
 import { Footer } from './components/footer/Footer';
 import { Home } from './pages/home/Home';
 import { StoriesPage } from './pages/stories/StoriesPage';
 import { MyStoriesPage } from './pages/stories/MyStoriesPage';
 import { StoryPage } from './pages/story/StoryPage';
+
 import './App.scss';
 
 export const App = () => {
@@ -33,6 +36,8 @@ export const App = () => {
               <Route path='stories' element={<StoriesPage />} />
               <Route path='my-stories' element={<MyStoriesPage />} />
               <Route path='profile' element={<ProfilePage />} />
+              <Route path='users' element={<AdminUsersPage />} />
+              <Route path='templates' element={<AdminTemplatesPage />} />
               <Route path='achievements' element={<AchievementsPage />} />
               <Route path='story/:id' element={<StoryPage />} />
             </Route>

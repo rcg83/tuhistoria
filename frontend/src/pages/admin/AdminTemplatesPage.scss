@@ -1,0 +1,261 @@
+@use 'src/styles/variables' as vars;
+
+.admin-templates {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  height: 100%;
+
+  &__loading {
+    font-size: vars.$font-medium;
+    color: vars.$color-text-soft;
+    text-align: center;
+    margin: auto;
+  }
+
+  &__msg {
+    text-align: center;
+    font-size: 0.9rem;
+    margin: 0;
+
+    &--ok {
+      color: #2e7d32;
+    }
+
+    &--error {
+      color: #d32f2f;
+    }
+  }
+
+  &__add {
+    background: none;
+    border: 1px solid vars.$color-text-soft;
+    color: vars.$color-text-soft;
+    padding: 0.6rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: all 0.3s ease;
+
+    &:hover {
+      background-color: vars.$color-text-soft;
+      color: vars.$color-page;
+    }
+  }
+
+  &__list {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    gap: 0.5rem;
+    overflow-y: auto;
+    flex: 1;
+    scrollbar-width: none;
+    mask-image: linear-gradient(to bottom, black 85%, transparent 100%);
+    -webkit-mask-image: linear-gradient(to bottom, black 85%, transparent 100%);
+
+    &::-webkit-scrollbar {
+      display: none;
+    }
+  }
+
+  &__item {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.75rem;
+    border-bottom: 1px solid rgba(vars.$color-text-soft, 0.15);
+  }
+
+  &__item-img {
+    width: 2.5rem;
+    height: 2.5rem;
+    object-fit: cover;
+    border-radius: 3px;
+    flex-shrink: 0;
+  }
+
+  &__item-info {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    min-width: 0;
+  }
+
+  &__item-title {
+    font-size: 0.95rem;
+    color: vars.$color-text;
+    font-weight: 600;
+  }
+
+  &__item-desc {
+    font-size: 0.8rem;
+    color: vars.$color-text-soft;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  &__item-actions {
+    display: flex;
+    gap: 0.4rem;
+    flex-shrink: 0;
+  }
+
+  &__edit {
+    background: none;
+    border: 1px solid vars.$color-text-soft;
+    color: vars.$color-text-soft;
+    font-size: 0.75rem;
+    padding: 0.35rem 0.65rem;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: all 0.3s ease;
+
+    &:hover {
+      background-color: vars.$color-text-soft;
+      color: vars.$color-page;
+    }
+  }
+
+  &__delete {
+    flex-shrink: 0;
+    background: none;
+    border: 1px solid vars.$color-accent;
+    color: vars.$color-accent;
+    font-size: 0.75rem;
+    padding: 0.35rem 0.65rem;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: all 0.3s ease;
+
+    &:hover:not(:disabled) {
+      background-color: vars.$color-accent;
+      color: vars.$color-page;
+    }
+
+    &:disabled {
+      opacity: 0.5;
+      cursor: default;
+    }
+  }
+
+  &__overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+  }
+
+  &__modal {
+    background: vars.$color-page;
+    padding: 2rem;
+    width: 90%;
+    max-width: 480px;
+    border-radius: 4px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+  }
+
+  &__modal-title {
+    font-size: vars.$font-big;
+    font-weight: normal;
+    color: vars.$color-text;
+    margin: 0 0 1.5rem;
+    text-align: center;
+  }
+
+  &__form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  &__field {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+
+    span {
+      font-size: 0.8rem;
+      color: vars.$color-text-soft;
+    }
+
+    input,
+    textarea {
+      background: transparent;
+      border: none;
+      border-bottom: 1px solid rgba(vars.$color-text-soft, 0.3);
+      padding: 0.5rem 0.4rem;
+      font-size: 0.95rem;
+      font-family: inherit;
+      color: vars.$color-text;
+      outline: none;
+      resize: vertical;
+      transition: border-bottom 0.3s ease;
+      width: 100%;
+
+      &:focus {
+        border-bottom: 1px solid vars.$color-text-soft;
+      }
+
+      &:disabled {
+        opacity: 0.5;
+      }
+    }
+  }
+
+  &__modal-actions {
+    display: flex;
+    gap: 0.75rem;
+    justify-content: flex-end;
+    margin-top: 0.5rem;
+  }
+
+  &__modal-cancel {
+    background: none;
+    border: 1px solid rgba(vars.$color-text-soft, 0.4);
+    color: vars.$color-text-soft;
+    padding: 0.6rem 1rem;
+    font-size: 0.85rem;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: all 0.3s ease;
+
+    &:hover:not(:disabled) {
+      border-color: vars.$color-text-soft;
+    }
+
+    &:disabled {
+      opacity: 0.5;
+      cursor: default;
+    }
+  }
+
+  &__submit {
+    background: none;
+    border: 1px solid vars.$color-text-soft;
+    color: vars.$color-text-soft;
+    padding: 0.6rem 1rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: all 0.3s ease;
+
+    &:hover:not(:disabled) {
+      background-color: vars.$color-text-soft;
+      color: vars.$color-page;
+    }
+
+    &:disabled {
+      opacity: 0.5;
+      cursor: default;
+    }
+  }
+}

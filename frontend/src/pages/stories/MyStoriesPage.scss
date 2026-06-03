@@ -82,6 +82,7 @@
   h1 {
     font-size: v.$font-big;
     color: v.$color-text;
+    margin-top: 0;
   }
 
   &__desc {
@@ -111,6 +112,7 @@
       font-weight: 600;
       color: v.$color-text-soft;
       margin: 0 0 0.25rem;
+      border-radius: 4px;
     }
 
     &-text {

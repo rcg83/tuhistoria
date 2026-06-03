@@ -1,6 +1,6 @@
 import { mongoUserRepository } from '../persistence/MongoUserRepository.js';
 import { mongoUserProfileRepository } from '../persistence/MongoUserProfileRepository.js';
-import { getAccountUseCase, getUsersUseCase, deleteUserUseCase, updateAccountUseCase } from '../../application/UserUseCases.js';
+import { getAccountUseCase, getUsersUseCase, deleteUserUseCase, updateAccountUseCase, updateUserRoleUseCase, adminUpdateUserUseCase } from '../../application/UserUseCases.js';
 import { getProfileUseCase, updateProfileUseCase } from '../../application/UserProfileUseCases.js';
 
 const userRepo = mongoUserRepository;
@@ -10,6 +10,8 @@ const getAccount = getAccountUseCase(userRepo);
 const listUsers = getUsersUseCase(userRepo);
 const removeUser = deleteUserUseCase(userRepo);
 const editAccount = updateAccountUseCase(userRepo);
+const changeRole = updateUserRoleUseCase(userRepo);
+const adminUpdate = adminUpdateUserUseCase(userRepo);
 const getProfile = getProfileUseCase(profileRepo);
 const updateProfile = updateProfileUseCase(profileRepo);
 
@@ -68,6 +70,34 @@ export const getUsers = async (req, res): Promise<void> => {
     res.json(users);
   } catch {
     res.status(500).json({ message: 'Error al obtener la lista de usuarios' });
+  }
+};
+
+export const updateUserRole = async (req, res): Promise<void> => {
+  try {
+    const { role } = req.body;
+    const result = await changeRole(req.params.id, role);
+    if (result.error) {
+      res.status(result.status).json({ message: result.error });
+      return;
+    }
+    res.json(result.data);
+  } catch {
+    res.status(500).json({ message: 'Error al actualizar el rol' });
+  }
+};
+
+export const adminUpdateUser = async (req, res): Promise<void> => {
+  try {
+    const { username, email, role } = req.body;
+    const result = await adminUpdate(req.params.id, { username, email, role });
+    if (result.error) {
+      res.status(result.status).json({ message: result.error });
+      return;
+    }
+    res.json(result.data);
+  } catch {
+    res.status(500).json({ message: 'Error al actualizar el usuario' });
   }
 };
 

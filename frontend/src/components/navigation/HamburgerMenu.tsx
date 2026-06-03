@@ -1,8 +1,10 @@
 import { useState, useEffect, useRef } from 'react';
 import { NavLink } from 'react-router-dom';
+import { useAuth } from 'src/features/auth/context/AuthContext';
 import './HamburgerMenu.scss';
 
 export const HamburgerMenu = () => {
+  const { user } = useAuth();
   const [open, setOpen] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
 
@@ -52,6 +54,29 @@ export const HamburgerMenu = () => {
           >
             Historias
           </NavLink>
+
+          {user?.role === 'admin' && (
+            <NavLink
+              to="/users"
+              className={({ isActive }) =>
+                `hamburger-menu__link hamburger-menu__link--admin${isActive ? ' hamburger-menu__link--active' : ''}`
+              }
+              onClick={handleNavClick}
+            >
+              Admin Usuarios
+            </NavLink>
+          )}
+          {user?.role === 'admin' && (
+            <NavLink
+              to="/templates"
+              className={({ isActive }) =>
+                `hamburger-menu__link hamburger-menu__link--admin${isActive ? ' hamburger-menu__link--active' : ''}`
+              }
+              onClick={handleNavClick}
+            >
+              Admin Plantillas
+            </NavLink>
+          )}
         </div>
       )}
     </div>

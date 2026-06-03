@@ -12,6 +12,7 @@
     align-items: center;
     justify-content: center;
     cursor: pointer;
+    border-radius: 4px;
     transition: transform 0.2s ease;
 
     &:hover {
@@ -63,6 +64,7 @@
     font-family: 'Caveat', cursive;
     font-size: v.$font-medium;
     cursor: pointer;
+    border-radius: 4px;
     transition: background 0.2s;
 
     &:hover {
@@ -86,6 +88,7 @@
     color: v.$color-text;
     font-family: inherit;
     font-size: inherit;
+    border-radius: 4px;
     transition: background 0.2s;
 
     &:hover {

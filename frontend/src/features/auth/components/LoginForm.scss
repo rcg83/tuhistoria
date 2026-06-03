@@ -97,6 +97,7 @@
     text-transform: uppercase;
     letter-spacing: 2px;
     cursor: pointer;
+    border-radius: 4px;
     transition: all 0.3s ease;
 
     &:hover {
@@ -113,6 +114,7 @@
     font-size: vars.$font-medium;
     cursor: pointer;
     text-decoration: underline;
+    border-radius: 4px;
     transition: color 0.3s ease;
 
     &:hover {

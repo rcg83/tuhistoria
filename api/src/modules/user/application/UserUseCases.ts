@@ -36,6 +36,46 @@ export const updateAccountUseCase = (userRepo: UserRepository) => {
   };
 };
 
+export const updateUserRoleUseCase = (userRepo: UserRepository) => {
+  return async (userId: string, newRole: 'user' | 'admin'): Promise<{
+    data?: Record<string, unknown>;
+    error?: string;
+    status?: number;
+  }> => {
+    if (newRole !== 'user' && newRole !== 'admin') {
+      return { error: 'Rol no válido', status: 400 };
+    }
+    const updated = await userRepo.updateById(userId, { role: newRole });
+    if (!updated) {
+      return { error: 'Usuario no encontrado', status: 404 };
+    }
+    return { data: updated };
+  };
+};
+
+export const adminUpdateUserUseCase = (userRepo: UserRepository) => {
+  return async (userId: string, data: { username?: string; email?: string; role?: 'user' | 'admin' }): Promise<{
+    data?: Record<string, unknown>;
+    error?: string;
+    status?: number;
+  }> => {
+    if (data.role && data.role !== 'user' && data.role !== 'admin') {
+      return { error: 'Rol no válido', status: 400 };
+    }
+    if (data.email) {
+      const existing = await userRepo.findByEmail(data.email);
+      if (existing && (existing as { _id: string })._id.toString() !== userId) {
+        return { error: 'Email ya registrado', status: 400 };
+      }
+    }
+    const updated = await userRepo.updateById(userId, data);
+    if (!updated) {
+      return { error: 'Usuario no encontrado', status: 404 };
+    }
+    return { data: updated };
+  };
+};
+
 export const deleteUserUseCase = (userRepo: UserRepository) => {
   return async (id: string): Promise<{ data?: Record<string, unknown>; error?: string; status?: number }> => {
     const deleted = await userRepo.deleteById(id);

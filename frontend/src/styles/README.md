@@ -3,8 +3,7 @@
 ## Fuentes
 
 - **Vollkorn** — principal, texto general del body
-- **Lexend** — secundaria, variantes de peso para títulos, cuerpo
-- **Caveat** — decorativa, solo en la letra inicial del botón de usuario
+- **Caveat** — decorativa, para opciones de los menús
 
 Cargadas desde Google Fonts en `main.scss` línea 3.
 
