@@ -75,6 +75,8 @@
     object-fit: cover;
     border-radius: 3px;
     flex-shrink: 0;
+    image-rendering: high-quality;
+    transform: translateZ(0);
   }
 
   &__item-info {

@@ -21,6 +21,8 @@
     border-radius: 4px;
     opacity: 0.8;
     transition: opacity 0.25s ease;
+    image-rendering: high-quality;
+    transform: translateZ(0);
   }
 }
 
@@ -57,6 +59,8 @@
     border-radius: 4px;
     opacity: 0.8;
     transition: opacity 0.25s ease;
+    image-rendering: high-quality;
+    transform: translateZ(0);
 
     @include mixs.respond-to('desktop') {
       max-height: 70%;

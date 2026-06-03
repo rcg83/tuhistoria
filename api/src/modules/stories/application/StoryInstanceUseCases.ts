@@ -27,8 +27,14 @@ export const startStoryUseCase = (
     }
 
     if (!userInput) {
+      const story = await instanceRepo.create({
+        template: templateId,
+        user: userId,
+        messages: []
+      });
       return {
         data: {
+          storyInstanceId: story._id,
           templateId,
           initialText: template.initialText,
           title: template.title,

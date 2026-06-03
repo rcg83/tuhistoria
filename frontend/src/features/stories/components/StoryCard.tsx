@@ -34,7 +34,15 @@ export const StoryCard = ({ story, isActive, onClick }: StoryCardProps) => {
         <h3 className="story-card__title">{story.template.title}</h3>
         <p className="story-card__desc">{story.template.description}</p>
         <div className="story-card__meta">
-          {story.createdAt && <span>🕐 {formatDate(story.createdAt)}</span>}
+          {story.createdAt && (
+            <span>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ verticalAlign: 'middle', marginRight: 4, marginTop: -2 }}>
+                <circle cx="12" cy="12" r="10"/>
+                <polyline points="12 6 12 12 16 14"/>
+              </svg>
+              {formatDate(story.createdAt)}
+            </span>
+          )}
         </div>
       </div>
     </div>

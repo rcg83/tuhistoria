@@ -56,26 +56,27 @@ export const HamburgerMenu = () => {
           </NavLink>
 
           {user?.role === 'admin' && (
-            <NavLink
-              to="/users"
-              className={({ isActive }) =>
-                `hamburger-menu__link hamburger-menu__link--admin${isActive ? ' hamburger-menu__link--active' : ''}`
-              }
-              onClick={handleNavClick}
-            >
-              Admin Usuarios
-            </NavLink>
-          )}
-          {user?.role === 'admin' && (
-            <NavLink
-              to="/templates"
-              className={({ isActive }) =>
-                `hamburger-menu__link hamburger-menu__link--admin${isActive ? ' hamburger-menu__link--active' : ''}`
-              }
-              onClick={handleNavClick}
-            >
-              Admin Plantillas
-            </NavLink>
+            <fieldset className="hamburger-menu__admin-section">
+              <legend className="hamburger-menu__admin-legend">Administrador</legend>
+              <NavLink
+                to="/users"
+                className={({ isActive }) =>
+                  `hamburger-menu__admin-link${isActive ? ' hamburger-menu__admin-link--active' : ''}`
+                }
+                onClick={handleNavClick}
+              >
+                Usuarios
+              </NavLink>
+              <NavLink
+                to="/templates"
+                className={({ isActive }) =>
+                  `hamburger-menu__admin-link${isActive ? ' hamburger-menu__admin-link--active' : ''}`
+                }
+                onClick={handleNavClick}
+              >
+                Plantillas
+              </NavLink>
+            </fieldset>
           )}
         </div>
       )}

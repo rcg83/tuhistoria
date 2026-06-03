@@ -21,7 +21,8 @@
     border-radius: 6px;
     object-fit: cover;
     object-position: top;
-    image-rendering: auto;
+    image-rendering: high-quality;
+    transform: translateZ(0);
   }
 
   &__body {

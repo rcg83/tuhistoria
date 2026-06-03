@@ -24,6 +24,20 @@
     font-size: v.$font-big;
   }
 
+  &__image {
+    width: 2.6rem;
+    height: 2.6rem;
+    object-fit: cover;
+    border-radius: 4px;
+    image-rendering: high-quality;
+    transform: translateZ(0);
+
+    @include mixs.respond-to('desktop') {
+      width: 3.2rem;
+      height: 3.2rem;
+    }
+  }
+
   &__initial {
     display: flex;
     color: v.$color-text;

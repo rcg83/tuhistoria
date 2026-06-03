@@ -27,7 +27,7 @@ export const StoriesPage = () => {
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
   const showLoading = useDebouncedLoading(loading, 2000);
-  const [starting] = useState(false);
+  const [starting, setStarting] = useState(false);
 
   useEffect(() => {
     const token = localStorage.getItem('token');
@@ -51,10 +51,22 @@ export const StoriesPage = () => {
 
   const selected = templates.find((t) => t._id === selectedId) || null;
 
-  const handleStart = (templateId: string) => {
+  const handleStart = async (templateId: string) => {
     const t = templates.find(t => t._id === templateId);
     if (!t) return;
-    navigate('/story/_new', { state: { templateId: t._id, initialText: t.initialText, title: t.title, description: t.description, imageUrl: t.imageUrl } });
+    setStarting(true);
+    try {
+      const data = await fetcher<{ storyInstanceId: string }>(`${API_URL}/api/stories/start`, {
+        method: 'POST',
+        headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
+        body: JSON.stringify({ templateId }),
+      });
+      navigate(`/story/${data.storyInstanceId}`);
+    } catch (err) {
+      console.error(err);
+    } finally {
+      setStarting(false);
+    }
   };
 
   const asStory = (t: Template): Story => ({

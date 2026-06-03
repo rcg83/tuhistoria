@@ -62,12 +62,41 @@
     }
   }
 
-  &__link--admin {
-    color: v.$color-accent;
-    -webkit-text-stroke: 1px v.$color-text;
+  &__admin-section {
+    border: 1px solid v.$color-text;
+    border-radius: 4px;
+    min-width: 0;
+    overflow: hidden;
+    padding: 0.5rem 0;
+    margin: 0.5rem 0;
 
-    &.hamburger-menu__link--active {
-      color: v.$color-accent;
+    legend {
+      font-family: 'Vollkorn', Georgia, serif;
+      font-size: 0.78rem;
+      color: v.$color-text-soft;
+      padding: 0 0.4rem;
+      opacity: 0.6;
+    }
+  }
+
+  &__admin-link {
+    display: block;
+    padding: 0.75rem 1.2rem;
+    text-decoration: none;
+    color: v.$color-text;
+    font-family: 'Vollkorn', Georgia, serif;
+    font-size: 1.125rem;
+    border-radius: 4px;
+    transition: text-shadow 0.2s ease;
+
+    &:hover {
+      text-shadow: 0 0 0 v.$color-text, 0 0 0 v.$color-text, 0 0 0 v.$color-text;
+    }
+
+    &--active {
+      background: transparent;
+      font-weight: 600;
+      text-shadow: 0 0 0 v.$color-text, 0 0 0 v.$color-text, 0 0 0 v.$color-text;
     }
   }
 
