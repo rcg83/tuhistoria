@@ -41,17 +41,15 @@ export const LoginForm = () => {
   return (
     <div className="book-login">
       <div className="book-login__top">
-        <Logo width={140} height={140} decorative />
-      </div>
-
-      <div className="book-login__bottom">
+        <Logo width={120} height={120} decorative />
         <div className="book-login__header">
           <h2 className="book-login__title">
             {isRegister ? 'Crea tu historia' : 'Continúa tu historia'}
           </h2>
         </div>
+      </div>
 
-      <form onSubmit={handleSubmit} className="book-login__form">
+      <form id="loginForm" onSubmit={handleSubmit} className="book-login__form">
         {isRegister && (
           <input
             type="text"
@@ -78,25 +76,24 @@ export const LoginForm = () => {
           required
           disabled={isLoading}
         />
-        
+
         {error && <p className="book-login__error">{error}</p>}
         {successMsg && <p className="book-login__success">{successMsg}</p>}
-
-        <div className="book-login__actions">
-          <button type="submit" className="book-login__submit" disabled={isLoading}>
-            {isLoading ? 'Cargando...' : (isRegister ? 'Registrarse' : 'Entrar')}
-          </button>
-          
-          <button 
-            type="button" 
-            className="book-login__switch"
-            onClick={switchMode}
-            disabled={isLoading}
-          >
-            {isRegister ? '¿Ya tienes cuenta?' : '¿Eres nuevo aquí?'}
-          </button>
-        </div>
       </form>
+
+      <div className="book-login__actions">
+        <button type="submit" form="loginForm" className="book-login__submit" disabled={isLoading}>
+          {isLoading ? 'Cargando...' : (isRegister ? 'Registrarse' : 'Entrar')}
+        </button>
+
+        <button
+          type="button"
+          className="book-login__switch"
+          onClick={switchMode}
+          disabled={isLoading}
+        >
+          {isRegister ? '¿Ya tienes cuenta?' : '¿Eres nuevo aquí?'}
+        </button>
       </div>
     </div>
   );

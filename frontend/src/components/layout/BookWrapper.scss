@@ -68,14 +68,34 @@
   }
 
   &--single {
+    .book__page--right {
+      min-height: 95vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .book__content {
+      flex: 1;
+      min-height: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
     @include mixs.respond-to('desktop') {
       justify-content: center;
 
       .book__page--right {
         flex: 0 1 auto;
-        max-width: 500px;
+        max-width: 24rem;
         width: 100%;
+        padding: 3rem;
         border-radius: 1rem;
+        display: block;
+      }
+
+      .book__content {
+        display: block;
       }
     }
   }
