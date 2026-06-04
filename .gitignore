@@ -4,6 +4,7 @@ mongo_data/
 .env
 .DS_Store
 
+.vscode/
 .opencode/
 AGENTS.md
 thesis/

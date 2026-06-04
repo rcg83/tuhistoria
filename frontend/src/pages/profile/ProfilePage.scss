@@ -100,18 +100,18 @@
 
   &__submit {
     background: none;
-    border: 1px solid vars.$color-text-soft;
-    color: vars.$color-text-soft;
+    border: 0.15rem solid vars.$color-accent;
+    color: vars.$color-accent;
     padding: 0.7rem;
     font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 2px;
     cursor: pointer;
-    border-radius: 4px;
+    border-radius: 1rem;
     transition: all 0.3s ease;
 
     &:hover {
-      background-color: vars.$color-text-soft;
+      background-color: vars.$color-accent;
       color: vars.$color-page;
     }
 
@@ -123,16 +123,20 @@
 
   &__logout {
     background: none;
-    border: none;
-    color: rgba(vars.$color-text, 0.5);
+    border: 0.15rem solid vars.$color-accent;
+    color: vars.$color-accent;
     font-size: 0.85rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 2px;
     cursor: pointer;
-    text-decoration: underline;
-    border-radius: 4px;
-    transition: color 0.3s ease;
+    border-radius: 1rem;
+    padding: 0.6rem 1.5rem;
+    transition: all 0.3s ease;
 
     &:hover {
-      color: #d32f2f;
+      background-color: vars.$color-accent;
+      color: vars.$color-page;
     }
   }
 }

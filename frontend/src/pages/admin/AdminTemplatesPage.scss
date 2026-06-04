@@ -29,18 +29,18 @@
 
   &__add {
     background: none;
-    border: 1px solid vars.$color-text-soft;
-    color: vars.$color-text-soft;
+    border: 0.15rem solid vars.$color-accent;
+    color: vars.$color-accent;
     padding: 0.6rem;
     font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 2px;
     cursor: pointer;
-    border-radius: 4px;
+    border-radius: 1rem;
     transition: all 0.3s ease;
 
     &:hover {
-      background-color: vars.$color-text-soft;
+      background-color: vars.$color-accent;
       color: vars.$color-page;
     }
   }
@@ -108,16 +108,19 @@
 
   &__edit {
     background: none;
-    border: 1px solid vars.$color-text-soft;
-    color: vars.$color-text-soft;
+    border: 0.15rem solid vars.$color-accent;
+    color: vars.$color-accent;
     font-size: 0.75rem;
     padding: 0.35rem 0.65rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 2px;
     cursor: pointer;
-    border-radius: 4px;
+    border-radius: 1rem;
     transition: all 0.3s ease;
 
     &:hover {
-      background-color: vars.$color-text-soft;
+      background-color: vars.$color-accent;
       color: vars.$color-page;
     }
   }
@@ -125,12 +128,15 @@
   &__delete {
     flex-shrink: 0;
     background: none;
-    border: 1px solid vars.$color-accent;
+    border: 0.15rem solid vars.$color-accent;
     color: vars.$color-accent;
     font-size: 0.75rem;
     padding: 0.35rem 0.65rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 2px;
     cursor: pointer;
-    border-radius: 4px;
+    border-radius: 1rem;
     transition: all 0.3s ease;
 
     &:hover:not(:disabled) {
@@ -220,16 +226,20 @@
 
   &__modal-cancel {
     background: none;
-    border: 1px solid rgba(vars.$color-text-soft, 0.4);
-    color: vars.$color-text-soft;
+    border: 0.15rem solid vars.$color-accent;
+    color: vars.$color-accent;
     padding: 0.6rem 1rem;
     font-size: 0.85rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 2px;
     cursor: pointer;
-    border-radius: 4px;
+    border-radius: 1rem;
     transition: all 0.3s ease;
 
     &:hover:not(:disabled) {
-      border-color: vars.$color-text-soft;
+      background-color: vars.$color-accent;
+      color: vars.$color-page;
     }
 
     &:disabled {
@@ -240,18 +250,18 @@
 
   &__submit {
     background: none;
-    border: 1px solid vars.$color-text-soft;
-    color: vars.$color-text-soft;
+    border: 0.15rem solid vars.$color-accent;
+    color: vars.$color-accent;
     padding: 0.6rem 1rem;
     font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 2px;
     cursor: pointer;
-    border-radius: 4px;
+    border-radius: 1rem;
     transition: all 0.3s ease;
 
     &:hover:not(:disabled) {
-      background-color: vars.$color-text-soft;
+      background-color: vars.$color-accent;
       color: vars.$color-page;
     }
 

@@ -169,21 +169,25 @@
 
   &__send {
     font-size: v.$font-medium;
-    color: #fff;
-    background: v.$color-text-soft;
-    border: none;
-    border-radius: 4px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    background: none;
+    border: 0.15rem solid v.$color-accent;
+    color: v.$color-accent;
+    border-radius: 1rem;
     padding: 0.6rem 1.5rem;
     cursor: pointer;
     align-self: flex-end;
-    transition: background 0.2s;
+    transition: all 0.3s ease;
 
     &:hover:not(:disabled) {
-      background: v.$color-accent;
+      background-color: v.$color-accent;
+      color: v.$color-page;
     }
 
     &:disabled {
-      opacity: 0.4;
+      opacity: 0.5;
       cursor: default;
     }
   }
