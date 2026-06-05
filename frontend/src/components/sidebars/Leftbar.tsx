@@ -17,11 +17,11 @@ export const Leftbar = () => {
         <NavButton to="/my-stories">Mis historias</NavButton>
         <NavButton to="/stories">Historias</NavButton>
         {isAdmin && (
-          <fieldset className="leftbar__admin-section">
-            <legend className="leftbar__admin-legend">Admin</legend>
+          <div className="leftbar__admin-section">
+            <span className="leftbar__admin-label">Administración</span>
             <NavLink to="/users" className={({ isActive }) => `leftbar__admin-link${isActive ? ' leftbar__admin-link--active' : ''}`}>Usuarios</NavLink>
             <NavLink to="/templates" className={({ isActive }) => `leftbar__admin-link${isActive ? ' leftbar__admin-link--active' : ''}`}>Plantillas</NavLink>
-          </fieldset>
+          </div>
         )}
       </div>
     </nav>

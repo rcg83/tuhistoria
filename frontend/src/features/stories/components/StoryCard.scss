@@ -1,5 +1,9 @@
 @use 'src/styles/variables' as v;
 
+$corner-size: 24px;
+$corner-thickness: 2px;
+$corner-fade: 4px;
+
 .story-card {
   display: flex;
   gap: 0.5rem;
@@ -7,11 +11,28 @@
   margin-bottom: 0.3rem;
   border-radius: 6px;
   cursor: pointer;
-  border: 0.15rem solid transparent;
-  transition: border-color 0.3s ease;
 
   &--active {
-    border-color: rgba(v.$color-text-soft, 0.5);
+    background-image:
+      linear-gradient(90deg, v.$color-text-soft calc($corner-size - $corner-fade), transparent $corner-size),
+      linear-gradient(180deg, v.$color-text-soft calc($corner-size - $corner-fade), transparent $corner-size),
+      linear-gradient(-90deg, v.$color-text-soft calc($corner-size - $corner-fade), transparent $corner-size),
+      linear-gradient(180deg, v.$color-text-soft calc($corner-size - $corner-fade), transparent $corner-size),
+      linear-gradient(90deg, v.$color-text-soft calc($corner-size - $corner-fade), transparent $corner-size),
+      linear-gradient(0deg, v.$color-text-soft calc($corner-size - $corner-fade), transparent $corner-size),
+      linear-gradient(-90deg, v.$color-text-soft calc($corner-size - $corner-fade), transparent $corner-size),
+      linear-gradient(0deg, v.$color-text-soft calc($corner-size - $corner-fade), transparent $corner-size);
+    background-position:
+      0 0, 0 0,
+      100% 0, 100% 0,
+      0 100%, 0 100%,
+      100% 100%, 100% 100%;
+    background-size:
+      $corner-size $corner-thickness, $corner-thickness $corner-size,
+      $corner-size $corner-thickness, $corner-thickness $corner-size,
+      $corner-size $corner-thickness, $corner-thickness $corner-size,
+      $corner-size $corner-thickness, $corner-thickness $corner-size;
+    background-repeat: no-repeat;
 
     .story-card__title {
       font-weight: bold;
@@ -19,7 +40,26 @@
   }
 
   &:hover {
-    border-color: v.$color-accent;
+    background-image:
+      linear-gradient(90deg, v.$color-accent calc($corner-size - $corner-fade), transparent $corner-size),
+      linear-gradient(180deg, v.$color-accent calc($corner-size - $corner-fade), transparent $corner-size),
+      linear-gradient(-90deg, v.$color-accent calc($corner-size - $corner-fade), transparent $corner-size),
+      linear-gradient(180deg, v.$color-accent calc($corner-size - $corner-fade), transparent $corner-size),
+      linear-gradient(90deg, v.$color-accent calc($corner-size - $corner-fade), transparent $corner-size),
+      linear-gradient(0deg, v.$color-accent calc($corner-size - $corner-fade), transparent $corner-size),
+      linear-gradient(-90deg, v.$color-accent calc($corner-size - $corner-fade), transparent $corner-size),
+      linear-gradient(0deg, v.$color-accent calc($corner-size - $corner-fade), transparent $corner-size);
+    background-position:
+      0 0, 0 0,
+      100% 0, 100% 0,
+      0 100%, 0 100%,
+      100% 100%, 100% 100%;
+    background-size:
+      $corner-size $corner-thickness, $corner-thickness $corner-size,
+      $corner-size $corner-thickness, $corner-thickness $corner-size,
+      $corner-size $corner-thickness, $corner-thickness $corner-size,
+      $corner-size $corner-thickness, $corner-thickness $corner-size;
+    background-repeat: no-repeat;
   }
 
   &__image {
