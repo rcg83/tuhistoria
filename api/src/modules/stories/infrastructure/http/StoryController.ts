@@ -28,8 +28,8 @@ const get = getStoryUseCase(instanceRepo);
 
 export const createStoryTemplate = async (req: Request, res: Response): Promise<void> => {
   try {
-    const { title, description, initialText, imageUrl } = req.body;
-    const newStory = await create({ title, description, initialText, imageUrl });
+    const { title, description, initialText, imageUrl, events } = req.body;
+    const newStory = await create({ title, description, initialText, imageUrl, events });
     res.status(201).json({ message: 'Historia creada', storyId: newStory._id });
   } catch (error: unknown) {
     const msg = error instanceof Error ? error.message : 'Unknown error';
@@ -40,8 +40,8 @@ export const createStoryTemplate = async (req: Request, res: Response): Promise<
 export const updateStoryTemplateById = async (req: Request, res: Response): Promise<void> => {
   try {
     const id = req.params.id as string;
-    const { title, description, initialText, imageUrl } = req.body;
-    const updatedStory = await update(id, { title, description, initialText, imageUrl });
+    const { title, description, initialText, imageUrl, events } = req.body;
+    const updatedStory = await update(id, { title, description, initialText, imageUrl, events });
     if (!updatedStory) {
       res.status(404).json({ message: 'Historia no encontrada' });
       return;

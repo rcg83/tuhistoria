@@ -14,11 +14,34 @@
   }
 }
 
+.stories-page {
+  .book__content--left {
+    overflow: hidden;
+  }
+}
+
 .stories-sidebar {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+
   h2 {
     color: v.$color-text;
     font-size: v.$font-big;
     margin: 0 0 1rem;
+    flex-shrink: 0;
+  }
+
+  .story-list {
+    flex: 1;
+    min-height: 0;
+    overflow-y: auto;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+
+    &::-webkit-scrollbar {
+      display: none;
+    }
   }
 }
 
@@ -46,6 +69,7 @@
   h1 {
     font-size: v.$font-big;
     color: v.$color-text;
+    margin-top: 0;
   }
 
   &__desc {

@@ -19,7 +19,11 @@
     background-color: vars.$color-page;
     width: 100%;
     height: auto;
-    padding: 3rem;
+    padding: 1rem;
+
+    @include mixs.respond-to('desktop') {
+      padding: 3rem;
+    }
 
     @include mixs.respond-to('desktop') {
       background-color: transparent;

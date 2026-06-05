@@ -16,5 +16,3 @@ Cargadas desde Google Fonts en `main.scss` línea 3.
 | `$color-bg-main` | `#bcb8b1` | Fondo general de la página    |
 | `$color-container`| `#f4f3ee`| Tarjetas, secciones, paneles  |
 | `$color-accent`  | `#e0afa0` | Destacados, acentos           |
-
-Definidas en `_variables.scss`.

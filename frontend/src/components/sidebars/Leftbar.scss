@@ -10,6 +10,7 @@
 
   &__logo-container {
     width: 50%;
+    min-height: 6rem;
     display: flex;
     justify-content: center;
   }
@@ -49,7 +50,7 @@
   }
 
   &__admin-legend {
-    font-family: 'Vollkorn', Georgia, serif;
+    font-family: 'Vollkorn';
     font-size: 0.78rem;
     color: vars.$color-text-soft;
     text-align: center;

@@ -7,12 +7,18 @@ import './AdminTemplatesPage.scss';
 const API_URL = import.meta.env.VITE_API_URL;
 const DEFAULT_IMAGE = '/images/libro.png';
 
+type EventItem = {
+  messageNumber: number;
+  prompt: string;
+};
+
 type Template = {
   _id: string;
   title: string;
   description: string;
   initialText: string;
   imageUrl?: string;
+  events?: EventItem[];
 };
 
 const TemplateModal = ({
@@ -22,12 +28,13 @@ const TemplateModal = ({
 }: {
   editing: Template | null;
   onClose: () => void;
-  onSave: (data: { title: string; description: string; initialText: string; imageUrl: string }) => Promise<void>;
+  onSave: (data: { title: string; description: string; initialText: string; imageUrl: string; events: EventItem[] }) => Promise<void>;
 }) => {
   const [title, setTitle] = useState(editing?.title || '');
   const [description, setDescription] = useState(editing?.description || '');
   const [initialText, setInitialText] = useState(editing?.initialText || '');
   const [imageUrl, setImageUrl] = useState(editing?.imageUrl || '');
+  const [events, setEvents] = useState<EventItem[]>(editing?.events || []);
   const [saving, setSaving] = useState(false);
 
   useEffect(() => {
@@ -35,7 +42,20 @@ const TemplateModal = ({
     setDescription(editing?.description || '');
     setInitialText(editing?.initialText || '');
     setImageUrl(editing?.imageUrl || '');
+    setEvents(editing?.events || []);
   }, [editing]);
+
+  const addEvent = () => {
+    setEvents(prev => [...prev, { messageNumber: 0, prompt: '' }]);
+  };
+
+  const removeEvent = (index: number) => {
+    setEvents(prev => prev.filter((_, i) => i !== index));
+  };
+
+  const updateEvent = (index: number, field: 'messageNumber' | 'prompt', value: string | number) => {
+    setEvents(prev => prev.map((e, i) => i === index ? { ...e, [field]: value } : e));
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -46,6 +66,7 @@ const TemplateModal = ({
       description: description.trim(),
       initialText: initialText.trim(),
       imageUrl: imageUrl.trim() || DEFAULT_IMAGE,
+      events: events.filter(e => e.messageNumber > 0 && e.prompt.trim()),
     });
     setSaving(false);
   };
@@ -73,6 +94,52 @@ const TemplateModal = ({
             <span>URL de la imagen</span>
             <input type="text" value={imageUrl} onChange={e => setImageUrl(e.target.value)} placeholder={DEFAULT_IMAGE} disabled={saving} />
           </label>
+
+          <div className="admin-templates__events-section">
+            <div className="admin-templates__events-header">
+              <span className="admin-templates__events-label">Eventos</span>
+              <button type="button" className="admin-templates__events-add" onClick={addEvent} disabled={saving}>
+                + Añadir evento
+              </button>
+            </div>
+            {events.length === 0 && (
+              <p className="admin-templates__events-empty">
+                Sin eventos definidos. Los eventos inyectan un prompt extra cuando el usuario llega a un número concreto de mensajes.
+              </p>
+            )}
+            {events.map((ev, i) => (
+              <div key={i} className="admin-templates__event">
+                <div className="admin-templates__event-row">
+                  <label className="admin-templates__field admin-templates__event-field">
+                    <span>Mensaje nº</span>
+                    <input
+                      type="number"
+                      min="1"
+                      value={ev.messageNumber || ''}
+                      onChange={e => updateEvent(i, 'messageNumber', parseInt(e.target.value) || 0)}
+                      required
+                      disabled={saving}
+                    />
+                  </label>
+                  <button type="button" className="admin-templates__event-remove" onClick={() => removeEvent(i)} disabled={saving}>
+                    Eliminar
+                  </button>
+                </div>
+                <label className="admin-templates__field">
+                  <span>Prompt del evento</span>
+                  <textarea
+                    value={ev.prompt}
+                    onChange={e => updateEvent(i, 'prompt', e.target.value)}
+                    required
+                    disabled={saving}
+                    rows={2}
+                    placeholder="Ej: Introduce un giro dramático: el barco choca contra un iceberg."
+                  />
+                </label>
+              </div>
+            ))}
+          </div>
+
           <div className="admin-templates__modal-actions">
             <button type="button" className="admin-templates__modal-cancel" onClick={onClose} disabled={saving}>
               Cancelar
@@ -131,7 +198,7 @@ export const AdminTemplatesPage = () => {
     setEditing(null);
   };
 
-  const handleSave = async (data: { title: string; description: string; initialText: string; imageUrl: string }) => {
+  const handleSave = async (data: { title: string; description: string; initialText: string; imageUrl: string; events: EventItem[] }) => {
     try {
       if (editing) {
         await fetcher(`${API_URL}/api/stories/${editing._id}`, {

@@ -30,6 +30,12 @@ const DEFAULT_TEMPLATES = [
     initialText: 'El barco corta la niebla mientras el vigía grita: "¡Tierra a la vista!"...',
     imageUrl: '/images/medusa.png',
   },
+  {
+    title: 'Hiroshima, 8:15',
+    description: '6 de agosto de 1945. Una mañana como cualquier otra en Hiroshima se convierte en el infierno. Sobrevive entre las ruinas.',
+    initialText: 'Es el 6 de agosto de 1945, 8:14 de la mañana en Hiroshima. Caminas bajo el sol veraniego con tus compañeros. De pronto, a las 8:15, un destello blanco y azul te ciega. El suelo desaparece. Minutos después despiertas en una oscuridad gris, rodeado de ruinas y un calor asfixiante. La ciudad ya no existe, el fuego avanza y debes decidir cómo sobrevivir en los próximos minutos',
+    imageUrl: '/images/hiroshima.png',
+  },
 ];
 
 export async function seed(): Promise<void> {

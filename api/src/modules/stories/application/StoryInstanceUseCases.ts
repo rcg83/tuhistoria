@@ -114,6 +114,7 @@ export const chatWithStoryUseCase = (instanceRepo: StoryInstanceRepository) => {
 
     const template = story.template as Record<string, unknown> | undefined;
     const currentSummary = (story as Record<string, unknown>).summary as string | undefined;
+    const messages = (story as Record<string, unknown>).messages as { role: string }[] | undefined;
     const history: { role: string; parts: { text: string }[] }[] = [];
 
     if (currentSummary) {
@@ -128,7 +129,14 @@ export const chatWithStoryUseCase = (instanceRepo: StoryInstanceRepository) => {
       );
     }
 
-    const prompt = userInput;
+    const userMsgCount = messages?.filter(m => m.role === 'user').length ?? 0;
+    const eventNumber = userMsgCount + 1;
+    const events = template?.events as { messageNumber: number; prompt: string }[] | undefined;
+    const matchingEvent = events?.find(e => e.messageNumber === eventNumber);
+
+    const prompt = matchingEvent
+      ? `${userInput}\n\n[EVENTO: ${matchingEvent.prompt}]`
+      : userInput;
 
     try {
       await instanceRepo.pushMessage(id, { role: 'user', text: userInput, timestamp: new Date() });

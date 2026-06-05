@@ -18,7 +18,7 @@ export const Leftbar = () => {
         <NavButton to="/stories">Historias</NavButton>
         {isAdmin && (
           <fieldset className="leftbar__admin-section">
-            <legend className="leftbar__admin-legend">Administrador</legend>
+            <legend className="leftbar__admin-legend">Admin</legend>
             <NavLink to="/users" className={({ isActive }) => `leftbar__admin-link${isActive ? ' leftbar__admin-link--active' : ''}`}>Usuarios</NavLink>
             <NavLink to="/templates" className={({ isActive }) => `leftbar__admin-link${isActive ? ' leftbar__admin-link--active' : ''}`}>Plantillas</NavLink>
           </fieldset>
