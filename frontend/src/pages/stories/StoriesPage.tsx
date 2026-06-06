@@ -80,7 +80,7 @@ export const StoriesPage = () => {
       <BookWrapper
         leftPage={
           <div className="stories-sidebar">
-            <h2>Historias</h2>
+            <h2>Historias disponibles</h2>
             {error ? (
               <p className="story-list--error">{error}</p>
             ) : (
@@ -102,7 +102,7 @@ export const StoriesPage = () => {
         rightPage={
           <div className="stories-content">
             <div className="stories-content__mobile-list">
-              <h2>Historias</h2>
+              <h2>Historias disponibles</h2>
               {error ? (
                 <p className="story-list--error">{error}</p>
               ) : (

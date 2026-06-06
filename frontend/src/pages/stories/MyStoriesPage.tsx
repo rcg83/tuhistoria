@@ -47,7 +47,7 @@ export const MyStoriesPage = () => {
         hideLeftOnMobile
         leftPage={
           <div className="my-stories-sidebar">
-            <h2>Mis historias</h2>
+            <h2>Mis historias empezadas</h2>
             {showLoading ? (
               <p>Cargando tus historias...</p>
             ) : (

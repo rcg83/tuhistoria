@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { HamburgerMenu } from '../navigation/HamburgerMenu';
-import { Logo } from '../logo/Logo';
 import { UserButton } from '../../features/auth/components/UserButton';
 import { useAuth } from 'src/features/auth/context/AuthContext';
 import './AppBar.scss';
@@ -24,9 +23,6 @@ export const AppBar = () => {
     <div className="app-bar">
       <div className="app-bar__left">
         <HamburgerMenu />
-      </div>
-      <div className="app-bar__center">
-        <Logo className="app-bar__logo light-theme" />
       </div>
       <div className="app-bar__right">
         <UserButton

@@ -1,7 +1,9 @@
 @use 'src/styles/variables' as v;
 
 .hamburger-menu {
-  position: relative;
+  height: 100%;
+  display: flex;
+  align-items: center;
 
   &__toggle {
     background: none;
@@ -9,35 +11,20 @@
     cursor: pointer;
     padding: 0.5rem;
     display: flex;
-    flex-direction: column;
-    gap: 5px;
+    align-items: center;
+    justify-content: center;
     border-radius: 4px;
+    color: v.$color-text;
 
-    span {
-      display: block;
-      width: 24px;
-      height: 3px;
-      background-color: v.$color-text;
-      border-radius: 2px;
-      transition: transform 0.2s, opacity 0.2s;
-    }
-
-    &--open {
-      span:nth-child(1) {
-        transform: rotate(45deg) translate(5px, 6px);
-      }
-      span:nth-child(2) {
-        opacity: 0;
-      }
-      span:nth-child(3) {
-        transform: rotate(-45deg) translate(5px, -6px);
-      }
+    .logo-icon {
+      width: clamp(2.5rem, 8vw, 3.5rem);
+      height: auto;
     }
   }
 
   &__dropdown {
     position: absolute;
-    top: calc(100% + 0.75rem);
+    top: 100%;
     left: -1rem;
     background: v.$color-page;
     border: 1px solid v.$color-background;

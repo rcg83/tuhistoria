@@ -6,10 +6,13 @@
   align-items: center;
   margin: 0;
 
+  .logo-icon {
+    fill: currentColor;
+  }
+
   &.light-theme {
     .logo-icon {
       fill: v.$color-text;
     }
   }
-
 }

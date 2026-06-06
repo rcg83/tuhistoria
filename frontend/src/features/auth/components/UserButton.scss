@@ -2,10 +2,9 @@
 @use 'src/styles/mixins' as mixs;
 
 .user-button {
-  position: relative;
   display: flex;
-  flex-direction: column;
   align-items: center;
+  height: 100%;
 
   &__avatar {
     display: flex;
@@ -59,7 +58,7 @@
 
   &__dropdown {
     position: absolute;
-    top: calc(100% + 0.35rem);
+    top: 100%;
     right: -1rem;
     background: v.$color-page;
     border: 1px solid v.$color-background;

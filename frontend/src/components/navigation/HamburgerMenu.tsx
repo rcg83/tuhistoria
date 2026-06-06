@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { NavLink } from 'react-router-dom';
 import { useAuth } from 'src/features/auth/context/AuthContext';
+import { Logo } from '../logo/Logo';
 import './HamburgerMenu.scss';
 
 export const HamburgerMenu = () => {
@@ -23,17 +24,25 @@ export const HamburgerMenu = () => {
   return (
     <div className="hamburger-menu" ref={ref}>
       <button
-        className={`hamburger-menu__toggle${open ? ' hamburger-menu__toggle--open' : ''}`}
+        className="hamburger-menu__toggle"
         onClick={() => setOpen((p) => !p)}
         aria-label="Menú"
       >
-        <span />
-        <span />
-        <span />
+        <Logo decorative />
       </button>
 
       {open && (
         <div className="hamburger-menu__dropdown">
+          <NavLink
+            to="/"
+            end
+            className={({ isActive }) =>
+              `hamburger-menu__link${isActive ? ' hamburger-menu__link--active' : ''}`
+            }
+            onClick={handleNavClick}
+          >
+            Inicio
+          </NavLink>
           <NavLink
             to="/my-stories"
             className={({ isActive }) =>

@@ -3,28 +3,22 @@
 .app-bar {
   display: flex;
   align-items: center;
+  justify-content: space-between;
   height: 60px;
-  padding: 0 1rem;
+  padding: 0 0.6rem;
   background-color: vars.$color-background;
   flex-shrink: 0;
 
   &__left {
     flex: 0 0 auto;
-  }
-
-  &__center {
-    flex: 1;
-    display: flex;
-    justify-content: center;
+    height: 100%;
+    position: relative;
   }
 
   &__right {
     flex: 0 0 auto;
-  }
-
-  &__logo {
-    width: clamp(40px, 8vw, 56px);
-    height: auto;
+    height: 100%;
+    position: relative;
   }
 
   &__confirm-overlay {
