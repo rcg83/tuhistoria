@@ -1,4 +1,5 @@
 @use '../../styles/variables' as v;
+@use '../../styles/mixins' as mixs;
 
 .my-stories-page {
   width: 100%;
@@ -55,20 +56,7 @@
       display: none;
     }
 
-    mask-image: linear-gradient(
-      to bottom,
-      transparent 0%,
-      black 12%,
-      black 85%,
-      transparent 100%
-    );
-    -webkit-mask-image: linear-gradient(
-      to bottom,
-      transparent 0%,
-      black 12%,
-      black 85%,
-      transparent 100%
-    );
+
   }
 }
 
@@ -89,9 +77,34 @@
   display: flex;
   flex-direction: column;
 
-  > .story-button {
-    margin-top: auto;
-    flex-shrink: 0;
+  &__mobile-list {
+    flex: 1;
+    min-height: 0;
+    overflow-y: auto;
+    padding-right: 0.5rem;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+
+    &::-webkit-scrollbar {
+      display: none;
+    }
+
+    h2 {
+      color: v.$color-text;
+      font-size: v.$font-big;
+      margin: 0 0 1rem;
+    }
+
+    @include mixs.respond-to('desktop') {
+      display: none;
+    }
+  }
+
+  &--empty-state {
+    p {
+      color: v.$color-text-soft;
+      font-style: italic;
+    }
   }
 
   &--empty {
@@ -101,6 +114,22 @@
     align-items: center;
     justify-content: center;
     text-align: center;
+  }
+
+  &__detail {
+    display: none;
+
+    @include mixs.respond-to('desktop') {
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+      min-height: 0;
+    }
+
+    > .story-button {
+      margin-top: auto;
+      flex-shrink: 0;
+    }
   }
 
   h1 {
@@ -150,6 +179,51 @@
       overflow: hidden;
     }
   }
+}
 
+.my-stories-modal {
+  display: flex;
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  background: rgba(0, 0, 0, 0.2);
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
 
+  @include mixs.respond-to('desktop') {
+    display: none;
+  }
+
+  &__content {
+    background: v.$color-page;
+    border-radius: 8px;
+    padding: 2rem;
+    max-width: 500px;
+    width: 100%;
+    max-height: 80vh;
+    overflow-y: auto;
+    position: relative;
+
+    h1 {
+      margin-top: 0;
+    }
+  }
+
+  &__close {
+    position: absolute;
+    top: 0.75rem;
+    right: 0.75rem;
+    background: none;
+    border: none;
+    font-size: 1.8rem;
+    line-height: 1;
+    cursor: pointer;
+    color: v.$color-text;
+    padding: 0.25rem;
+
+    &:hover {
+      color: v.$color-accent;
+    }
+  }
 }

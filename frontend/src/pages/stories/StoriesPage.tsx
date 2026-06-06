@@ -40,7 +40,7 @@ export const StoriesPage = () => {
     })
       .then((data) => {
         setTemplates(data);
-        if (data.length > 0) setSelectedId(data[0]._id);
+        if (data.length > 0) setSelectedId(null);
       })
       .catch((err) => {
         console.error(err);
@@ -144,6 +144,28 @@ export const StoriesPage = () => {
           </div>
         }
       />
-    </div>
+    {selected && (
+      <div className="stories-modal" onClick={() => setSelectedId(null)}>
+        <div className="stories-modal__content" onClick={(e) => e.stopPropagation()}>
+          <button
+            className="stories-modal__close"
+            onClick={() => setSelectedId(null)}
+            aria-label="Cerrar"
+          >
+            &times;
+          </button>
+          <h1>{selected.title}</h1>
+          <p className="stories-content__desc">{selected.description}</p>
+          <p className="stories-content__text">{selected.initialText}</p>
+          <StoryButton
+            onClick={() => handleStart(selected._id)}
+            disabled={starting}
+          >
+            {starting ? 'Iniciando...' : 'Comenzar esta historia'}
+          </StoryButton>
+        </div>
+      </div>
+    )}
+  </div>
   );
 };

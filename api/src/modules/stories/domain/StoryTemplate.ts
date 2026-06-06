@@ -4,7 +4,7 @@ export interface StoryEvent {
 }
 
 export interface StoryTemplate {
-  id?: string;
+  _id?: string;
   title: string;
   description: string;
   initialText: string;

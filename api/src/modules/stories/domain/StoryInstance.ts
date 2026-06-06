@@ -5,7 +5,7 @@ export interface StoryMessage {
 }
 
 export interface StoryInstance {
-  id?: string;
+  _id?: string;
   user: string;
   template: string | Record<string, unknown>;
   messages: StoryMessage[];

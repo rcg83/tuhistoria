@@ -10,6 +10,7 @@ export const LoginForm = () => {
   const [username, setUsername] = useState<string>('');
   const [identifier, setIdentifier] = useState<string>('');
   const [pass, setPass] = useState<string>('');
+  const [confirmPass, setConfirmPass] = useState<string>('');
   const [successMsg, setSuccessMsg] = useState<string>('');
   const navigate = useNavigate();
 
@@ -24,15 +25,23 @@ export const LoginForm = () => {
     setUsername('');
     setIdentifier('');
     setPass('');
+    setConfirmPass('');
     setSuccessMsg('');
   };
 
   const handleSubmit = async (e: React.BaseSyntheticEvent) => {
     e.preventDefault();
     if (isRegister) {
-      await register({ username, email: identifier, password: pass });
-      setSuccessMsg('Registro exitoso. Ahora puedes iniciar sesión.');
-      setIsRegister(false);
+      if (pass !== confirmPass) {
+        setSuccessMsg('');
+        setConfirmPass('');
+        return;
+      }
+      const ok = await register({ username, email: identifier, password: pass });
+      if (ok) {
+        setSuccessMsg('Registro exitoso. Ahora puedes iniciar sesión.');
+        setIsRegister(false);
+      }
     } else {
       await login({ email: identifier, password: pass });
     }
@@ -76,6 +85,22 @@ export const LoginForm = () => {
           required
           disabled={isLoading}
         />
+        {isRegister && (
+          <div className="book-login__confirm-wrapper">
+            <input
+              type="password"
+              value={confirmPass}
+              onChange={e => setConfirmPass(e.target.value)}
+              placeholder="Repetir contraseña"
+              required
+              disabled={isLoading}
+              className={pass !== confirmPass && confirmPass ? 'book-login__input--mismatch' : ''}
+            />
+            {pass !== confirmPass && confirmPass && (
+              <span className="book-login__validation-error">Las contraseñas no coinciden</span>
+            )}
+          </div>
+        )}
 
         {error && <p className="book-login__error">{error}</p>}
         {successMsg && <p className="book-login__success">{successMsg}</p>}

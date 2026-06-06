@@ -1,147 +1,125 @@
 import type { Request, Response } from 'express';
-import { mongoStoryTemplateRepository } from '../persistence/MongoStoryTemplateRepository.js';
-import { mongoStoryInstanceRepository } from '../persistence/MongoStoryInstanceRepository.js';
-import {
-  createStoryTemplateUseCase,
-  updateStoryTemplateByIdUseCase,
-  getStoriesUseCase,
-  deleteStoryUseCase
-} from '../../application/StoryTemplateUseCases.js';
-import {
-  startStoryUseCase,
-  getMyStoriesUseCase,
-  chatWithStoryUseCase,
-  getStoryUseCase
-} from '../../application/StoryInstanceUseCases.js';
+import type { StoryTemplate } from '../../domain/StoryTemplate.js';
+import type { StoryInstance } from '../../domain/StoryInstance.js';
+import type { UseCaseResult } from '../../application/StoryInstanceUseCases.js';
 
-const templateRepo = mongoStoryTemplateRepository;
-const instanceRepo = mongoStoryInstanceRepository;
+type TemplateHandler<T> = (req: Request, res: Response) => Promise<void>;
 
-const create = createStoryTemplateUseCase(templateRepo);
-const update = updateStoryTemplateByIdUseCase(templateRepo);
-const list = getStoriesUseCase(templateRepo);
-const remove = deleteStoryUseCase(templateRepo);
-const start = startStoryUseCase(instanceRepo, templateRepo);
-const myStories = getMyStoriesUseCase(instanceRepo);
-const chat = chatWithStoryUseCase(instanceRepo);
-const get = getStoryUseCase(instanceRepo);
+function isError<T>(r: UseCaseResult<T>): r is { ok: false; error: string; status: number } {
+  return !r.ok;
+}
 
-export const createStoryTemplate = async (req: Request, res: Response): Promise<void> => {
-  try {
+export const createStoryTemplate = (
+  useCase: (data: Partial<StoryTemplate>) => Promise<StoryTemplate>
+): TemplateHandler<StoryTemplate> => {
+  return async (req, res) => {
     const { title, description, initialText, imageUrl, events } = req.body;
-    const newStory = await create({ title, description, initialText, imageUrl, events });
+    const newStory = await useCase({ title, description, initialText, imageUrl, events });
     res.status(201).json({ message: 'Historia creada', storyId: newStory._id });
-  } catch (error: unknown) {
-    const msg = error instanceof Error ? error.message : 'Unknown error';
-    res.status(500).json({ message: 'Error al crear', error: msg });
-  }
+  };
 };
 
-export const updateStoryTemplateById = async (req: Request, res: Response): Promise<void> => {
-  try {
-    const id = req.params.id as string;
+export const updateStoryTemplateById = (
+  useCase: (id: string, data: Partial<StoryTemplate>) => Promise<StoryTemplate | null>
+): TemplateHandler<void> => {
+  return async (req, res) => {
+    const id = req.params.id;
     const { title, description, initialText, imageUrl, events } = req.body;
-    const updatedStory = await update(id, { title, description, initialText, imageUrl, events });
+    const updatedStory = await useCase(id, { title, description, initialText, imageUrl, events });
     if (!updatedStory) {
       res.status(404).json({ message: 'Historia no encontrada' });
       return;
     }
     res.status(200).json({ message: 'Historia actualizada', story: updatedStory });
-  } catch (error: unknown) {
-    const msg = error instanceof Error ? error.message : 'Unknown error';
-    res.status(500).json({ message: 'Error al actualizar', error: msg });
-  }
+  };
 };
 
-export const startStory = async (req: Request, res: Response): Promise<void> => {
-  try {
+export const getStories = (
+  useCase: () => Promise<StoryTemplate[]>
+): TemplateHandler<void> => {
+  return async (_req, res) => {
+    const stories = await useCase();
+    res.json(stories);
+  };
+};
+
+export const deleteStory = (
+  useCase: (id: string) => Promise<StoryTemplate | null>
+): TemplateHandler<void> => {
+  return async (req, res) => {
+    const id = req.params.id;
+    const deletedStory = await useCase(id);
+    if (!deletedStory) {
+      res.status(404).json({ message: 'Historia no encontrada' });
+      return;
+    }
+    res.status(200).json({ message: 'Historia eliminada correctamente' });
+  };
+};
+
+export const startStory = (
+  useCase: (templateId: string, userId: string, userInput?: string) => Promise<UseCaseResult<Record<string, unknown>>>
+): TemplateHandler<void> => {
+  return async (req, res) => {
     const { templateId, userInput } = req.body;
     if (!templateId) {
       res.status(400).json({ message: 'Se requiere templateId' });
       return;
     }
     const user = (req as unknown as { user: { id: string } }).user;
-    const result = await start(templateId, user.id, userInput);
-    if (result.error) {
-      res.status(result.status!).json({ message: result.error });
+    const result = await useCase(templateId, user.id, userInput);
+    if (isError(result)) {
+      res.status(result.status).json({ message: result.error });
       return;
     }
     if (userInput) {
-      res.json({ storyInstanceId: result.data!.storyInstanceId, response: result.data!.response });
+      res.json({ storyInstanceId: result.data.storyInstanceId, response: result.data.response });
     } else {
       res.json(result.data);
     }
-  } catch (error: unknown) {
-    res.status(500).json({ message: 'Error al iniciar la historia' });
-  }
+  };
 };
 
-export const getStories = async (req: Request, res: Response): Promise<void> => {
-  try {
-    const stories = await list();
-    res.json(stories);
-  } catch (error: unknown) {
-    res.status(500).json({ message: 'Error al obtener la lista' });
-  }
-};
-
-export const deleteStory = async (req: Request, res: Response): Promise<void> => {
-  try {
-    const id = req.params.id as string;
-    const deletedStory = await remove(id);
-    if (!deletedStory) {
-      res.status(404).json({ message: 'Historia no encontrada' });
-      return;
-    }
-    res.status(200).json({ message: 'Historia eliminada correctamente' });
-  } catch (error: unknown) {
-    const msg = error instanceof Error ? error.message : 'Unknown error';
-    res.status(500).json({ message: 'Error al eliminar', error: msg });
-  }
-};
-
-export const getMyStories = async (req: Request, res: Response): Promise<void> => {
-  try {
+export const getMyStories = (
+  useCase: (userId: string) => Promise<StoryInstance[]>
+): TemplateHandler<void> => {
+  return async (req, res) => {
     const u = (req as unknown as { user: { id: string } }).user;
-    const stories = await myStories(u.id);
+    const stories = await useCase(u.id);
     res.json(stories);
-  } catch (error: unknown) {
-    res.status(500).json({ message: 'Error al obtener tus historias' });
-  }
+  };
 };
 
-export const chatWithStory = async (req: Request, res: Response): Promise<void> => {
-  try {
-    const id = req.params.id as string;
+export const chatWithStory = (
+  useCase: (id: string, userInput: string) => Promise<UseCaseResult<{ response: string }>>
+): TemplateHandler<void> => {
+  return async (req, res) => {
+    const id = req.params.id;
     const { userInput } = req.body;
     if (!userInput || typeof userInput !== 'string') {
       res.status(400).json({ message: 'Se requiere userInput' });
       return;
     }
-    const result = await chat(id, userInput);
-    if (result.error) {
+    const result = await useCase(id, userInput);
+    if (isError(result)) {
       res.status(result.status).json({ message: result.error });
       return;
     }
-    res.json({ response: result.data!.response });
-  } catch (error: unknown) {
-    const msg = error instanceof Error ? error.message : 'Error al procesar el mensaje';
-    res.status(500).json({ message: msg });
-  }
+    res.json({ response: result.data.response });
+  };
 };
 
-export const getStory = async (req: Request, res: Response): Promise<void> => {
-  try {
-    const id = req.params.id as string;
+export const getStory = (
+  useCase: (id: string, userId: string) => Promise<UseCaseResult<StoryInstance>>
+): TemplateHandler<void> => {
+  return async (req, res) => {
+    const id = req.params.id;
     const user = (req as unknown as { user: { id: string } }).user;
-    const result = await get(id, user.id);
-    if (result.error) {
+    const result = await useCase(id, user.id);
+    if (isError(result)) {
       res.status(result.status).json({ message: result.error });
       return;
     }
     res.json(result.data);
-  } catch (error: unknown) {
-    const msg = error instanceof Error ? error.message : 'Unknown error';
-    res.status(500).json({ message: 'Error al obtener la historia', error: msg });
-  }
+  };
 };

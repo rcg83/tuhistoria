@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { HamburgerMenu } from '../navigation/HamburgerMenu';
 import { Logo } from '../logo/Logo';
@@ -9,10 +10,11 @@ export const AppBar = () => {
   const { user, isLoggedIn, setLoginOpen, logout } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
+  const [confirmLogout, setConfirmLogout] = useState(false);
 
   const handleAction = () => {
     if (isLoggedIn) {
-      logout();
+      setConfirmLogout(true);
     } else {
       setLoginOpen(true);
     }
@@ -36,6 +38,18 @@ export const AppBar = () => {
           <span className={`user-button__nav-item${location.pathname === '/achievements' ? ' user-button__nav-item--active' : ''}`} onClick={() => navigate('/achievements')}>Logros</span>
         </UserButton>
       </div>
+
+      {confirmLogout && (
+        <div className="app-bar__confirm-overlay" onClick={() => setConfirmLogout(false)}>
+          <div className="app-bar__confirm-modal" onClick={(e) => e.stopPropagation()}>
+            <p className="app-bar__confirm-text">¿Te vas ya?</p>
+            <div className="app-bar__confirm-actions">
+              <button className="app-bar__confirm-cancel" onClick={() => setConfirmLogout(false)}>Cancelar</button>
+              <button className="app-bar__confirm-logout" onClick={() => { setConfirmLogout(false); logout(); }}>Sí, salir</button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

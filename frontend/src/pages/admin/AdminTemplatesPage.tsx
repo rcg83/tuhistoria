@@ -159,6 +159,7 @@ export const AdminTemplatesPage = () => {
   const [loading, setLoading] = useState(true);
   const [modalOpen, setModalOpen] = useState(false);
   const [editing, setEditing] = useState<Template | null>(null);
+  const [confirmDeleteId, setConfirmDeleteId] = useState<string | null>(null);
   const [deleting, setDeleting] = useState<string | null>(null);
   const [msg, setMsg] = useState<{ type: 'ok' | 'error'; text: string } | null>(null);
   const showLoading = useDebouncedLoading(loading, 2000);
@@ -279,7 +280,7 @@ export const AdminTemplatesPage = () => {
                         </button>
                         <button
                           className="admin-templates__delete"
-                          onClick={() => handleDelete(t._id)}
+                          onClick={() => setConfirmDeleteId(t._id)}
                           disabled={deleting === t._id}
                         >
                           {deleting === t._id ? '...' : 'Eliminar'}
@@ -300,6 +301,32 @@ export const AdminTemplatesPage = () => {
           onClose={closeModal}
           onSave={handleSave}
         />
+      )}
+
+      {confirmDeleteId && (
+        <div className="admin-templates__overlay" onClick={() => setConfirmDeleteId(null)}>
+          <div className="admin-templates__confirm-modal" onClick={(e) => e.stopPropagation()}>
+            <p className="admin-templates__confirm-text">
+              ¿Eliminar plantilla <strong>{templates.find(t => t._id === confirmDeleteId)?.title}</strong>?
+            </p>
+            <div className="admin-templates__confirm-actions">
+              <button
+                className="admin-templates__modal-cancel"
+                onClick={() => setConfirmDeleteId(null)}
+                disabled={deleting === confirmDeleteId}
+              >
+                Cancelar
+              </button>
+              <button
+                className="admin-templates__confirm-delete"
+                onClick={() => handleDelete(confirmDeleteId)}
+                disabled={deleting === confirmDeleteId}
+              >
+                {deleting === confirmDeleteId ? 'Eliminando...' : 'Eliminar'}
+              </button>
+            </div>
+          </div>
+        </div>
       )}
     </>
   );

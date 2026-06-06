@@ -59,17 +59,21 @@ export const createAuthStore = (api: AuthApi, state: AuthState, setState: SetSta
         isLoginOpen: false 
       }));
     } catch (err) {
-      setState((prev) => ({ ...prev, isLoading: false, error: "Error en la operación" }));
+      const message = err instanceof Error ? err.message : "Error en la operación";
+      setState((prev) => ({ ...prev, isLoading: false, error: message }));
     }
   };
 
-  const executeRegister = async (task: () => Promise<any>) => {
+  const executeRegister = async (task: () => Promise<any>): Promise<boolean> => {
     setState((prev) => ({ ...prev, isLoading: true, error: null }));
     try {
       await task();
       setState((prev) => ({ ...prev, isLoading: false, error: null }));
+      return true;
     } catch (err) {
-      setState((prev) => ({ ...prev, isLoading: false, error: "Error en la operación" }));
+      const message = err instanceof Error ? err.message : "Error en la operación";
+      setState((prev) => ({ ...prev, isLoading: false, error: message }));
+      return false;
     }
   };
 
@@ -81,7 +85,7 @@ export const createAuthStore = (api: AuthApi, state: AuthState, setState: SetSta
     error: state.error,
     setLoginOpen: (open: boolean) => setState((prev) => ({ ...prev, isLoginOpen: open })),
     login: (params: LoginParams) => execute(() => loginUseCase(api, params)),
-    register: (params: RegisterParams) => executeRegister(() => registerUseCase(api, params)),
+    register: (params: RegisterParams): Promise<boolean> => executeRegister(() => registerUseCase(api, params)),
     updateUser: (user: any) => {
       localStorage.setItem('auth_user', JSON.stringify(user));
       setState((prev) => ({ ...prev, user }));

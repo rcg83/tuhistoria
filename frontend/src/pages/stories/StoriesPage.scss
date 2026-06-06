@@ -97,17 +97,6 @@
       display: none;
     }
 
-    mask-image: linear-gradient(
-      to bottom,
-      black 85%,
-      transparent 100%
-    );
-    -webkit-mask-image: linear-gradient(
-      to bottom,
-      black 85%,
-      transparent 100%
-    );
-
     h2 {
       color: v.$color-text;
       font-size: v.$font-big;
@@ -120,6 +109,58 @@
   }
 
   &__detail {
+    display: none;
     flex-shrink: 0;
+
+    @include mixs.respond-to('desktop') {
+      display: block;
+    }
+  }
+}
+
+.stories-modal {
+  display: flex;
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  background: rgba(0, 0, 0, 0.2);
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+
+  @include mixs.respond-to('desktop') {
+    display: none;
+  }
+
+  &__content {
+    background: v.$color-page;
+    border-radius: 8px;
+    padding: 2rem;
+    max-width: 500px;
+    width: 100%;
+    max-height: 80vh;
+    overflow-y: auto;
+    position: relative;
+
+    h1 {
+      margin-top: 0;
+    }
+  }
+
+  &__close {
+    position: absolute;
+    top: 0.75rem;
+    right: 0.75rem;
+    background: none;
+    border: none;
+    font-size: 1.8rem;
+    line-height: 1;
+    cursor: pointer;
+    color: v.$color-text;
+    padding: 0.25rem;
+
+    &:hover {
+      color: v.$color-accent;
+    }
   }
 }

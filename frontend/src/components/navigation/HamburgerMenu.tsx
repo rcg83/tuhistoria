@@ -56,8 +56,8 @@ export const HamburgerMenu = () => {
           </NavLink>
 
           {user?.role === 'admin' && (
-            <fieldset className="hamburger-menu__admin-section">
-              <legend className="hamburger-menu__admin-legend">Administrador</legend>
+            <div className="hamburger-menu__admin-section">
+              <span className="hamburger-menu__admin-label">Administración</span>
               <NavLink
                 to="/users"
                 className={({ isActive }) =>
@@ -76,7 +76,7 @@ export const HamburgerMenu = () => {
               >
                 Plantillas
               </NavLink>
-            </fieldset>
+            </div>
           )}
         </div>
       )}

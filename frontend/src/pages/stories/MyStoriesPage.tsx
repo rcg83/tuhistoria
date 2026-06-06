@@ -30,7 +30,7 @@ export const MyStoriesPage = () => {
     })
       .then((data) => {
         setStories(data);
-        if (data.length > 0) setSelectedId(data[0]._id);
+        // No auto-selección — el usuario elige
       })
       .catch((err) => {
         console.error(err);
@@ -44,6 +44,7 @@ export const MyStoriesPage = () => {
   return (
     <div className="my-stories-page">
       <BookWrapper
+        hideLeftOnMobile
         leftPage={
           <div className="my-stories-sidebar">
             <h2>Mis historias</h2>
@@ -67,17 +68,47 @@ export const MyStoriesPage = () => {
           </div>
         }
         rightPage={
-          loading ? null : stories.length === 0 ? (
-            <div className="my-stories-content my-stories-content--empty">
-              <h1>Mis historias</h1>
-              <p>Aún no has empezado ninguna historia.</p>
-              <Link to="/stories" className="my-stories-page__browse-btn">
-                Explorar historias
-              </Link>
+          <div className="my-stories-content">
+            <div className="my-stories-content__mobile-list">
+              <h2>Mis historias</h2>
+              {showLoading ? (
+                <p>Cargando tus historias...</p>
+              ) : (
+                <>
+                  {error && <p className="my-stories-list--error">{error}</p>}
+                  {stories.length === 0 ? (
+                    <div className="my-stories-content--empty-state">
+                      <p>Aún no has empezado ninguna historia.</p>
+                      <Link to="/stories" className="my-stories-page__browse-btn">
+                        Explorar historias
+                      </Link>
+                    </div>
+                  ) : (
+                    <div className="my-stories-list">
+                      {stories.map((s) => (
+                        <StoryCard
+                          key={s._id}
+                          story={s}
+                          isActive={selectedId === s._id}
+                          onClick={() => setSelectedId(s._id)}
+                        />
+                      ))}
+                    </div>
+                  )}
+                </>
+              )}
             </div>
-          ) : (
-            <div className="my-stories-content">
-              {selected && (
+
+            <div className="my-stories-content__detail">
+              {loading ? null : stories.length === 0 ? (
+                <div className="my-stories-content--empty">
+                  <h1>Mis historias</h1>
+                  <p>Aún no has empezado ninguna historia.</p>
+                  <Link to="/stories" className="my-stories-page__browse-btn">
+                    Explorar historias
+                  </Link>
+                </div>
+              ) : selected ? (
                 <>
                   <h1>{selected.template.title}</h1>
                   <p className="my-stories-content__desc">{selected.template.description}</p>
@@ -99,11 +130,48 @@ export const MyStoriesPage = () => {
                     Continuar historia
                   </StoryButton>
                 </>
+              ) : (
+                <>
+                  <h1>Mis historias</h1>
+                  <p>Selecciona una historia desde el menú.</p>
+                </>
               )}
             </div>
-          )
+          </div>
         }
       />
-    </div>
+    {selected && (
+      <div className="my-stories-modal" onClick={() => setSelectedId(null)}>
+        <div className="my-stories-modal__content" onClick={(e) => e.stopPropagation()}>
+          <button
+            className="my-stories-modal__close"
+            onClick={() => setSelectedId(null)}
+            aria-label="Cerrar"
+          >
+            &times;
+          </button>
+          <h1>{selected.template.title}</h1>
+          <p className="my-stories-content__desc">{selected.template.description}</p>
+          <p className="my-stories-content__meta">
+            {selected.createdAt && (
+              <span>Creada el {new Date(selected.createdAt).toLocaleDateString('es-ES')}</span>
+            )}
+            <span>{selected.messages.length} mensajes</span>
+          </p>
+          {selected.messages.length > 0 && (
+            <div className="my-stories-content__preview">
+              <p className="my-stories-content__preview-label">Último mensaje:</p>
+              <p className="my-stories-content__preview-text">
+                {selected.messages[selected.messages.length - 1].text}
+              </p>
+            </div>
+          )}
+          <StoryButton onClick={() => navigate(`/story/${selected._id}`)}>
+            Continuar historia
+          </StoryButton>
+        </div>
+      </div>
+    )}
+  </div>
   );
 };

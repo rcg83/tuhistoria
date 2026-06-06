@@ -69,6 +69,22 @@
     }
   }
 
+  &__input--mismatch {
+    border-bottom-color: #d32f2f !important;
+  }
+
+  &__confirm-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+
+  &__validation-error {
+    font-size: 0.7rem;
+    color: #d32f2f;
+    padding-left: 0.5rem;
+  }
+
   &__error {
     color: #d32f2f;
     font-size: vars.$font-medium;
