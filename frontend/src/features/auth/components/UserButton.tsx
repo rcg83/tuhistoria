@@ -6,12 +6,13 @@ import type { ReactNode } from 'react';
 interface UserButtonProps {
   username?: string;
   isLoggedIn: boolean;
+  onAvatarClick?: () => void;
   onAction: () => void;
   avatarUrl?: string;
   children?: ReactNode;
 }
 
-export const UserButton = ({ username, isLoggedIn, onAction, avatarUrl, children }: UserButtonProps) => {
+export const UserButton = ({ username, isLoggedIn, onAvatarClick, onAction, avatarUrl, children }: UserButtonProps) => {
   const [open, setOpen] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
   const initial = username ? username.charAt(0).toUpperCase() : '';
@@ -33,7 +34,7 @@ export const UserButton = ({ username, isLoggedIn, onAction, avatarUrl, children
 
   return (
     <div className={`user-button ${!isLoggedIn ? 'user-button--guest' : ''}`} ref={ref}>
-      <div className="user-button__avatar" onClick={() => setOpen((p) => !p)}>
+      <div className="user-button__avatar" onClick={() => { setOpen((p) => !p); onAvatarClick?.(); }}>
         {isLoggedIn ? (
           avatarUrl ? <img src={avatarUrl} alt={username} className="user-button__image" /> : <span className="user-button__initial">{initial}</span>
         ) : (

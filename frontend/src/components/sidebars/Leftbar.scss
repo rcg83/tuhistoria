@@ -51,7 +51,7 @@
 
   &__admin-label {
     font-family: 'Caveat';
-    font-size: 1.2rem;
+    font-size: vars.$font-medium;
     font-weight: 700;
     color: vars.$color-text-soft;
     text-align: center;
@@ -69,7 +69,7 @@
     text-decoration: none;
     color: vars.$color-text;
     font-family: 'Caveat';
-    font-size: 1.2rem;
+    font-size: vars.$font-medium;
     line-height: 1;
     border-radius: 4px;
     transition: text-shadow 0.2s ease;

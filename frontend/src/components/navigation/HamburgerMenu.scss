@@ -40,7 +40,7 @@
     text-decoration: none;
     color: v.$color-text;
     font-family: 'Caveat', cursive;
-    font-size: 2rem;
+    font-size: v.$font-big;
     &--active {
       background: transparent;
       color: v.$color-text;
@@ -62,7 +62,7 @@
 
   &__admin-label {
     font-family: 'Caveat';
-    font-size: 1.2rem;
+    font-size: v.$font-medium;
     font-weight: 700;
     color: v.$color-text-soft;
     text-align: left;
@@ -80,7 +80,7 @@
     text-decoration: none;
     color: v.$color-text;
     font-family: 'Caveat';
-    font-size: 1.2rem;
+    font-size: v.$font-medium;
     line-height: 1;
     border-radius: 4px;
     transition: text-shadow 0.2s ease;

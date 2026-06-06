@@ -78,7 +78,7 @@
   }
 
   &__confirm-text {
-    font-size: 1.2rem;
+    font-size: vars.$font-medium;
     color: vars.$color-text;
     margin: 0 0 1.5rem;
   }
@@ -100,7 +100,7 @@
     cursor: pointer;
     border-radius: 1rem;
     transition: all 0.3s ease;
-    font-size: 0.85rem;
+    font-size: vars.$font-small;
 
     &:hover {
       background-color: vars.$color-accent;
@@ -119,7 +119,7 @@
     cursor: pointer;
     border-radius: 1rem;
     transition: all 0.3s ease;
-    font-size: 0.85rem;
+    font-size: vars.$font-small;
 
     &:hover {
       background-color: #d32f2f;

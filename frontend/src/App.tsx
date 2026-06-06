@@ -25,7 +25,7 @@ export const App = () => {
     <AuthProvider api={httpAuthApi}>
       <div className="app-root">
         <BookBackground closed={isLogin} />
-        <Footer text="Proyecto 2º DAW - tuhistoria - Ramón Céspedes" />
+        <Footer text="Proyecto DAW - tuhistoria - Ramón Céspedes" />
         <Routes>
           <Route path='/login' element={<LoginPage />} />
 

@@ -23,6 +23,13 @@
     transition: opacity 0.25s ease;
     image-rendering: high-quality;
     transform: translateZ(0);
+
+    @include mixs.respond-to('desktop') {
+      width: 100%;
+      height: auto;
+      max-height: none;
+      object-fit: initial;
+    }
   }
 }
 

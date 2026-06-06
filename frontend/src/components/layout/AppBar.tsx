@@ -28,6 +28,7 @@ export const AppBar = () => {
         <UserButton
           isLoggedIn={isLoggedIn}
           username={user?.username}
+          onAvatarClick={() => navigate('/profile')}
           onAction={handleAction}
         >
           <span className={`user-button__nav-item${location.pathname === '/profile' ? ' user-button__nav-item--active' : ''}`} onClick={() => navigate('/profile')}>Mi cuenta</span>

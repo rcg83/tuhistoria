@@ -92,8 +92,8 @@
     font-weight: 600;
   }
 
-  &__item-desc {
-    font-size: 0.8rem;
+    &__item-desc {
+    font-size: vars.$font-small;
     color: vars.$color-text-soft;
     white-space: nowrap;
     overflow: hidden;
@@ -191,7 +191,7 @@
     gap: 0.3rem;
 
     span {
-      font-size: 0.8rem;
+      font-size: vars.$font-small;
       color: vars.$color-text-soft;
     }
 
@@ -234,7 +234,7 @@
   }
 
   &__events-label {
-    font-size: 0.8rem;
+    font-size: vars.$font-small;
     color: vars.$color-text-soft;
     font-weight: 600;
     text-transform: uppercase;

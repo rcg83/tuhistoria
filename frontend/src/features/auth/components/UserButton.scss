@@ -75,7 +75,7 @@
     text-align: left;
     color: v.$color-text;
     font-family: 'Caveat', cursive;
-    font-size: 2rem;
+    font-size: v.$font-big;
     cursor: pointer;
     border-radius: 4px;
     transition: background 0.2s;
@@ -100,7 +100,7 @@
     cursor: pointer;
     color: v.$color-text;
     font-family: 'Caveat', cursive;
-    font-size: 2rem;
+    font-size: v.$font-big;
     border-radius: 4px;
     transition: background 0.2s;
 
