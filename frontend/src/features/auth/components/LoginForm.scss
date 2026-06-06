@@ -115,26 +115,6 @@
       justify-content: center;
     }
   }
-
-  &__submit {
-    background: none;
-    border: 0.15rem solid vars.$color-accent;
-    color: vars.$color-accent;
-    padding: 0.5rem;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 2px;
-    cursor: pointer;
-    border-radius: 1rem;
-    transition: all 0.3s ease;
-    width: 100%;
-
-    &:hover {
-      background-color: vars.$color-accent;
-      color: vars.$color-page;
-    }
-  }
-
   &__switch {
     background: none;
     border: none;

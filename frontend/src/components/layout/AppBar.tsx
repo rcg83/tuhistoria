@@ -3,6 +3,7 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import { HamburgerMenu } from '../navigation/HamburgerMenu';
 import { UserButton } from '../../features/auth/components/UserButton';
 import { useAuth } from 'src/features/auth/context/AuthContext';
+import { Button } from '../buttons/Button';
 import './AppBar.scss';
 
 export const AppBar = () => {
@@ -40,8 +41,8 @@ export const AppBar = () => {
           <div className="app-bar__confirm-modal" onClick={(e) => e.stopPropagation()}>
             <p className="app-bar__confirm-text">¿Te vas ya?</p>
             <div className="app-bar__confirm-actions">
-              <button className="app-bar__confirm-cancel" onClick={() => setConfirmLogout(false)}>Cancelar</button>
-              <button className="app-bar__confirm-logout" onClick={() => { setConfirmLogout(false); logout(); }}>Sí, salir</button>
+              <Button onClick={() => setConfirmLogout(false)}>Cancelar</Button>
+              <Button variant="danger" onClick={() => { setConfirmLogout(false); logout(); }}>Sí, salir</Button>
             </div>
           </div>
         </div>

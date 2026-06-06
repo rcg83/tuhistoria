@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom';
 import { BookWrapper } from 'src/components/layout/BookWrapper';
 import { useStories, type Story } from 'src/features/stories/context/StoriesContext';
 import { fetcher } from 'src/lib/fetcher';
+import { Button } from 'src/components/buttons/Button';
 
 import './StoryPage.scss';
 
@@ -182,13 +183,13 @@ export const StoryPage = () => {
                     disabled={sending}
                     rows={4}
                   />
-                  <button
-                    className="story-page__send"
+                  <Button
+                    size="lg"
                     onClick={handleSend}
                     disabled={sending || !input.trim()}
                   >
                     {sending ? 'Enviando...' : 'Enviar'}
-                  </button>
+                  </Button>
                 </div>
               </>
             )}

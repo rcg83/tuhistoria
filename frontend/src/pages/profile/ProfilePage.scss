@@ -97,46 +97,4 @@
       color: #d32f2f;
     }
   }
-
-  &__submit {
-    background: none;
-    border: 0.15rem solid vars.$color-accent;
-    color: vars.$color-accent;
-    padding: 0.7rem;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 2px;
-    cursor: pointer;
-    border-radius: 1rem;
-    transition: all 0.3s ease;
-
-    &:hover {
-      background-color: vars.$color-accent;
-      color: vars.$color-page;
-    }
-
-    &:disabled {
-      opacity: 0.5;
-      cursor: default;
-    }
-  }
-
-  &__logout {
-    background: none;
-    border: 0.15rem solid vars.$color-accent;
-    color: vars.$color-accent;
-    font-size: 0.85rem;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 2px;
-    cursor: pointer;
-    border-radius: 1rem;
-    padding: 0.6rem 1.5rem;
-    transition: all 0.3s ease;
-
-    &:hover {
-      background-color: vars.$color-accent;
-      color: vars.$color-page;
-    }
-  }
 }

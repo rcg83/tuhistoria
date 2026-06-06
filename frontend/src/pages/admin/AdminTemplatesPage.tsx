@@ -2,6 +2,7 @@ import { useState, useEffect, useCallback } from 'react';
 import { fetcher } from 'src/lib/fetcher';
 import { BookWrapper } from 'src/components/layout/BookWrapper';
 import { useDebouncedLoading } from 'src/hooks/useDebouncedLoading';
+import { Button } from 'src/components/buttons/Button';
 import './AdminTemplatesPage.scss';
 
 const API_URL = import.meta.env.VITE_API_URL;
@@ -98,9 +99,9 @@ const TemplateModal = ({
           <div className="admin-templates__events-section">
             <div className="admin-templates__events-header">
               <span className="admin-templates__events-label">Eventos</span>
-              <button type="button" className="admin-templates__events-add" onClick={addEvent} disabled={saving}>
+              <Button type="button" size="sm" onClick={addEvent} disabled={saving}>
                 + Añadir evento
-              </button>
+              </Button>
             </div>
             {events.length === 0 && (
               <p className="admin-templates__events-empty">
@@ -121,9 +122,9 @@ const TemplateModal = ({
                       disabled={saving}
                     />
                   </label>
-                  <button type="button" className="admin-templates__event-remove" onClick={() => removeEvent(i)} disabled={saving}>
+                  <Button type="button" size="sm" variant="danger" onClick={() => removeEvent(i)} disabled={saving}>
                     Eliminar
-                  </button>
+                  </Button>
                 </div>
                 <label className="admin-templates__field">
                   <span>Prompt del evento</span>
@@ -141,12 +142,12 @@ const TemplateModal = ({
           </div>
 
           <div className="admin-templates__modal-actions">
-            <button type="button" className="admin-templates__modal-cancel" onClick={onClose} disabled={saving}>
+            <Button type="button" onClick={onClose} disabled={saving}>
               Cancelar
-            </button>
-            <button className="admin-templates__submit" type="submit" disabled={saving}>
+            </Button>
+            <Button type="submit" disabled={saving}>
               {saving ? 'Guardando...' : editing ? 'Guardar cambios' : 'Crear plantilla'}
-            </button>
+            </Button>
           </div>
         </form>
       </div>
@@ -258,9 +259,9 @@ export const AdminTemplatesPage = () => {
               <>
                 {msg && <p className={`admin-templates__msg admin-templates__msg--${msg.type}`}>{msg.text}</p>}
 
-                <button className="admin-templates__add" onClick={openCreate}>
+                <Button onClick={openCreate} fullWidth>
                   + Nueva plantilla
-                </button>
+                </Button>
 
                 <div className="admin-templates__list">
                   {templates.map(t => (
@@ -275,16 +276,17 @@ export const AdminTemplatesPage = () => {
                         <span className="admin-templates__item-desc">{t.description}</span>
                       </div>
                       <div className="admin-templates__item-actions">
-                        <button className="admin-templates__edit" onClick={() => openEdit(t)}>
+                        <Button size="sm" onClick={() => openEdit(t)}>
                           Editar
-                        </button>
-                        <button
-                          className="admin-templates__delete"
+                        </Button>
+                        <Button
+                          size="sm"
+                          variant="danger"
                           onClick={() => setConfirmDeleteId(t._id)}
                           disabled={deleting === t._id}
                         >
                           {deleting === t._id ? '...' : 'Eliminar'}
-                        </button>
+                        </Button>
                       </div>
                     </div>
                   ))}
@@ -310,20 +312,19 @@ export const AdminTemplatesPage = () => {
               ¿Eliminar plantilla <strong>{templates.find(t => t._id === confirmDeleteId)?.title}</strong>?
             </p>
             <div className="admin-templates__confirm-actions">
-              <button
-                className="admin-templates__modal-cancel"
+              <Button
                 onClick={() => setConfirmDeleteId(null)}
                 disabled={deleting === confirmDeleteId}
               >
                 Cancelar
-              </button>
-              <button
-                className="admin-templates__confirm-delete"
+              </Button>
+              <Button
+                variant="danger"
                 onClick={() => handleDelete(confirmDeleteId)}
                 disabled={deleting === confirmDeleteId}
               >
                 {deleting === confirmDeleteId ? 'Eliminando...' : 'Eliminar'}
-              </button>
+              </Button>
             </div>
           </div>
         </div>

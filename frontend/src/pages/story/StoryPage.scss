@@ -128,6 +128,10 @@
     flex-direction: column;
     gap: 0.5rem;
     flex-shrink: 0;
+
+    .button {
+      align-self: flex-end;
+    }
   }
 
   &__input {
@@ -147,31 +151,6 @@
 
     &:disabled {
       opacity: 0.5;
-    }
-  }
-
-  &__send {
-    font-size: v.$font-medium;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 2px;
-    background: none;
-    border: 0.15rem solid v.$color-accent;
-    color: v.$color-accent;
-    border-radius: 1rem;
-    padding: 0.6rem 1.5rem;
-    cursor: pointer;
-    align-self: flex-end;
-    transition: all 0.3s ease;
-
-    &:hover:not(:disabled) {
-      background-color: v.$color-accent;
-      color: v.$color-page;
-    }
-
-    &:disabled {
-      opacity: 0.5;
-      cursor: default;
     }
   }
 }

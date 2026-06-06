@@ -3,6 +3,7 @@ import { useAuth } from 'src/features/auth/context/AuthContext';
 import { fetcher } from 'src/lib/fetcher';
 import { BookWrapper } from 'src/components/layout/BookWrapper';
 import { useDebouncedLoading } from 'src/hooks/useDebouncedLoading';
+import { Button } from 'src/components/buttons/Button';
 import './ProfilePage.scss';
 
 const API_URL = import.meta.env.VITE_API_URL;
@@ -95,11 +96,11 @@ export const ProfilePage = () => {
                   />
                 </label>
                 {msg && <p className={`profile-page__msg profile-page__msg--${msg.type}`}>{msg.text}</p>}
-                <button className="profile-page__submit" type="submit" disabled={saving}>
+                <Button type="submit" disabled={saving} fullWidth>
                   {saving ? 'Guardando...' : 'Guardar cambios'}
-                </button>
+                </Button>
               </form>
-              <button className="profile-page__logout" onClick={logout}>Cerrar sesión</button>
+              <Button onClick={logout}>Cerrar sesión</Button>
             </>
           )}
         </div>

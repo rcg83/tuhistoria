@@ -26,25 +26,6 @@
       color: #d32f2f;
     }
   }
-
-  &__add {
-    background: none;
-    border: 0.15rem solid vars.$color-accent;
-    color: vars.$color-accent;
-    padding: 0.6rem;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 2px;
-    cursor: pointer;
-    border-radius: 1rem;
-    transition: all 0.3s ease;
-
-    &:hover {
-      background-color: vars.$color-accent;
-      color: vars.$color-page;
-    }
-  }
-
   &__list {
     display: flex;
     flex-direction: column;
@@ -105,51 +86,6 @@
     gap: 0.4rem;
     flex-shrink: 0;
   }
-
-  &__edit {
-    background: none;
-    border: 0.15rem solid vars.$color-accent;
-    color: vars.$color-accent;
-    font-size: 0.75rem;
-    padding: 0.35rem 0.65rem;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 2px;
-    cursor: pointer;
-    border-radius: 1rem;
-    transition: all 0.3s ease;
-
-    &:hover {
-      background-color: vars.$color-accent;
-      color: vars.$color-page;
-    }
-  }
-
-  &__delete {
-    flex-shrink: 0;
-    background: none;
-    border: 0.15rem solid vars.$color-accent;
-    color: vars.$color-accent;
-    font-size: 0.75rem;
-    padding: 0.35rem 0.65rem;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 2px;
-    cursor: pointer;
-    border-radius: 1rem;
-    transition: all 0.3s ease;
-
-    &:hover:not(:disabled) {
-      background-color: vars.$color-accent;
-      color: vars.$color-page;
-    }
-
-    &:disabled {
-      opacity: 0.5;
-      cursor: default;
-    }
-  }
-
   &__overlay {
     position: fixed;
     inset: 0;
@@ -240,29 +176,6 @@
     text-transform: uppercase;
     letter-spacing: 1px;
   }
-
-  &__events-add {
-    background: none;
-    border: 0.15rem solid vars.$color-accent;
-    color: vars.$color-accent;
-    font-size: 0.7rem;
-    padding: 0.3rem 0.6rem;
-    font-weight: 600;
-    cursor: pointer;
-    border-radius: 1rem;
-    transition: all 0.3s ease;
-
-    &:hover:not(:disabled) {
-      background-color: vars.$color-accent;
-      color: vars.$color-page;
-    }
-
-    &:disabled {
-      opacity: 0.5;
-      cursor: default;
-    }
-  }
-
   &__events-empty {
     font-size: 0.75rem;
     color: vars.$color-text-soft;
@@ -292,85 +205,12 @@
       width: 100%;
     }
   }
-
-  &__event-remove {
-    flex-shrink: 0;
-    background: none;
-    border: 0.15rem solid #d32f2f;
-    color: #d32f2f;
-    font-size: 0.7rem;
-    padding: 0.35rem 0.6rem;
-    font-weight: 600;
-    cursor: pointer;
-    border-radius: 1rem;
-    transition: all 0.3s ease;
-    white-space: nowrap;
-
-    &:hover:not(:disabled) {
-      background-color: #d32f2f;
-      color: white;
-    }
-
-    &:disabled {
-      opacity: 0.5;
-      cursor: default;
-    }
-  }
-
   &__modal-actions {
     display: flex;
     gap: 0.75rem;
     justify-content: flex-end;
     margin-top: 0.5rem;
   }
-
-  &__modal-cancel {
-    background: none;
-    border: 0.15rem solid vars.$color-accent;
-    color: vars.$color-accent;
-    padding: 0.6rem 1rem;
-    font-size: 0.85rem;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 2px;
-    cursor: pointer;
-    border-radius: 1rem;
-    transition: all 0.3s ease;
-
-    &:hover:not(:disabled) {
-      background-color: vars.$color-accent;
-      color: vars.$color-page;
-    }
-
-    &:disabled {
-      opacity: 0.5;
-      cursor: default;
-    }
-  }
-
-  &__submit {
-    background: none;
-    border: 0.15rem solid vars.$color-accent;
-    color: vars.$color-accent;
-    padding: 0.6rem 1rem;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 2px;
-    cursor: pointer;
-    border-radius: 1rem;
-    transition: all 0.3s ease;
-
-    &:hover:not(:disabled) {
-      background-color: vars.$color-accent;
-      color: vars.$color-page;
-    }
-
-    &:disabled {
-      opacity: 0.5;
-      cursor: default;
-    }
-  }
-
   &__confirm-modal {
     background: vars.$color-page;
     padding: 2rem;
@@ -392,29 +232,5 @@
     display: flex;
     gap: 0.75rem;
     justify-content: center;
-  }
-
-  &__confirm-delete {
-    flex-shrink: 0;
-    background: none;
-    border: 0.15rem solid #d32f2f;
-    color: #d32f2f;
-    padding: 0.6rem 1rem;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 2px;
-    cursor: pointer;
-    border-radius: 1rem;
-    transition: all 0.3s ease;
-
-    &:hover:not(:disabled) {
-      background-color: #d32f2f;
-      color: white;
-    }
-
-    &:disabled {
-      opacity: 0.5;
-      cursor: default;
-    }
   }
 }

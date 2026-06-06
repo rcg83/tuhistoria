@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from 'src/features/auth/context/AuthContext';
 import { Logo } from 'src/components/logo/Logo';
+import { Button } from 'src/components/buttons/Button';
 import './LoginForm.scss';
 
 export const LoginForm = () => {
@@ -107,9 +108,9 @@ export const LoginForm = () => {
       </form>
 
       <div className="book-login__actions">
-        <button type="submit" form="loginForm" className="book-login__submit" disabled={isLoading}>
+        <Button type="submit" form="loginForm" disabled={isLoading} fullWidth>
           {isLoading ? 'Cargando...' : (isRegister ? 'Registrarse' : 'Entrar')}
-        </button>
+        </Button>
 
         <button
           type="button"

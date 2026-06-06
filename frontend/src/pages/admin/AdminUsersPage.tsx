@@ -3,6 +3,7 @@ import { useAuth } from 'src/features/auth/context/AuthContext';
 import { fetcher } from 'src/lib/fetcher';
 import { BookWrapper } from 'src/components/layout/BookWrapper';
 import { useDebouncedLoading } from 'src/hooks/useDebouncedLoading';
+import { Button } from 'src/components/buttons/Button';
 import './AdminUsersPage.scss';
 
 const API_URL = import.meta.env.VITE_API_URL;
@@ -58,12 +59,12 @@ const UserEditModal = ({
             </select>
           </label>
           <div className="admin-page__modal-actions">
-            <button type="button" className="admin-page__modal-cancel" onClick={onClose} disabled={saving}>
+            <Button type="button" onClick={onClose} disabled={saving}>
               Cancelar
-            </button>
-            <button className="admin-page__submit" type="submit" disabled={saving}>
+            </Button>
+            <Button type="submit" disabled={saving}>
               {saving ? 'Guardando...' : 'Guardar cambios'}
-            </button>
+            </Button>
           </div>
         </form>
       </div>
@@ -144,9 +145,9 @@ export const AdminUsersPage = () => {
                         {u.role === 'admin' ? 'admin' : 'user'}
                       </span>
                       {currentUser && u._id !== currentUser.id && (
-                        <button className="admin-page__edit" onClick={() => setEditing(u)}>
+                        <Button size="sm" onClick={() => setEditing(u)}>
                           Editar
-                        </button>
+                        </Button>
                       )}
                     </div>
                   ))}

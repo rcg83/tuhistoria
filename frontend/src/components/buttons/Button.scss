@@ -1,0 +1,61 @@
+@use 'src/styles/variables' as v;
+
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: none;
+  border: 0.15rem solid;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  cursor: pointer;
+  border-radius: 1rem;
+  transition: all 0.3s ease;
+  font-family: inherit;
+  line-height: 1;
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: default;
+  }
+
+  &--accent {
+    border-color: v.$color-accent;
+    color: v.$color-accent;
+
+    &:hover:not(:disabled) {
+      background-color: v.$color-accent;
+      color: v.$color-page;
+    }
+  }
+
+  &--danger {
+    border-color: #d32f2f;
+    color: #d32f2f;
+
+    &:hover:not(:disabled) {
+      background-color: #d32f2f;
+      color: white;
+    }
+  }
+
+  &--sm {
+    padding: 0.35rem 0.65rem;
+    font-size: v.$font-small;
+  }
+
+  &--md {
+    padding: 0.6rem 1rem;
+    font-size: v.$font-small;
+  }
+
+  &--lg {
+    padding: 0.75rem 2rem;
+    font-size: v.$font-medium;
+  }
+
+  &--full {
+    width: 100%;
+  }
+}

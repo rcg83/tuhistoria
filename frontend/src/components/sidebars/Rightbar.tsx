@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useAuth } from '../../features/auth/context/AuthContext';
 import { UserButton } from '../../features/auth/components/UserButton';
+import { Button } from '../buttons/Button';
 import './Rightbar.scss';
 
 export const Rightbar = () => {
@@ -42,8 +43,8 @@ export const Rightbar = () => {
           <div className="rightbar__confirm-modal" onClick={(e) => e.stopPropagation()}>
             <p className="rightbar__confirm-text">¿Te vas ya?</p>
             <div className="rightbar__confirm-actions">
-              <button className="rightbar__confirm-cancel" onClick={() => setConfirmLogout(false)}>Cancelar</button>
-              <button className="rightbar__confirm-logout" onClick={() => { setConfirmLogout(false); logout(); }}>Sí, salir</button>
+              <Button onClick={() => setConfirmLogout(false)}>Cancelar</Button>
+              <Button variant="danger" onClick={() => { setConfirmLogout(false); logout(); }}>Sí, salir</Button>
             </div>
           </div>
         </div>

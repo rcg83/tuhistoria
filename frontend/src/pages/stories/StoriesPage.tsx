@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { useAuth } from 'src/features/auth/context/AuthContext';
 import { BookWrapper } from 'src/components/layout/BookWrapper';
 import { StoryCard } from 'src/features/stories/components/StoryCard';
-import { StoryButton } from 'src/components/buttons/StoryButton';
+import { Button } from 'src/components/buttons/Button';
 import { fetcher } from 'src/lib/fetcher';
 import { useDebouncedLoading } from 'src/hooks/useDebouncedLoading';
 import type { Story } from 'src/features/stories/context/StoriesContext';
@@ -127,12 +127,14 @@ export const StoriesPage = () => {
                   <h1>{selected.title}</h1>
                   <p className="stories-content__desc">{selected.description}</p>
                   <p className="stories-content__text">{selected.initialText}</p>
-                  <StoryButton
+                  <Button
+                    size="lg"
+                    fullWidth
                     onClick={() => handleStart(selected._id)}
                     disabled={starting}
                   >
                     {starting ? 'Iniciando...' : 'Comenzar esta historia'}
-                  </StoryButton>
+                  </Button>
                 </>
               ) : (
                 <>
@@ -157,12 +159,14 @@ export const StoriesPage = () => {
           <h1>{selected.title}</h1>
           <p className="stories-content__desc">{selected.description}</p>
           <p className="stories-content__text">{selected.initialText}</p>
-          <StoryButton
+          <Button
+            size="lg"
+            fullWidth
             onClick={() => handleStart(selected._id)}
             disabled={starting}
           >
             {starting ? 'Iniciando...' : 'Comenzar esta historia'}
-          </StoryButton>
+          </Button>
         </div>
       </div>
     )}
