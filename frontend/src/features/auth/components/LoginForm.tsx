@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { useAuth } from 'src/features/auth/context/AuthContext';
 import { Logo } from 'src/components/logo/Logo';
 import { Button } from 'src/components/buttons/Button';
+import { validateAuthForm } from 'src/modules/auth/domain/authValidation';
 import './LoginForm.scss';
 
 export const LoginForm = () => {
@@ -12,6 +13,7 @@ export const LoginForm = () => {
   const [identifier, setIdentifier] = useState<string>('');
   const [pass, setPass] = useState<string>('');
   const [confirmPass, setConfirmPass] = useState<string>('');
+  const [validationErrors, setValidationErrors] = useState<string[]>([]);
   const [successMsg, setSuccessMsg] = useState<string>('');
   const navigate = useNavigate();
 
@@ -27,17 +29,26 @@ export const LoginForm = () => {
     setIdentifier('');
     setPass('');
     setConfirmPass('');
+    setValidationErrors([]);
     setSuccessMsg('');
   };
 
   const handleSubmit = async (e: React.BaseSyntheticEvent) => {
     e.preventDefault();
+    setValidationErrors([]);
+
+    const errors = validateAuthForm({
+      ...(isRegister && { username }),
+      email: identifier,
+      password: pass,
+      ...(isRegister && { confirmPass }),
+    });
+    if (errors.length > 0) {
+      setValidationErrors(errors);
+      return;
+    }
+
     if (isRegister) {
-      if (pass !== confirmPass) {
-        setSuccessMsg('');
-        setConfirmPass('');
-        return;
-      }
       const ok = await register({ username, email: identifier, password: pass });
       if (ok) {
         setSuccessMsg('Registro exitoso. Ahora puedes iniciar sesión.');
@@ -95,14 +106,17 @@ export const LoginForm = () => {
               placeholder="Repetir contraseña"
               required
               disabled={isLoading}
-              className={pass !== confirmPass && confirmPass ? 'book-login__input--mismatch' : ''}
             />
-            {pass !== confirmPass && confirmPass && (
-              <span className="book-login__validation-error">Las contraseñas no coinciden</span>
-            )}
           </div>
         )}
 
+        {validationErrors.length > 0 && (
+          <div className="book-login__validation-errors">
+            {validationErrors.map((err, i) => (
+              <p key={i} className="book-login__validation-error">{err}</p>
+            ))}
+          </div>
+        )}
         {error && <p className="book-login__error">{error}</p>}
         {successMsg && <p className="book-login__success">{successMsg}</p>}
       </form>
