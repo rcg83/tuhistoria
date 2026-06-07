@@ -19,7 +19,6 @@ export const registerUser = async (req: Request, res: Response): Promise<void> =
     }
     res.status(201).json(result.data);
   } catch (error) {
-    console.error(error);
     res.status(500).json({ message: 'Error del servidor' });
   }
 };
@@ -34,7 +33,6 @@ export const loginUser = async (req: Request, res: Response): Promise<void> => {
     }
     res.json(result.data);
   } catch (error) {
-    console.error(error);
     res.status(500).json({ message: 'Error en el servidor al intentar loguear' });
   }
 };

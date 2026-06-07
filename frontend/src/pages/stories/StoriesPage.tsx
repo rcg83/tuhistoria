@@ -43,7 +43,6 @@ export const StoriesPage = () => {
         if (data.length > 0) setSelectedId(null);
       })
       .catch((err) => {
-        console.error(err);
         setError(err.message || 'Error al cargar historias');
       })
       .finally(() => setLoading(false));
@@ -63,7 +62,6 @@ export const StoriesPage = () => {
       });
       navigate(`/story/${data.storyInstanceId}`);
     } catch (err) {
-      console.error(err);
     } finally {
       setStarting(false);
     }

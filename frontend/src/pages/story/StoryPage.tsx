@@ -58,7 +58,7 @@ export const StoryPage = () => {
           }]);
         }
       })
-      .catch(console.error)
+      .catch(() => {})
       .finally(() => setLoading(false));
   }, [id, stories]);
 
@@ -108,7 +108,6 @@ export const StoryPage = () => {
       const msg = err instanceof Error ? err.message : 'Error al enviar el mensaje';
       setSendError(msg);
       setMessages(prev => prev.filter(m => m !== userMsg));
-      console.error(err);
     } finally {
       setSending(false);
     }

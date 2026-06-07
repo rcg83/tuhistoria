@@ -21,19 +21,19 @@ const DEFAULT_TEMPLATES = [
   {
     title: 'La última noche del Titanic',
     description: 'Estamos a bordo del Titanic en su viaje inaugural. La noche del 14 de abril de 1912, algo está a punto de ocurrir...',
-    initialText: 'La noche es fría y el océano está en calma...',
+    initialText: 'La noche es fría y el océano está en calma... Estás en la cubierta del barco. ¿Qué haces?',
     imageUrl: '/images/titanic.png',
   },
   {
     title: 'La isla de la Medusa',
     description: 'Una expedición en busca de la mítica isla donde habita la Medusa. Entre niebla y leyendas, nada es lo que parece.',
-    initialText: 'El barco corta la niebla mientras el vigía grita: "¡Tierra a la vista!"...',
+    initialText: 'La niebla hace que pierdas de vista a tus compañeros. Oyes voces lejanas, pero no reconoces la dirección. ¿Qué haces?',
     imageUrl: '/images/medusa.png',
   },
   {
     title: 'Hiroshima, 8:15',
     description: '6 de agosto de 1945. Una mañana como cualquier otra en Hiroshima se convierte en el infierno. Sobrevive entre las ruinas.',
-    initialText: 'Es el 6 de agosto de 1945, 8:14 de la mañana en Hiroshima. Caminas bajo el sol veraniego con tus compañeros. De pronto, a las 8:15, un destello blanco y azul te ciega. El suelo desaparece. Minutos después despiertas en una oscuridad gris, rodeado de ruinas y un calor asfixiante. La ciudad ya no existe, el fuego avanza y debes decidir cómo sobrevivir en los próximos minutos',
+    initialText: 'Es el 6 de agosto de 1945, 8:14 de la mañana en Hiroshima. De pronto un destello blanco y azul te ciega. El suelo desaparece. Minutos después despiertas rodeado de ruinas y un calor asfixiante. Gritos de pánico y dolor. Un niño llora atrapado entre escombros. ¿Qué haces?',
     imageUrl: '/images/hiroshima.png',
   },
 ];
@@ -58,9 +58,6 @@ export async function seed(): Promise<void> {
       role: DEFAULT_USER.role,
     });
     await MongoUserProfileModel.create({ user: user._id, bio: '', avatarUrl: '', location: '' });
-    console.log('Seeder: usuario viajero creado');
-  } else {
-    console.log('Seeder: usuario viajero ya existe');
   }
 
   const existingAdmin = await MongoUserModel.findOne({ email: ADMIN_USER.email });
@@ -73,9 +70,6 @@ export async function seed(): Promise<void> {
       role: ADMIN_USER.role,
     });
     await MongoUserProfileModel.create({ user: admin._id, bio: '', avatarUrl: '', location: '' });
-    console.log('Seeder: usuario admin creado');
-  } else {
-    console.log('Seeder: usuario admin ya existe');
   }
 
   for (const tpl of DEFAULT_TEMPLATES) {
@@ -84,6 +78,4 @@ export async function seed(): Promise<void> {
       await MongoStoryTemplateModel.create(tpl);
     }
   }
-
-  console.log('Seeder: datos por defecto listos');
 }

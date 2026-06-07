@@ -33,7 +33,6 @@ export const MyStoriesPage = () => {
         // No auto-selección — el usuario elige
       })
       .catch((err) => {
-        console.error(err);
         setError(err.message || 'Error al cargar tus historias');
       })
       .finally(() => setLoading(false));

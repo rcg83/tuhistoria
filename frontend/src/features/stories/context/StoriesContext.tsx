@@ -46,7 +46,6 @@ export const StoriesProvider = ({ children }: { children: ReactNode }) => {
       setStories(data);
       return data;
     } catch (err) {
-      console.error(err);
       setError(err instanceof Error ? err.message : 'Error al cargar historias');
       return [];
     }

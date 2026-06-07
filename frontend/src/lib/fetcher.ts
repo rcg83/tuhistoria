@@ -23,9 +23,7 @@ export const fetcher = async <T>(
     try {
       const body = await response.json();
       detail = body.message || body.error || '';
-    } catch {
-      /* ignore parse errors */
-    }
+    } catch {}
     throw new Error(detail || `Error ${response.status}: ${response.statusText}`);
   }
   
