@@ -238,6 +238,7 @@ export const AdminTemplatesPage = () => {
       setMsg({ type: 'error', text: err instanceof Error ? err.message : 'Error al eliminar' });
     } finally {
       setDeleting(null);
+      setConfirmDeleteId(null);
     }
   };
 
