@@ -13,7 +13,12 @@ import {
   getMyStoriesUseCase,
   chatWithStoryUseCase,
   getStoryUseCase,
+  type UseCaseResult,
 } from '../../application/StoryInstanceUseCases.js';
+
+function isError<T>(r: UseCaseResult<T>): r is { ok: false; error: string; status: number } {
+  return !r.ok;
+}
 
 const templateRepo = mongoStoryTemplateRepository;
 const instanceRepo = mongoStoryInstanceRepository;
@@ -64,7 +69,7 @@ export const startStory = async (req: Request, res: Response): Promise<void> => 
   const user = (req as unknown as { user: { id: string } }).user;
   const useCase = startStoryUseCase(instanceRepo, templateRepo, aiService);
   const result = await useCase(templateId, user.id, userInput);
-  if (!result.ok) {
+  if (isError(result)) {
     res.status(result.status).json({ message: result.error });
     return;
   }
@@ -91,7 +96,7 @@ export const chatWithStory = async (req: Request, res: Response): Promise<void> 
   }
   const useCase = chatWithStoryUseCase(instanceRepo, aiService);
   const result = await useCase(id, userInput);
-  if (!result.ok) {
+  if (isError(result)) {
     res.status(result.status).json({ message: result.error });
     return;
   }
@@ -103,7 +108,7 @@ export const getStory = async (req: Request, res: Response): Promise<void> => {
   const user = (req as unknown as { user: { id: string } }).user;
   const useCase = getStoryUseCase(instanceRepo);
   const result = await useCase(id, user.id);
-  if (!result.ok) {
+  if (isError(result)) {
     res.status(result.status).json({ message: result.error });
     return;
   }
